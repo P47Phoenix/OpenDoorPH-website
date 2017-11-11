@@ -5,15 +5,79 @@ import './App.css';
 class App extends Component {
   render() {
     return (
+      <div>
+      <div id="header">
+      <h1 id="logo">
+         Open&nbsp;<span class="green">Door</span>&nbsp;Full&nbsp;<span class="gray">Gospel</span><span class="small">&nbsp;church of pleasant hill mo</span>
+      </h1>
+      <h2 id="slogan">
+         Brethren, if a man is overtaken in any trespass, you who are spiritual restore such
+         a one in a spirit of gentleness, considering yourself lest you also be tempted.
+         Galatians 6:1
+      </h2>
+      <div id="login">
+      </div>
+      <ul>
+         <li><a href="/opendoor" title="Open door home page"><span>Home</span></a></li>
+         <li><a href="/opendoor/Home/Location" title="Open door location page"><span>Location</span></a></li>
+         <li><a href="/opendoor/Home/About" title="Open door about page"><span>About</span></a></li>
+      </ul>
+   </div>
+   <div id="content-wrap">
+      <img src="/headerphoto.jpg" width="820" height="120"
+         alt="headerphoto" class="header-photo" />
+      <div id="sidebar">
+         <h3>
+            Sunday
+         </h3>
+         <div>
+            <p>
+               Sunday School: 10:00 AM
+            </p>
+            <p>
+               Morning Service: 11:00 AM
+            </p>
+         </div>
+         <h3>
+            Wednesday
+         </h3>
+         <div>
+            <p>
+               Service: 7:00 PM
+            </p>
+         </div>
+      </div>
+   </div>
+   <div id="main">
       <Router>
-        <div>
-          <Route exact={true} path="/" render={Main} />
-          <Route exact={true} path="/opendoor" render={Main} />
-          <Route exact={true} path="/opendoor/Home/Location" render={Location} />
-          <Route exact={true} path="/opendoor/Home/About" render={About} />
-        </div>
+         <div>
+            <Route exact={true} path="/" render={Main} />
+            <Route exact={true} path="/opendoor" render={Main} />
+            <Route exact={true} path="/opendoor/Home/Location" render={Location} />
+            <Route exact={true} path="/opendoor/Home/About" render={About} />
+         </div>
       </Router>
-    );
+   </div>
+   <div id="footer">
+      <div class="footer-left">
+         <p class="align-left">
+            &copy; 2010 Open Door Full Gospel Church Of Pleasant Hill | <a href="http://www.bluewebtemplates.com/"
+               title="Website Templates">website templates</a> by <a href="http://www.styleshout.com/">
+            styleshout</a>
+         </p>
+      </div>
+      <div class="footer-right">
+         <p class="align-right">
+            <a href="/opendoor">home</a>
+            |
+            <a href="/opendoor/Home/Location">location</a>
+            |
+            <a href="/opendoor/Home/About">about</a>
+         </p>
+      </div>
+   </div>
+   </div>
+  );
   }
 }
 
