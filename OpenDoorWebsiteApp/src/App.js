@@ -19,6 +19,7 @@ class App extends Component {
       </div>
       <ul>
          <li><a href="/opendoor" title="Open door home page"><span>Home</span></a></li>
+         <li><a href="/opendoor/Home/Video" title="Open door video page"><span>Video</span></a></li>
          <li><a href="/opendoor/Home/Location" title="Open door location page"><span>Location</span></a></li>
          <li><a href="/opendoor/Home/About" title="Open door about page"><span>About</span></a></li>
       </ul>
@@ -46,6 +47,16 @@ class App extends Component {
                Service: 7:00 PM
             </p>
          </div>
+         <div>
+            <ul class="sidemenu">
+               <li>
+               <a href="https://www.youtube.com/channel/UCeVjFfzOE-pdpRcvmpAOhwA/featured">YouTube</a>
+               </li>
+               <li>
+               <a href="https://www.facebook.com/pg/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO-217411360471/videos">Facebook Video</a>
+               </li>
+            </ul>
+         </div>
       </div>
    </div>
    <div id="main">
@@ -53,6 +64,7 @@ class App extends Component {
          <div>
             <Route exact={true} path="/" render={Main} />
             <Route exact={true} path="/opendoor" render={Main} />
+            <Route exact={true} path="/opendoor/Home/Video" render={Video} />
             <Route exact={true} path="/opendoor/Home/Location" render={Location} />
             <Route exact={true} path="/opendoor/Home/About" render={About} />
          </div>
@@ -69,6 +81,8 @@ class App extends Component {
       <div class="footer-right">
          <p class="align-right">
             <a href="/opendoor">home</a>
+            |
+            <a href="/opendoor/Home/Video">Video</a>
             |
             <a href="/opendoor/Home/Location">location</a>
             |
@@ -110,6 +124,14 @@ const Main =()=> {
   </p>
 </div>
   )
+}
+
+const Video = () => {
+   return (
+      <div>
+         <iframe src="https://www.youtube.com/embed/videoseries?list=PLTEzkRjWlPyQhKteW1xKjNGv42h0-kzTr" width="480" height="400"></iframe>  
+      </div>
+   )
 }
 
 const MapStyle = {
