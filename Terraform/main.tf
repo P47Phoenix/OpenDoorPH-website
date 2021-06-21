@@ -1,5 +1,10 @@
 variable "sitename" {
     type = "string"
+    default = "opendoor"
+}
+
+provider "aws" {
+  region = "us-east-2"
 }
 
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
@@ -22,7 +27,7 @@ data "aws_iam_policy_document" "website_policy" {
 resource "aws_s3_bucket" "sitebucket" {
   bucket = "${var.sitename}sitebucket"
   acl    = "private"
-  policy = "${data.aws_iam_policy_document.website.json}"
+  policy = "${data.aws_iam_policy_document.website_policy.json}"
   website {
     index_document = "index.html"
   }
@@ -34,7 +39,7 @@ resource "aws_s3_bucket" "sitebucket" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = "${aws_s3_bucket.b.bucket_domain_name}"
+    domain_name = "${aws_s3_bucket.sitebucket.bucket_domain_name}"
     origin_id   = "${var.sitename}site"
 
     s3_origin_config {
