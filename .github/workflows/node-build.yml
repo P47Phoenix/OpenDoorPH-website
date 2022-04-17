@@ -10,7 +10,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - name: Install packages
-        run: npm install
-      - name: Run tests
-        run: npm test
+      - run: cd OpenDoorWebsiteApp
+      - run: npm install
+      - run: npm test
