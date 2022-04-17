@@ -11,5 +11,5 @@ jobs:
         with:
           node-version: '14'
       - run: cd OpenDoorWebsiteApp
-      - run: npm install
-      - run: npm test
+             npm install
+             npm test
