@@ -12,8 +12,7 @@ export class Master extends Component {
         return <div>
             <div id="header">
                 <h1 id="logo">
-                    Open&nbsp;<span class="green">Door</span>&nbsp;Full&nbsp;<span class="gray">Gospel</span><span
-                    class="small">&nbsp;church of pleasant hill mo</span>
+                    Open&nbsp;<span className="green">Door</span>&nbsp;Full&nbsp;<span className="gray">Gospel</span><span className="small">&nbsp;church of pleasant hill mo</span>
                 </h1>
                 <h2 id="slogan">
                     Brethren, if a man is overtaken in any trespass, you who are spiritual restore such
@@ -24,15 +23,13 @@ export class Master extends Component {
                 </div>
                 <ul>
                     <li><a href="/opendoor" title="Open door home page"><span>Home</span></a></li>
-                    <li><a href="/opendoor/Home/Video" title="Open door video page"><span>Video</span></a></li>
                     <li><a href="/opendoor/Home/Location" title="Open door location page"><span>Location</span></a></li>
                     <li><a href="/opendoor/Home/About" title="Open door about page"><span>About</span></a></li>
                 </ul>
             </div>
             <div id="content-wrap">
-                <img src="/headerphoto.jpg" width="820" height="120"
-                     alt="headerphoto" class="header-photo"/>
-                <SideBar/>
+                <img src="/headerphoto.jpg" width="820" height="120" alt="headerphoto" className="header-photo"/>
+                <SideBar />
             </div>
             <div id="main">
                 <Router>

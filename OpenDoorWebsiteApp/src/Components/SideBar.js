@@ -12,7 +12,7 @@ export class SideBar extends Component {
                 </p>
             </div>
             <div>
-                <ul class="sidemenu">
+                <ul className="sidemenu">
                     <li>
                         <a href="https://www.facebook.com/pg/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO-217411360471/videos">Facebook
                             Video</a>
