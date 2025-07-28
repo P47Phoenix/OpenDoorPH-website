@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {SideBar} from "../Components/SideBar";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {Main} from "./Main";
 import {Video} from "./Video";
 import {Location} from "./Location";
@@ -33,13 +33,13 @@ export class Master extends Component {
             </div>
             <div id="main">
                 <Router>
-                    <div>
-                        <Route exact={true} path="/" render={Main}/>
-                        <Route exact={true} path="/opendoor" render={Main}/>
-                        <Route exact={true} path="/opendoor/Home/Video" render={Video}/>
-                        <Route exact={true} path="/opendoor/Home/Location" render={Location}/>
-                        <Route exact={true} path="/opendoor/Home/About" render={About}/>
-                    </div>
+                    <Routes>
+                        <Route path="/" element={<Main />} />
+                        <Route path="/opendoor" element={<Main />} />
+                        <Route path="/opendoor/Home/Video" element={<Video />} />
+                        <Route path="/opendoor/Home/Location" element={<Location />} />
+                        <Route path="/opendoor/Home/About" element={<About />} />
+                    </Routes>
                 </Router>
             </div>
             <Footer/>

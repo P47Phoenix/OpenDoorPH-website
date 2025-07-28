@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { render, screen } from '@testing-library/react';
 import App from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+test('renders without crashing', () => {
+  render(<App />);
+  // Basic test to ensure the app renders without errors
+  expect(document.body).toBeInTheDocument();
 });
