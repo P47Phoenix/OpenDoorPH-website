@@ -14,7 +14,8 @@ docs/
 │   ├── README.md
 │   ├── architecture.md
 │   ├── infrastructure.md
-│   └── deployment-process.md
+│   ├── deployment-process.md
+│   └── amazon-global-constructs-setup.md
 ├── development/                 # Developer guides and references
 │   ├── README.md
 │   ├── development-guide.md
@@ -46,6 +47,7 @@ docs/
 - **Implementation**: [Library Update Implementation](./updates/library-update-implementation.md)
 - **Infrastructure**: [Infrastructure Documentation](./technical/infrastructure.md)
 - **Deployment**: [Deployment Process](./technical/deployment-process.md)
+- **Quick Setup**: [Amazon Global Constructs Setup](./technical/amazon-global-constructs-setup.md)
 
 ### For Stakeholders
 - **Project Goals**: [Project Overview](./overview/project-overview.md)

@@ -8,10 +8,11 @@ This document outlines the complete deployment process for the OpenDoorPH websit
 
 ### Current Setup
 - **Cloud Provider**: Amazon Web Services (AWS)
-- **Region**: us-east-2 (Ohio)
+- **Region**: us-east-2 (Ohio) for S3 and application resources
+- **Authentication**: GitHub OIDC federation via Amazon Global Constructs
 - **Frontend Hosting**: AWS S3 + CloudFront CDN
-- **Infrastructure as Code**: Terraform
-- **CI/CD**: GitHub Actions
+- **Infrastructure as Code**: Terraform + AWS CDK (via Amazon Global Constructs)
+- **CI/CD**: GitHub Actions with OIDC authentication
 - **Domain Aliases**: 
   - opendoorph.info
   - opendoorph.net  
@@ -21,7 +22,14 @@ This document outlines the complete deployment process for the OpenDoorPH websit
 ### AWS Resources
 - **S3 Bucket**: `opendoorsitebucket` (private bucket with CloudFront access)
 - **CloudFront Distribution**: Global CDN with custom domain aliases
-- **Origin Access Identity**: Secure S3 access via CloudFront only
+- **OIDC Provider**: `arn:aws:iam::785341741686:oidc-provider/token.actions.githubusercontent.com`
+- **GitHub Actions Role**: `arn:aws:iam::785341741686:role/GitHubActionsRole-CDKDeploy`
+
+### Security & Authentication
+- **Zero Long-term Credentials**: GitHub Actions uses temporary OIDC tokens
+- **Repository Scoping**: Access limited to P47Phoenix organization
+- **Comprehensive Monitoring**: Real-time security alerts and audit logging
+- **Live Dashboard**: [CloudWatch Monitoring](https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboards:name=GitHubOIDC-Dashboard)
 
 ## 🔧 Prerequisites
 
@@ -33,21 +41,23 @@ This document outlines the complete deployment process for the OpenDoorPH websit
 - **Git**: For version control
 
 ### Required Permissions
-- S3 bucket read/write access
-- CloudFront distribution management
-- IAM policy management
-- Route 53 (if managing DNS)
+- Repository admin access to configure GitHub secrets
+- GitHub Actions access to P47Phoenix organization (provided by Amazon Global Constructs)
 
-### Environment Variables
+### Repository Secrets
+Configure the following secret in your GitHub repository:
+
 ```bash
-# AWS Configuration
-AWS_ACCESS_KEY_ID=your_access_key
-AWS_SECRET_ACCESS_KEY=your_secret_key
-AWS_DEFAULT_REGION=us-east-2
-
-# Terraform Variables
-TF_VAR_sitename=opendoor
+# GitHub Repository Secret
+AWS_ROLE_ARN=arn:aws:iam::785341741686:role/GitHubActionsRole-CDKDeploy
 ```
+
+### AWS Permissions (Automatically Configured)
+The Amazon Global Constructs framework provides:
+- **PowerUserAccess**: Broad AWS service access
+- **CDK Deployment**: CloudFormation and infrastructure management
+- **S3 & CloudFront**: Website hosting and CDN management
+- **Monitoring**: CloudWatch and CloudTrail access
 
 ## 🚀 Deployment Procedures
 
@@ -130,11 +140,53 @@ aws cloudfront create-invalidation \
   --paths "/*"
 ```
 
-#### Automated Deployment via GitHub Actions
-The repository includes a GitHub Actions workflow (`.github/workflows/node-build.yml`) that:
-1. Builds the application on every push
-2. Runs automated tests
-3. Can be extended to deploy automatically
+#### Automated Deployment via GitHub Actions (Recommended)
+The repository includes an enhanced GitHub Actions workflow that provides:
+
+**Workflow Triggers:**
+- **Push to main**: Automatic deployment to production
+- **Pull requests**: Build and test only (no deployment)
+- **Feature branches**: Build and test only
+
+**Security Features:**
+- **OIDC Authentication**: No stored AWS credentials
+- **Repository Scoping**: Limited to P47Phoenix organization
+- **Branch Protection**: Production deploys only from main branch
+- **Audit Logging**: All activities tracked via CloudTrail
+
+**Deployment Process:**
+```yaml
+name: Build, Test & Deploy OpenDoorPH Website
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  id-token: write  # Required for OIDC authentication
+  contents: read
+
+jobs:
+  test:
+    # Builds and tests the application
+    
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-2
+      - name: Deploy to S3 and invalidate CloudFront
+```
+
+**Deployment Features:**
+- **Smart Caching**: Different cache strategies for static assets vs. HTML
+- **Efficient Syncs**: Only uploads changed files
+- **Automatic Cache Invalidation**: CloudFront cache clearing
+- **Multi-domain Support**: Deploys to all configured domain aliases
 
 ## 🔄 CI/CD Pipeline
 
