@@ -25,7 +25,15 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './OpenDoorWebsiteApp/package-lock.json'
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Check if package.json and package-lock.json are in sync
+          if ! npm ci --dry-run 2>/dev/null; then
+            echo "Package.json and package-lock.json are out of sync, regenerating lock file..."
+            rm -f package-lock.json
+            npm install
+          else
+            npm ci
+          fi
       - name: Debug environment
         run: |
           echo "📊 Node.js version: $(node --version)"
