@@ -19,8 +19,10 @@
     "test:ci": "react-scripts test --coverage --ci --watchAll=false --testTimeout=10000",
     "test:ci-simple": "react-scripts test --ci --watchAll=false --passWithNoTests",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.{js,jsx}",
-    "lint:fix": "eslint src/**/*.{js,jsx} --fix"
+    "lint": "eslint src/**/*.{js,jsx,ts,tsx}",
+    "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch"
   },
   "eslintConfig": {
     "extends": [
