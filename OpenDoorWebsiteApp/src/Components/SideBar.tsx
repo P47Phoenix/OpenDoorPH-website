@@ -30,7 +30,11 @@ export class SideBar extends Component<SideBarProps> {
                     <ul className="sidemenu">
                         {menuItems.map((item, index) => (
                             <li key={index}>
-                                <a href={item.url} target={item.external ? "_blank" : "_self"}>
+                                <a 
+                                    href={item.url} 
+                                    target={item.external ? "_blank" : "_self"}
+                                    rel={item.external ? "noreferrer" : undefined}
+                                >
                                     {item.text}
                                 </a>
                             </li>
