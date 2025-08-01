@@ -22,7 +22,7 @@ declare global {
  */
 export const initGA = (): void => {
   // Only initialize if we have a valid measurement ID
-  if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') {
+  if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID.includes('XXXXXXXXXX')) {
     console.warn('Google Analytics not initialized: Please set your GA4 Measurement ID in src/config/analytics.ts');
     return;
   }
@@ -163,7 +163,8 @@ export const trackScrollDepth = (percentage: number): void => {
 export const isGAInitialized = (): boolean => {
   return typeof window !== 'undefined' && 
          typeof window.gtag === 'function' && 
-         GA_MEASUREMENT_ID !== 'G-XXXXXXXXXX';
+         !GA_MEASUREMENT_ID.includes('XXXXXXXXXX') &&
+         GA_MEASUREMENT_ID.length > 0;
 };
 
 /**

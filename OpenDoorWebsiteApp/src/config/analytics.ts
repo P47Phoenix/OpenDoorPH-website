@@ -6,7 +6,7 @@
  */
 
 // GA4 Measurement ID - Replace with your actual ID from Google Analytics
-export const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // TODO: Replace with actual GA4 ID
+export const GA_MEASUREMENT_ID = 'G-9VW8X3YKJ6'; // OpenDoor PH Website GA4 ID
 
 // Enhanced Ecommerce and Custom Events Configuration
 export const GA_CONFIG = {
