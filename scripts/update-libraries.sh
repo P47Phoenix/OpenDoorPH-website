@@ -67,7 +67,11 @@ cat > package.json << 'EOF'
     ]
   }
 }
-EOF
+if [ ! -f "package.json.template" ]; then
+    echo "❌ Error: package.json.template not found. Please provide a template file."
+    exit 1
+fi
+cp package.json.template package.json
 echo "✅ package.json updated"
 
 echo "📋 Step 5: Installing dependencies..."
