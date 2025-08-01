@@ -1,12 +1,12 @@
 import React, { Component, ReactElement } from "react";
-import { SideBar } from "../Components/SideBar";
+import SideBar from "../../components/layout/SideBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Main } from "./Main";
-import { Video } from "./Video";
-import { Location } from "./Location";
-import { About } from "./About";
-import { Footer } from "../Components/Footer";
-import { RouteTracker } from "../Components/RouteTracker";
+import { Main } from "../HomePage/HomePage";
+import { Video } from "../VideoPage/VideoPage";
+import { Location } from "../LocationPage/LocationPage";
+import { About } from "../AboutPage/AboutPage";
+import Footer from "../../components/layout/Footer";
+import RouteTracker from "../../components/tracking/RouteTracker";
 
 interface MasterProps {}
 

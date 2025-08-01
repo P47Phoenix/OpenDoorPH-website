@@ -7,7 +7,7 @@
 
 import React, { Component, ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
-import { trackPageView, trackNavigation } from '../utils/analytics';
+import { trackPageView, trackNavigation } from '../../../utils/analytics';
 
 interface RouteTrackerProps {
   children: React.ReactNode;

@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from "react";
-import { SideBarProps } from "../types";
+import { SideBarProps } from "../../../types";
 
 export class SideBar extends Component<SideBarProps> {
     render(): ReactElement {

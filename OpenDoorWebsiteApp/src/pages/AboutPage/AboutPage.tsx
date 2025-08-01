@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect } from "react";
-import { trackAboutView } from "../utils/analytics";
+import { trackAboutView } from "../../utils/analytics";
 
 export const About = (): ReactElement => {
     useEffect(() => {
