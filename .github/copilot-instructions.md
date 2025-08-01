@@ -26,6 +26,19 @@ This repository uses the Enterprise AI Collaboration Framework. Select the appro
 - **[Task List Examples](.github/prompts/task-list-examples.prompts.md)**: For MCP task management examples and templates
 - **[Task List Integration](.github/prompts/task-list-integration.prompts.md)**: For advanced task management and workflow integration
 
+## Project Structure
+
+### React Application Location
+The main React application is located in: `C:\GitHub\OpenDoorPH-website\OpenDoorWebsiteApp`
+
+This TypeScript React application includes:
+- **Source Code**: `OpenDoorWebsiteApp/src/` - Main application components and pages
+- **Configuration**: `OpenDoorWebsiteApp/package.json` - Dependencies and scripts
+- **Build Output**: `OpenDoorWebsiteApp/build/` - Production build artifacts
+- **TypeScript Config**: `OpenDoorWebsiteApp/tsconfig.json` - TypeScript compilation settings
+
+When working with React components, pages, or application logic, focus your efforts in the `OpenDoorWebsiteApp` directory.
+
 ## Auto-Selection Rules
 
 Apply these rules to automatically select the most appropriate prompt:
