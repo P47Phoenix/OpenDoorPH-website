@@ -1,6 +1,6 @@
 import React, { Component, ReactElement } from 'react';
 import './App.css';
-import { Master } from "./Pages/Master";
+import { Master } from "./pages/MasterLayout/MasterLayout";
 import { initGA } from './utils/analytics';
 
 interface AppProps {}

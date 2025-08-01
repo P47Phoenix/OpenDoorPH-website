@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect } from "react";
-import { trackVideoPlay } from "../utils/analytics";
+import { trackVideoPlay } from "../../utils/analytics";
 
 export const Video = (): ReactElement => {
     useEffect(() => {

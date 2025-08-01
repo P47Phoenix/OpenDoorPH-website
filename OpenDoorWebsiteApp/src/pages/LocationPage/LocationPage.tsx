@@ -1,5 +1,5 @@
 import React, { ReactElement, CSSProperties, useEffect } from "react";
-import { trackLocationView, trackExternalLink } from "../utils/analytics";
+import { trackLocationView, trackExternalLink } from "../../utils/analytics";
 
 const MapStyle: CSSProperties = {
     color: '#0000FF',

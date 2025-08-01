@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from "react";
-import { FooterProps } from "../types";
+import { FooterProps } from "../../../types";
 
 export class Footer extends Component<FooterProps> {
     render(): ReactElement {
