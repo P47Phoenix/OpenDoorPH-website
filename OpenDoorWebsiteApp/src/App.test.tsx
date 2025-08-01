@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
@@ -33,4 +34,23 @@ test('renders Bible verse', () => {
   // Check for the Bible verse in the header
   expect(screen.getByText(/Brethren, if a man is overtaken/i)).toBeInTheDocument();
   expect(screen.getByText(/Galatians 6:1/i)).toBeInTheDocument();
+});
+
+test('renders church service information', () => {
+  render(<App />);
+  
+  // Check for service time information in the sidebar
+  expect(screen.getByText(/Morning Service/i)).toBeInTheDocument();
+});
+
+test('renders church name and branding', () => {
+  render(<App />);
+  
+  // Check for the specific logo heading element
+  expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
+  
+  // Check for specific church name parts using regex for flexibility
+  expect(screen.getByText('Door')).toBeInTheDocument();
+  expect(screen.getByText('Gospel')).toBeInTheDocument();
+  expect(screen.getByText(/church of pleasant hill mo/i)).toBeInTheDocument();
 });
