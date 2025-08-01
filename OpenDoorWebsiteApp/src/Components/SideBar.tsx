@@ -8,8 +8,9 @@ export class SideBar extends Component<SideBarProps> {
             scheduleItems = ["Morning Service: 10:15 AM"],
             menuItems = [
                 {
-                    text: "Facebook Video",
-                    url: "https://www.facebook.com/pg/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO-217411360471/videos"
+                    text: "Facebook Page",
+                    url: "https://www.facebook.com/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO-217411360471",
+                    external: true
                 }
             ]
         } = this.props;

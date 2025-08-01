@@ -127,7 +127,7 @@ import { trackEvent, trackExternalLink, trackVideoPlay } from './utils/analytics
 trackEvent('contact_form_submit', { form_type: 'newsletter' });
 
 // External links
-trackExternalLink('https://facebook.com/opendoorph', 'Facebook Page');
+trackExternalLink('https://www.facebook.com/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO-217411360471', 'Facebook Page');
 
 // Video interactions
 trackVideoPlay('Sunday Sermon', 'https://youtube.com/watch?v=...');
