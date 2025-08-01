@@ -1,8 +1,15 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
+import { trackAboutView } from "../utils/analytics";
 
 export const About = (): ReactElement => {
+    useEffect(() => {
+        // Track about page engagement
+        trackAboutView();
+    }, []);
+
     return (
         <div>
+            <h2>About Open Door Full Gospel Church</h2>
             <p>
                 Open door was founded by Herbert & Willetta Lowry and William & Mable Burnett in
                 July of 1975. Services were first held in an old house on the corner of Cedar and

@@ -6,6 +6,7 @@ import { Video } from "./Video";
 import { Location } from "./Location";
 import { About } from "./About";
 import { Footer } from "../Components/Footer";
+import { RouteTracker } from "../Components/RouteTracker";
 
 interface MasterProps {}
 
@@ -42,13 +43,15 @@ export class Master extends Component<MasterProps> {
                 </div>
                 <div id="main">
                     <Router>
-                        <Routes>
-                            <Route path="/" element={<Main />} />
-                            <Route path="/opendoor" element={<Main />} />
-                            <Route path="/opendoor/Home/Video" element={<Video />} />
-                            <Route path="/opendoor/Home/Location" element={<Location />} />
-                            <Route path="/opendoor/Home/About" element={<About />} />
-                        </Routes>
+                        <RouteTracker>
+                            <Routes>
+                                <Route path="/" element={<Main />} />
+                                <Route path="/opendoor" element={<Main />} />
+                                <Route path="/opendoor/Home/Video" element={<Video />} />
+                                <Route path="/opendoor/Home/Location" element={<Location />} />
+                                <Route path="/opendoor/Home/About" element={<About />} />
+                            </Routes>
+                        </RouteTracker>
                     </Router>
                 </div>
                 <Footer />
