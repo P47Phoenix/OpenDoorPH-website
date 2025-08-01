@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
-export const Main = () => {
+export const Main = (): ReactElement => {
     return (
         <div>
             <p>
@@ -28,5 +28,5 @@ export const Main = () => {
                 as part of our church family.
             </p>
         </div>
-    )
-}
+    );
+};

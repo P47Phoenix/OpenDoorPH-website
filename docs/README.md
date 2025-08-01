@@ -4,20 +4,33 @@ Welcome to the comprehensive documentation for the Open Door Full Gospel Church 
 
 ## 📖 Documentation Structure
 
-- **[Project Overview](./project-overview.md)** - High-level project description and goals
-- **[Architecture Documentation](./architecture.md)** - Technical architecture and system design
-- **[Features Documentation](./features.md)** - Complete feature list and functionality
-- **[Development Guide](./development-guide.md)** - Setup, build, and deployment instructions
-- **[Infrastructure Documentation](./infrastructure.md)** - AWS infrastructure and Terraform configuration
-- **[Component Reference](./components.md)** - React component documentation
-- **[API Reference](./api-reference.md)** - External integrations and APIs
+### 📋 Overview
+- **[Project Overview](./overview/project-overview.md)** - High-level project description and goals
+
+### 🏗️ Technical Documentation
+- **[Architecture Documentation](./technical/architecture.md)** - Technical architecture and system design
+- **[Infrastructure Documentation](./technical/infrastructure.md)** - AWS infrastructure and Terraform configuration
+
+### 💻 Development Documentation
+- **[Development Guide](./development/development-guide.md)** - Setup, build, and deployment instructions
+- **[Component Reference](./development/components.md)** - React component documentation
+- **[API Reference](./development/api-reference.md)** - External integrations and APIs
+
+### ✨ Features Documentation
+- **[Features Documentation](./features/features.md)** - Complete feature list and functionality
+
+### 🔄 Updates & Maintenance
+- **[Library Update Plan](./updates/library-update-plan.md)** - Strategy for updating dependencies
+- **[Library Update Implementation](./updates/library-update-implementation.md)** - Step-by-step update guide
 
 ## 🏗️ Quick Start
 
-1. Review the [Project Overview](./project-overview.md) to understand the project goals
-2. Check the [Architecture Documentation](./architecture.md) for technical design
-3. Follow the [Development Guide](./development-guide.md) for local setup
-4. Explore [Features Documentation](./features.md) for functionality details
+1. Review the [Project Overview](./overview/project-overview.md) to understand the project goals
+2. Check the [Architecture Documentation](./technical/architecture.md) for technical design
+3. Follow the [Development Guide](./development/development-guide.md) for local setup
+4. Explore [Features Documentation](./features/features.md) for functionality details
+
+📂 **Need help navigating?** See the [Documentation Navigation Guide](./NAVIGATION.md) for detailed folder structure and quick links.
 
 ## 🚀 Project Status
 

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
-export const About = () => {
+export const About = (): ReactElement => {
     return (
         <div>
             <p>
@@ -18,5 +18,5 @@ export const About = () => {
                 the wonderful things God is doing at Open Door!
             </p>
         </div>
-    )
-}
+    );
+};
