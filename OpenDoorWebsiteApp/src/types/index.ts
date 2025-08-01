@@ -12,6 +12,12 @@ export interface NavigationItem {
   label: string;
 }
 
+export interface MenuLinkItem {
+  text: string;
+  url: string;
+  external?: boolean;
+}
+
 export interface SocialLink {
   url: string;
   platform: string;
@@ -20,6 +26,9 @@ export interface SocialLink {
 
 // Component Props interfaces
 export interface SideBarProps {
+  scheduleTitle?: string;
+  scheduleItems?: string[];
+  menuItems?: MenuLinkItem[];
   serviceTime?: string;
   socialLinks?: SocialLink[];
 }
