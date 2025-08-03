@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Menu Icon</title>
+  <desc>Hamburger menu icon for mobile navigation</desc>
+  
+  <!-- Menu lines -->
+  <line x1="25" y1="35" x2="75" y2="35" 
+        stroke="#9EC630" stroke-width="4" stroke-linecap="round"/>
+  <line x1="25" y1="50" x2="75" y2="50" 
+        stroke="#9EC630" stroke-width="4" stroke-linecap="round"/>
+  <line x1="25" y1="65" x2="75" y2="65" 
+        stroke="#9EC630" stroke-width="4" stroke-linecap="round"/>
+</svg>
