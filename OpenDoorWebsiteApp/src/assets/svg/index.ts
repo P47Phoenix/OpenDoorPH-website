@@ -12,3 +12,8 @@ export { default as FacebookIcon } from './facebook-icon.svg';
 export { default as ScheduleIcon } from './schedule-icon.svg';
 export { default as ExternalLinkIcon } from './external-link-icon.svg';
 export { default as MenuIcon } from './menu-icon.svg';
+export { default as CrossIcon } from './cross-icon.svg';
+export { default as HeartIcon } from './heart-icon.svg';
+export { default as BibleIcon } from './bible-icon.svg';
+export { default as CommunityServiceIcon } from './community-service-icon.svg';
+export { default as WelcomeBanner } from './welcome-banner.svg';
