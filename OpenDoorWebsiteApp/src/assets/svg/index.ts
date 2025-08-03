@@ -29,3 +29,8 @@ export { default as PastorIcon } from './pastor-icon.svg';
 export { default as ValuesIcon } from './values-icon.svg';
 export { default as HistoryIcon } from './history-icon.svg';
 export { default as LeadershipIcon } from './leadership-icon.svg';
+export { default as WebsiteIcon } from './website-icon.svg';
+export { default as CopyrightIcon } from './copyright-icon.svg';
+export { default as QuickLinksIcon } from './quick-links-icon.svg';
+export { default as VisitIcon } from './visit-icon.svg';
+export { default as FooterBorder } from './footer-border.svg';
