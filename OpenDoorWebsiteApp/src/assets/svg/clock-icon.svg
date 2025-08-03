@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Clock Icon</title>
+  <desc>Church-themed clock icon</desc>
+  
+  <!-- Clock face -->
+  <circle cx="50" cy="50" r="40" fill="#D4C4A0" stroke="#C8B59B" stroke-width="3"/>
+  
+  <!-- Inner circle -->
+  <circle cx="50" cy="50" r="35" fill="none" stroke="#C8B59B" stroke-width="1"/>
+  
+  <!-- Hour markers -->
+  <text x="50" y="20" text-anchor="middle" fill="#C8B59B" font-size="8" font-weight="bold">12</text>
+  <text x="75" y="55" text-anchor="middle" fill="#C8B59B" font-size="8" font-weight="bold">3</text>
+  <text x="50" y="87" text-anchor="middle" fill="#C8B59B" font-size="8" font-weight="bold">6</text>
+  <text x="25" y="55" text-anchor="middle" fill="#C8B59B" font-size="8" font-weight="bold">9</text>
+  
+  <!-- Clock hands -->
+  <line x1="50" y1="50" x2="50" y2="30" stroke="#9EC630" stroke-width="3" stroke-linecap="round"/>
+  <line x1="50" y1="50" x2="65" y2="50" stroke="#9EC630" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Center dot -->
+  <circle cx="50" cy="50" r="3" fill="#9EC630"/>
+</svg>
