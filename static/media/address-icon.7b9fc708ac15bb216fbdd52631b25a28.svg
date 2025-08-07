@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Address Icon</title>
+  <desc>Address and location icon</desc>
+  
+  <!-- Building base -->
+  <rect x="30" y="45" width="40" height="40" 
+        fill="#D4C4A0" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Building roof -->
+  <path d="M25 45 L50 25 L75 45 Z" 
+        fill="#C8B59B" stroke="#C8B59B" stroke-width="1"/>
+  
+  <!-- Church steeple -->
+  <rect x="48" y="15" width="4" height="15" fill="#C8B59B"/>
+  <path d="M46 15 L50 10 L54 15 Z" fill="#9EC630"/>
+  
+  <!-- Cross on steeple -->
+  <line x1="50" y1="12" x2="50" y2="18" stroke="white" stroke-width="1"/>
+  <line x1="47" y1="15" x2="53" y2="15" stroke="white" stroke-width="1"/>
+  
+  <!-- Building windows -->
+  <rect x="35" y="55" width="8" height="10" fill="#9EC630"/>
+  <rect x="57" y="55" width="8" height="10" fill="#9EC630"/>
+  
+  <!-- Building door -->
+  <rect x="45" y="65" width="10" height="20" rx="2" fill="#9EC630"/>
+  <circle cx="52" cy="75" r="1" fill="white"/>
+  
+  <!-- Address lines -->
+  <line x1="15" y1="90" x2="85" y2="90" stroke="#C8B59B" stroke-width="2"/>
+</svg>

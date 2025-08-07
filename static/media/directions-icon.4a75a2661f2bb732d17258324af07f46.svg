@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Directions Icon</title>
+  <desc>Navigation and directions icon</desc>
+  
+  <!-- Direction arrow -->
+  <path d="M30 50 L60 30 L55 50 L60 70 Z" 
+        fill="#9EC630" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Direction compass base -->
+  <circle cx="50" cy="50" r="35" fill="none" stroke="#C8B59B" stroke-width="2"/>
+  <circle cx="50" cy="50" r="30" fill="none" stroke="#D4C4A0" stroke-width="1"/>
+  
+  <!-- Compass points -->
+  <text x="50" y="25" text-anchor="middle" fill="#C8B59B" font-size="10" font-weight="bold">N</text>
+  <text x="75" y="55" text-anchor="middle" fill="#C8B59B" font-size="10" font-weight="bold">E</text>
+  <text x="50" y="82" text-anchor="middle" fill="#C8B59B" font-size="10" font-weight="bold">S</text>
+  <text x="25" y="55" text-anchor="middle" fill="#C8B59B" font-size="10" font-weight="bold">W</text>
+  
+  <!-- Center point -->
+  <circle cx="50" cy="50" r="3" fill="#9EC630"/>
+</svg>

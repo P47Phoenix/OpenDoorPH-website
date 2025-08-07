@@ -1,0 +1,4 @@
+{
+    "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
+    "terminal.integrated.shell.windows":"c:\\Windows\\System32\\bash.exe"
+}

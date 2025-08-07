@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Community Service Icon</title>
+  <desc>Community service and helping hands icon</desc>
+  
+  <!-- Helping hands -->
+  <path d="M25 45 L30 40 L35 45 L40 40 L45 45 L45 60 L40 65 L35 60 L30 65 L25 60 Z" 
+        fill="#9EC630" stroke="#C8B59B" stroke-width="2"/>
+  
+  <path d="M55 45 L60 40 L65 45 L70 40 L75 45 L75 60 L70 65 L65 60 L60 65 L55 60 Z" 
+        fill="#9EC630" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Heart between hands -->
+  <path d="M50 52 C50 52, 40 42, 40 35 A5 5 0 0 1 45 30 A5 5 0 0 1 50 35 A5 5 0 0 1 55 30 A5 5 0 0 1 60 35 C60 42, 50 52, 50 52 Z" 
+        fill="#D4C4A0" stroke="#C8B59B" stroke-width="1"/>
+  
+  <!-- Community circle -->
+  <circle cx="50" cy="75" r="18" fill="none" stroke="#C8B59B" stroke-width="2" stroke-dasharray="3,3"/>
+  
+  <!-- People in community -->
+  <circle cx="42" cy="75" r="3" fill="#9EC630"/>
+  <circle cx="50" cy="75" r="3" fill="#9EC630"/>
+  <circle cx="58" cy="75" r="3" fill="#9EC630"/>
+</svg>

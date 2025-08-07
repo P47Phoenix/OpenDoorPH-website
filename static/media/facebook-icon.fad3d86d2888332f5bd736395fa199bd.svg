@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Facebook Icon</title>
+  <desc>Church-themed Facebook social media icon</desc>
+  
+  <!-- Facebook background circle -->
+  <circle cx="50" cy="50" r="40" fill="#1877F2" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Facebook 'f' letter -->
+  <path d="M58 50 L58 75 L48 75 L48 50 L42 50 L42 42 L48 42 L48 38 
+           A8 8 0 0 1 56 30 L62 30 L62 38 L58 38 L58 42 L64 42 L62 50 Z" 
+        fill="white"/>
+</svg>
