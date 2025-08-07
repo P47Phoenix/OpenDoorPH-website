@@ -40,10 +40,22 @@
 
 .church-main {
   @apply flex-1 bg-white;
+  min-height: 0; /* Allow shrinking */
 }
 
 .church-sidebar {
   @apply bg-stone-50 border-r border-stone-200;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  .church-sidebar {
+    @apply border-r-0 border-b border-stone-200;
+  }
+  
+  .church-main {
+    @apply min-h-0;
+  }
 }
 
 .church-footer {

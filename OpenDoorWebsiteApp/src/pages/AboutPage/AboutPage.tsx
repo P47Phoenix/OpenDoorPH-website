@@ -6,7 +6,8 @@ import {
     PastorIcon, 
     ValuesIcon, 
     HistoryIcon, 
-    LeadershipIcon 
+    LeadershipIcon,
+    HistoryScrollIcon 
 } from "../../assets";
 
 export const About = (): ReactElement => {
@@ -16,35 +17,40 @@ export const About = (): ReactElement => {
     }, []);
 
     return (
-        <div className="space-y-8">
+        <div className="w-full p-4 md:p-6 space-y-6 md:space-y-8">
             {/* Hero Section */}
-            <section className="bg-gradient-to-r from-stone-400 via-orange-200 to-stone-400 text-white rounded-lg p-8 shadow-lg">
-                <div className="flex items-center justify-center mb-6">
-                    <img src={ChurchIcon} alt="" className="w-16 h-16 mr-4" />
+            <section className="bg-gradient-to-r from-stone-400 via-orange-200 to-stone-400 text-white rounded-lg p-4 md:p-8 shadow-lg">
+                <div className="flex flex-col md:flex-row items-center justify-center mb-4 md:mb-6 text-center md:text-left">
+                    <img src={ChurchIcon} alt="" className="w-12 md:w-16 h-12 md:h-16 mb-4 md:mb-0 md:mr-4" />
                     <div>
-                        <h1 className="text-4xl font-bold text-stone-800">About Our Church</h1>
-                        <p className="text-xl opacity-90 mt-2 text-stone-700">Open Door Full Gospel Church</p>
+                        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-stone-800">About Our Church</h1>
+                        <p className="text-lg md:text-xl opacity-90 mt-2 text-stone-700">Open Door Full Gospel Church</p>
                     </div>
                 </div>
-                <p className="text-center text-lg opacity-95 max-w-3xl mx-auto text-stone-700">
+                <p className="text-center text-base md:text-lg opacity-95 max-w-3xl mx-auto text-stone-700 px-2">
                     Founded in 1975, our church has been a cornerstone of faith and community service 
                     in Pleasant Hill, Missouri for nearly five decades.
                 </p>
             </section>
 
             {/* Church History Timeline */}
-            <section className="bg-white rounded-lg shadow-md p-8">
-                <div className="flex items-center mb-6">
-                    <img src={TimelineIcon} alt="" className="w-12 h-12 mr-4" />
-                    <h2 className="text-3xl font-bold text-stone-800">Our History</h2>
+            <section className="bg-white rounded-lg shadow-md p-4 md:p-8">
+                <div className="flex flex-col md:flex-row md:items-center mb-4 md:mb-6 text-center md:text-left">
+                    <HistoryScrollIcon className="w-10 md:w-12 h-10 md:h-12 mb-2 md:mb-0 md:mr-4 mx-auto md:mx-0 text-green-600" />
+                    <h2 className="text-2xl md:text-3xl font-bold text-stone-800">Our History</h2>
                 </div>
                 
-                <div className="space-y-6">
-                    <div className="bg-gradient-to-r from-stone-50 to-white p-6 rounded-lg border-l-4 border-green-500">
-                        <div className="flex items-start">
-                            <img src={HistoryIcon} alt="" className="w-10 h-10 mr-4 mt-1 flex-shrink-0" />
+                {/* Timeline visual element positioned below heading */}
+                <div className="w-full mb-6">
+                    <img src={TimelineIcon} alt="Historical Timeline" className="w-full h-16 md:h-20 opacity-60 object-contain" />
+                </div>
+                
+                <div className="space-y-4 md:space-y-6">
+                    <div className="bg-gradient-to-r from-stone-50 to-white p-4 md:p-6 rounded-lg border-l-4 border-green-500">
+                        <div className="flex flex-col md:flex-row md:items-start text-center md:text-left">
+                            <img src={HistoryIcon} alt="" className="w-10 h-10 mx-auto md:mx-0 md:mr-4 mb-3 md:mb-0 md:mt-1 md:flex-shrink-0" />
                             <div>
-                                <h3 className="text-xl font-semibold text-stone-800 mb-2">The Founding (1975)</h3>
+                                <h3 className="text-lg md:text-xl font-semibold text-stone-800 mb-2">The Founding (1975)</h3>
                                 <p className="text-gray-700 leading-relaxed">
                                     Open Door was founded by Herbert & Willetta Lowry and William & Mable Burnett in 
                                     July of 1975. Services were first held in an old house on the corner of Cedar and 
@@ -55,11 +61,11 @@ export const About = (): ReactElement => {
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-r from-white to-stone-50 p-6 rounded-lg border-l-4 border-orange-300">
-                        <div className="flex items-start">
-                            <img src={ChurchIcon} alt="" className="w-10 h-10 mr-4 mt-1 flex-shrink-0" />
+                    <div className="bg-gradient-to-r from-white to-stone-50 p-4 md:p-6 rounded-lg border-l-4 border-orange-300">
+                        <div className="flex flex-col md:flex-row md:items-start text-center md:text-left">
+                            <img src={ChurchIcon} alt="" className="w-10 h-10 mx-auto md:mx-0 md:mr-4 mb-3 md:mb-0 md:mt-1 md:flex-shrink-0" />
                             <div>
-                                <h3 className="text-xl font-semibold text-stone-800 mb-2">Building Our Home</h3>
+                                <h3 className="text-lg md:text-xl font-semibold text-stone-800 mb-2">Building Our Home</h3>
                                 <p className="text-gray-700 leading-relaxed">
                                     Pastor Bryant bought the church's current building after it was damaged by smoke 
                                     from a neighboring building. The church later bought the building from Pastor Bryant, 
@@ -72,15 +78,15 @@ export const About = (): ReactElement => {
             </section>
 
             {/* Leadership Legacy */}
-            <section className="bg-white rounded-lg shadow-md p-8">
-                <div className="flex items-center mb-6">
-                    <img src={LeadershipIcon} alt="" className="w-12 h-12 mr-4" />
-                    <h2 className="text-3xl font-bold text-stone-800">Leadership Legacy</h2>
+            <section className="bg-white rounded-lg shadow-md p-4 md:p-8">
+                <div className="flex flex-col md:flex-row md:items-center mb-4 md:mb-6 text-center md:text-left">
+                    <img src={LeadershipIcon} alt="" className="w-10 md:w-12 h-10 md:h-12 mb-2 md:mb-0 md:mr-4 mx-auto md:mx-0" />
+                    <h2 className="text-2xl md:text-3xl font-bold text-stone-800">Leadership Legacy</h2>
                 </div>
                 
                 <div className="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-4">Past Pastors</h3>
+                        <h3 className="text-xl font-semibold text-stone-800 mb-4">Past Leadership</h3>
                         <div className="space-y-3">
                             <div className="bg-stone-50 p-4 rounded-lg">
                                 <p className="text-gray-700">
@@ -89,17 +95,12 @@ export const About = (): ReactElement => {
                             </div>
                             <div className="bg-stone-50 p-4 rounded-lg">
                                 <p className="text-gray-700">
-                                    <span className="font-semibold text-stone-800">Don Sherwood</span> - Continued Leadership
+                                    <span className="font-semibold text-stone-800">Sam Meyers</span> - Previous Pastor
                                 </p>
                             </div>
                             <div className="bg-stone-50 p-4 rounded-lg">
                                 <p className="text-gray-700">
-                                    <span className="font-semibold text-stone-800">Lauren Simmons</span> - Pastoral Ministry
-                                </p>
-                            </div>
-                            <div className="bg-stone-50 p-4 rounded-lg">
-                                <p className="text-gray-700">
-                                    <span className="font-semibold text-stone-800">Jim Coons, Roger Nichols, Sam Meyers</span> - Faithful Service
+                                    <span className="font-semibold text-stone-800">Don Sherwood, Lauren Simmons, Jim Coons, Roger Nichols</span> - Church Leaders
                                 </p>
                             </div>
                         </div>
@@ -161,7 +162,7 @@ export const About = (): ReactElement => {
                             <span className="text-white text-2xl font-bold">👥</span>
                         </div>
                         <h3 className="text-lg font-semibold text-stone-800 mb-2">Youth Development</h3>
-                        <p className="text-gray-600 text-sm">Programs for children, youth, and young adults</p>
+                        <p className="text-gray-600 text-sm">Programs for children and youth</p>
                     </div>
                 </div>
             </section>
@@ -175,7 +176,7 @@ export const About = (): ReactElement => {
                 <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
                     <div className="text-center">
                         <p className="text-lg font-semibold">Sunday Service</p>
-                        <p className="text-sm opacity-90">10:15 AM</p>
+                        <p className="text-sm opacity-90">10:30 AM</p>
                     </div>
                     <div className="text-center">
                         <p className="text-lg font-semibold">135 S 1st St</p>

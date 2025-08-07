@@ -67,13 +67,6 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
                   Home
                 </Link>
                 <Link
-                  to="/opendoor/Home/Video"
-                  className="flex items-center text-stone-300 hover:text-green-400 transition-colors duration-200 group"
-                >
-                  <span className="w-2 h-2 bg-orange-300 rounded-full mr-3 group-hover:bg-green-400 transition-colors"></span>
-                  Video Sermons
-                </Link>
-                <Link
                   to="/opendoor/Home/Location"
                   className="flex items-center text-stone-300 hover:text-green-400 transition-colors duration-200 group"
                 >
@@ -110,13 +103,13 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
                   <span className="w-5 h-5 mr-3 text-green-400 text-center">🕐</span>
                   <div>
                     <p className="text-sm font-semibold">Sunday Service</p>
-                    <p className="text-sm opacity-90">10:15 AM</p>
+                    <p className="text-sm opacity-90">10:30 AM</p>
                   </div>
                 </div>
                 <div className="flex items-center">
                   <img src={FacebookIcon} alt="" className="w-5 h-5 mr-3 opacity-70" />
                   <a 
-                    href="https://www.facebook.com/pg/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO-217411360471/videos"
+                    href="https://www.facebook.com/pages/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO/217411360471"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm hover:text-green-400 transition-colors"

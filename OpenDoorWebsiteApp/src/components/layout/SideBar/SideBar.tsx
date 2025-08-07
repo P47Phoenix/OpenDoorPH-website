@@ -1,54 +1,46 @@
 import React from 'react';
-import { ScheduleIcon, FacebookIcon, ExternalLinkIcon } from '../../../assets';
-
-interface SideBarMenuItem {
-  text: string;
-  url: string;
-  external?: boolean;
-  icon?: 'facebook' | 'external' | 'default';
-}
+import { ScheduleIcon, FacebookIcon, QuickMap } from '../../../assets';
 
 interface SideBarProps {
   className?: string;
   scheduleTitle?: string;
   scheduleItems?: string[];
-  menuItems?: SideBarMenuItem[];
 }
 
 const SideBar: React.FC<SideBarProps> = ({ 
   className = '',
   scheduleTitle = "Sunday Service",
-  scheduleItems = ["Morning Service: 10:15 AM", "Evening Service: 6:00 PM", "Bible Study: Wednesday 7:00 PM"],
-  menuItems = [
-    {
-      text: "Facebook Page",
-      url: "https://www.facebook.com/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO-217411360471",
-      external: true,
-      icon: 'facebook'
-    },
-    {
-      text: "Contact Us",
-      url: "/opendoor/Home/Location",
-      external: false,
-      icon: 'default'
-    }
-  ]
+  scheduleItems = ["Morning Service: 10:30 AM"]
 }) => {
-  const getIcon = (iconType: string = 'default') => {
-    switch (iconType) {
-      case 'facebook':
-        return <img src={FacebookIcon} alt="" className="w-5 h-5" />;
-      case 'external':
-        return <img src={ExternalLinkIcon} alt="" className="w-4 h-4" />;
-      default:
-        return null;
-    }
-  };
-
   return (
-    <aside className={`church-sidebar w-full lg:w-64 bg-stone-50 border-r border-stone-200 ${className}`}>
+    <aside className={`church-sidebar w-full lg:w-80 lg:min-w-80 lg:max-w-80 bg-stone-50 border-r border-stone-200 ${className}`}>
       <div className="p-6 space-y-6">
         
+        {/* Mobile Quick Contact Actions - Only visible on mobile */}
+        <div className="block md:hidden bg-gradient-to-r from-green-500 to-orange-300 rounded-lg p-4 shadow-md">
+          <h3 className="text-white font-semibold mb-3 text-center">Quick Contact</h3>
+          <div className="flex justify-center space-x-6">
+            <a 
+              href="https://www.facebook.com/pages/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO/217411360471" 
+              target="_blank"
+              rel="noreferrer"
+              className="flex flex-col items-center p-3 bg-white/20 rounded-lg backdrop-blur-sm hover:bg-white/30 transition-all touch-manipulation active:scale-95"
+              aria-label="Visit our Facebook page"
+            >
+              <img src={FacebookIcon} alt="" className="w-8 h-8 mb-1" />
+              <span className="text-xs text-white font-medium">Facebook</span>
+            </a>
+            <a 
+              href="/opendoor/Home/Location" 
+              className="flex flex-col items-center p-3 bg-white/20 rounded-lg backdrop-blur-sm hover:bg-white/30 transition-all touch-manipulation active:scale-95"
+              aria-label="View location"
+            >
+              <img src={QuickMap} alt="" className="w-8 h-8 mb-1" />
+              <span className="text-xs text-white font-medium">Visit</span>
+            </a>
+          </div>
+        </div>
+
         {/* Schedule Section */}
         <div className="bg-white rounded-lg shadow-sm border border-stone-200 p-4">
           <div className="flex items-center mb-4">
@@ -66,43 +58,8 @@ const SideBar: React.FC<SideBarProps> = ({
           </div>
         </div>
 
-        {/* Quick Links Section */}
-        <div className="bg-white rounded-lg shadow-sm border border-stone-200 p-4">
-          <h3 className="text-lg font-semibold text-stone-800 mb-4">
-            Quick Links
-          </h3>
-          <nav>
-            <ul className="space-y-2">
-              {menuItems.map((item, index) => (
-                <li key={index}>
-                  <a 
-                    href={item.url}
-                    target={item.external ? "_blank" : "_self"}
-                    rel={item.external ? "noreferrer" : undefined}
-                    className="flex items-center justify-between p-3 rounded-lg text-stone-700 hover:bg-church-green hover:text-white transition-all duration-200 group"
-                  >
-                    <span className="flex items-center">
-                      {getIcon(item.icon)}
-                      <span className={`${item.icon ? 'ml-3' : ''} text-sm font-medium`}>
-                        {item.text}
-                      </span>
-                    </span>
-                    {item.external && (
-                      <img 
-                        src={ExternalLinkIcon} 
-                        alt="External link" 
-                        className="w-4 h-4 opacity-60 group-hover:opacity-100"
-                      />
-                    )}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-
         {/* Welcome Message */}
-        <div className="bg-gradient-to-br from-church-green/10 to-stone-100 rounded-lg border border-church-green/20 p-4">
+        <div className="bg-gradient-to-br from-green-500/10 to-stone-100 rounded-lg border border-green-500/20 p-4">
           <h3 className="text-lg font-semibold text-stone-800 mb-2">
             Welcome
           </h3>
@@ -110,6 +67,17 @@ const SideBar: React.FC<SideBarProps> = ({
             Join us for worship and fellowship. All are welcome to experience 
             God's love and grace in our church family.
           </p>
+          
+          {/* Mobile-specific call-to-action */}
+          <div className="block md:hidden mt-4">
+            <a 
+              href="/opendoor/Home/About" 
+              className="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors touch-manipulation active:bg-green-700"
+            >
+              Learn More About Us
+              <span className="ml-2">→</span>
+            </a>
+          </div>
         </div>
 
       </div>

@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from "react";
 import { trackLocationView, trackExternalLink } from "../../utils/analytics";
-import { MapMarkerIcon, DirectionsIcon, PhoneIcon, EmailIcon, AddressIcon, CarIcon } from "../../assets";
+import { MapMarkerIcon, DirectionsIcon, AddressIcon, CarIcon } from "../../assets";
 
 export const Location = (): ReactElement => {
     useEffect(() => {
@@ -16,7 +16,7 @@ export const Location = (): ReactElement => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto p-6 space-y-8">
+        <div className="w-full p-4 md:p-6 space-y-6 md:space-y-8">
             {/* Page Header */}
             <section className="text-center mb-8">
                 <div className="flex justify-center mb-4">
@@ -53,24 +53,6 @@ export const Location = (): ReactElement => {
                                     135 S 1st St<br/>
                                     Pleasant Hill, Missouri 64080
                                 </address>
-                            </div>
-                        </div>
-
-                        {/* Contact Methods */}
-                        <div className="grid sm:grid-cols-2 gap-4">
-                            <div className="flex items-center space-x-3 p-3 bg-stone-50 rounded-lg">
-                                <img src={PhoneIcon} alt="" className="w-6 h-6" />
-                                <div>
-                                    <h4 className="font-medium text-stone-800">Phone</h4>
-                                    <p className="text-sm text-stone-600">Contact us for service times</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center space-x-3 p-3 bg-stone-50 rounded-lg">
-                                <img src={EmailIcon} alt="" className="w-6 h-6" />
-                                <div>
-                                    <h4 className="font-medium text-stone-800">Email</h4>
-                                    <p className="text-sm text-stone-600">Send us a message</p>
-                                </div>
                             </div>
                         </div>
 
@@ -137,13 +119,7 @@ export const Location = (): ReactElement => {
                     <p className="text-green-100 mb-6 max-w-2xl mx-auto">
                         We look forward to welcoming you to our church family. Come as you are and experience God's love.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a 
-                            href="/opendoor" 
-                            className="bg-white text-church-green px-6 py-3 rounded-lg font-semibold hover:bg-stone-100 transition-colors duration-200"
-                        >
-                            Service Times
-                        </a>
+                    <div className="flex justify-center">
                         <a 
                             href="/opendoor/Home/About" 
                             className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-church-green transition-colors duration-200"
