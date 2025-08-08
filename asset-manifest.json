@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/OpenDoorPH-website/static/css/main.655f29f1.css",
-    "main.js": "/OpenDoorPH-website/static/js/main.a2c2e334.js",
+    "main.js": "/OpenDoorPH-website/static/js/main.917481ce.js",
     "static/js/488.a96b5460.chunk.js": "/OpenDoorPH-website/static/js/488.a96b5460.chunk.js",
     "static/media/loading-spinner.svg": "/OpenDoorPH-website/static/media/loading-spinner.fa316b78f821a9419883e06d9e8bb369.svg",
     "static/media/footer-border.svg": "/OpenDoorPH-website/static/media/footer-border.a679059fcac18ec183e77b16209b12e2.svg",
@@ -42,11 +42,11 @@
     "static/media/menu-icon.svg": "/OpenDoorPH-website/static/media/menu-icon.69f198136d5f517b6f24216c705e31dd.svg",
     "static/media/facebook-icon.svg": "/OpenDoorPH-website/static/media/facebook-icon.fad3d86d2888332f5bd736395fa199bd.svg",
     "main.655f29f1.css.map": "/OpenDoorPH-website/static/css/main.655f29f1.css.map",
-    "main.a2c2e334.js.map": "/OpenDoorPH-website/static/js/main.a2c2e334.js.map",
+    "main.917481ce.js.map": "/OpenDoorPH-website/static/js/main.917481ce.js.map",
     "488.a96b5460.chunk.js.map": "/OpenDoorPH-website/static/js/488.a96b5460.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.655f29f1.css",
-    "static/js/main.a2c2e334.js"
+    "static/js/main.917481ce.js"
   ]
 }
