@@ -54,6 +54,13 @@ jobs:
             echo "❌ Full test with coverage failed, trying simplified test..."
             npm run test:ci-simple
           }
+      - name: Upload Jest coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-coverage
+          path: ./OpenDoorWebsiteApp/coverage/
+          retention-days: 7
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       - name: Build production artifact
