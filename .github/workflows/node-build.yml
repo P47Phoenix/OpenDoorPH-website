@@ -1,7 +1,7 @@
 name: Build, Test & Deploy OpenDoorPH Website
 on:
   push:
-    branches: [master]
+    branches: [master, feature/directory-structure-migration]
   pull_request:
     branches: [master]
 
@@ -54,8 +54,16 @@ jobs:
             echo "❌ Full test with coverage failed, trying simplified test..."
             npm run test:ci-simple
           }
-      - name: Build application
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Build application for testing
         run: npm run build
+      - name: Run Playwright tests
+        env:
+          CI: true
+        run: |
+          echo "🎭 Running Playwright E2E tests..."
+          npm run test:e2e
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -143,3 +151,58 @@ jobs:
           echo "  - https://opendoorph.net"
           echo "  - https://opendoorph.org"
           echo "  - https://opendoorph.com"
+
+  demo-deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/feature/directory-structure-migration' && github.event_name == 'push'
+    defaults:
+      run:
+        working-directory: ./OpenDoorWebsiteApp
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Configure Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './OpenDoorWebsiteApp/package-lock.json'
+      - name: Install dependencies
+        run: |
+          if ! npm ci --dry-run 2>/dev/null; then
+            echo "Package.json and package-lock.json are out of sync, regenerating lock file..."
+            rm -f package-lock.json
+            npm install
+          else
+            npm ci
+          fi
+      - name: Build for GitHub Pages
+        env:
+          CI: true
+          REACT_APP_ROOT_URI: /OpenDoorPH-website/
+          PUBLIC_URL: /OpenDoorPH-website
+        run: |
+          echo "🔨 Building application for GitHub Pages..."
+          npm run build:gh-pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./OpenDoorWebsiteApp/build
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Demo deployment summary
+        run: |
+          echo "🚀 Demo deployment successful!"
+          echo "🌐 GitHub Pages URL: https://p47phoenix.github.io/OpenDoorPH-website/"
+          echo "🎯 This is a demo deployment from the feature branch"
+          echo "📊 Build artifacts uploaded and deployed successfully"
