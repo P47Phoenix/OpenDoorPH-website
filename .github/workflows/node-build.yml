@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   test:
-    timeout-minutes: 30
+  timeout-minutes: 15
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -66,8 +66,15 @@ jobs:
           name: jest-coverage
           path: ./OpenDoorWebsiteApp/coverage/
           retention-days: 7
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+      - name: Install Playwright browsers (Chromium only)
+        run: npx playwright install --with-deps chromium
       - name: Build production artifact
         run: npm run build:prod
       - name: Upload build artifacts (for deploy)
@@ -92,7 +99,7 @@ jobs:
 
   deploy:
     needs: test
-    timeout-minutes: 20
+  timeout-minutes: 10
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     defaults:
@@ -174,7 +181,7 @@ jobs:
 
   demo-deploy:
     needs: test
-    timeout-minutes: 20
+  timeout-minutes: 10
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/feature/directory-structure-migration' && github.event_name == 'push'
     defaults:
