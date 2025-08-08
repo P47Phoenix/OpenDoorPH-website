@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import App from './App';
 
 test('renders Open Door website without crashing', () => {
@@ -47,10 +47,12 @@ test('renders church name and branding', () => {
   render(<App />);
   
   // Check for the specific logo heading element
-  expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
-  
-  // Check for specific church name parts using regex for flexibility
-  expect(screen.getByText('Door')).toBeInTheDocument();
-  expect(screen.getByText('Gospel')).toBeInTheDocument();
-  expect(screen.getByText(/church of pleasant hill mo/i)).toBeInTheDocument();
+  const logoHeading = screen.getByRole('heading', { level: 1 });
+  expect(logoHeading).toBeInTheDocument();
+
+  // Scope text checks within the H1 to avoid multiple matches elsewhere
+  const inLogo = within(logoHeading);
+  expect(inLogo.getByText('Door')).toBeInTheDocument();
+  expect(inLogo.getByText('Gospel')).toBeInTheDocument();
+  expect(inLogo.getByText(/church of pleasant hill mo/i)).toBeInTheDocument();
 });
