@@ -5,12 +5,17 @@ on:
   pull_request:
     branches: [master]
 
+concurrency:
+  group: opendoorph-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   id-token: write
   contents: read
 
 jobs:
   test:
+  timeout-minutes: 30
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -87,6 +92,7 @@ jobs:
 
   deploy:
     needs: test
+  timeout-minutes: 20
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     defaults:
@@ -168,6 +174,7 @@ jobs:
 
   demo-deploy:
     needs: test
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/feature/directory-structure-migration' && github.event_name == 'push'
     defaults:
@@ -177,6 +184,9 @@ jobs:
       contents: read
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
