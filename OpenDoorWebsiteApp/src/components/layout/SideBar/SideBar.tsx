@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ScheduleIcon, FacebookIcon, QuickMap } from '../../../assets';
 
 interface SideBarProps {
@@ -30,14 +31,14 @@ const SideBar: React.FC<SideBarProps> = ({
               <img src={FacebookIcon} alt="" className="w-8 h-8 mb-1" />
               <span className="text-xs text-white font-medium">Facebook</span>
             </a>
-            <a 
-              href="/opendoor/Home/Location" 
+            <Link 
+              to="/opendoor/Home/Location" 
               className="flex flex-col items-center p-3 bg-white/20 rounded-lg backdrop-blur-sm hover:bg-white/30 transition-all touch-manipulation active:scale-95"
               aria-label="View location"
             >
               <img src={QuickMap} alt="" className="w-8 h-8 mb-1" />
               <span className="text-xs text-white font-medium">Visit</span>
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -70,13 +71,13 @@ const SideBar: React.FC<SideBarProps> = ({
           
           {/* Mobile-specific call-to-action */}
           <div className="block md:hidden mt-4">
-            <a 
-              href="/opendoor/Home/About" 
+            <Link 
+              to="/opendoor/Home/About" 
               className="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors touch-manipulation active:bg-green-700"
             >
               Learn More About Us
               <span className="ml-2">→</span>
-            </a>
+            </Link>
           </div>
         </div>
 

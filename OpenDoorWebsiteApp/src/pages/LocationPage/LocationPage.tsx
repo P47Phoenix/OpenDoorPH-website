@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { trackLocationView, trackExternalLink } from "../../utils/analytics";
 import { MapMarkerIcon, DirectionsIcon, AddressIcon, CarIcon } from "../../assets";
 
@@ -120,12 +121,12 @@ export const Location = (): ReactElement => {
                         We look forward to welcoming you to our church family. Come as you are and experience God's love.
                     </p>
                     <div className="flex justify-center">
-                        <a 
-                            href="/opendoor/Home/About" 
+                        <Link 
+                            to="/opendoor/Home/About" 
                             className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-church-green transition-colors duration-200"
                         >
                             About Our Church
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </section>

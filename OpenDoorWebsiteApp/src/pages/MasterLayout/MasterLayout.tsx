@@ -14,7 +14,7 @@ interface MasterProps {}
 export class Master extends Component<MasterProps> {
     render(): ReactElement {
         return (
-            <Router>
+            <Router basename={process.env.REACT_APP_ROOT_URI || '/'}>
                 <RouteTracker>
                     <div className="min-h-screen flex flex-col">
                         <Header />
