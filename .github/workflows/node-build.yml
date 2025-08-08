@@ -56,20 +56,27 @@ jobs:
           }
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
-      - name: Build application for testing
-        run: npm run build
+      - name: Build production artifact
+        run: npm run build:prod
+      - name: Upload build artifacts (for deploy)
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-files
+          path: ./OpenDoorWebsiteApp/build/
+          retention-days: 1
       - name: Run Playwright tests
         env:
           CI: true
         run: |
           echo "🎭 Running Playwright E2E tests..."
           npm run test:e2e
-      - name: Upload build artifacts
+      - name: Upload Playwright HTML report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: build-files
-          path: ./OpenDoorWebsiteApp/build/
-          retention-days: 1
+          name: playwright-report
+          path: ./OpenDoorWebsiteApp/playwright-report/
+          retention-days: 7
 
   deploy:
     needs: test
