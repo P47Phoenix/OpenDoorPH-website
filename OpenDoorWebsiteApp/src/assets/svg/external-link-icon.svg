@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>External Link Icon</title>
+  <desc>External link indicator icon</desc>
+  
+  <!-- Link background -->
+  <rect x="25" y="25" width="50" height="50" rx="8" 
+        fill="none" stroke="#9EC630" stroke-width="3"/>
+  
+  <!-- External arrow -->
+  <path d="M60 30 L70 30 L70 40 M70 30 L55 45" 
+        stroke="#9EC630" stroke-width="3" 
+        stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Link chain -->
+  <circle cx="40" cy="40" r="4" fill="none" stroke="#C8B59B" stroke-width="2"/>
+  <circle cx="60" cy="60" r="4" fill="none" stroke="#C8B59B" stroke-width="2"/>
+  <line x1="44" y1="44" x2="56" y2="56" stroke="#C8B59B" stroke-width="2"/>
+</svg>

@@ -54,8 +54,7 @@ export const GA_EVENTS = {
 export const PAGE_TITLES: Record<string, string> = {
   '/': 'Home - OpenDoor PH',
   '/about': 'About Us - OpenDoor PH', 
-  '/location': 'Location & Contact - OpenDoor PH',
-  '/video': 'Videos & Sermons - OpenDoor PH'
+  '/location': 'Location & Contact - OpenDoor PH'
 };
 
 // Helper function to get page title

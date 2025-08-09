@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Schedule Icon</title>
+  <desc>Church schedule and calendar icon</desc>
+  
+  <!-- Calendar background -->
+  <rect x="20" y="25" width="60" height="50" rx="4" 
+        fill="#D4C4A0" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Calendar top -->
+  <rect x="20" y="25" width="60" height="12" rx="4" 
+        fill="#C8B59B"/>
+  
+  <!-- Calendar rings -->
+  <circle cx="30" cy="20" r="3" fill="none" stroke="#C8B59B" stroke-width="2"/>
+  <circle cx="50" cy="20" r="3" fill="none" stroke="#C8B59B" stroke-width="2"/>
+  <circle cx="70" cy="20" r="3" fill="none" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Calendar grid -->
+  <line x1="30" y1="45" x2="70" y2="45" stroke="#9EC630" stroke-width="1"/>
+  <line x1="30" y1="55" x2="70" y2="55" stroke="#9EC630" stroke-width="1"/>
+  <line x1="30" y1="65" x2="70" y2="65" stroke="#9EC630" stroke-width="1"/>
+  
+  <!-- Calendar dots -->
+  <circle cx="35" cy="50" r="2" fill="#9EC630"/>
+  <circle cx="50" cy="50" r="2" fill="#9EC630"/>
+  <circle cx="35" cy="60" r="2" fill="#9EC630"/>
+  <circle cx="65" cy="60" r="2" fill="#9EC630"/>
+</svg>
