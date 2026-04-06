@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Email Icon</title>
+  <desc>Email contact icon</desc>
+  
+  <!-- Email envelope -->
+  <rect x="20" y="30" width="60" height="40" rx="4" 
+        fill="#D4C4A0" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Email flap -->
+  <path d="M20 30 L50 55 L80 30" 
+        fill="none" stroke="#9EC630" stroke-width="3" stroke-linejoin="round"/>
+  
+  <!-- Email content lines -->
+  <line x1="25" y1="45" x2="45" y2="45" stroke="#9EC630" stroke-width="1"/>
+  <line x1="25" y1="50" x2="40" y2="50" stroke="#9EC630" stroke-width="1"/>
+  <line x1="25" y1="55" x2="35" y2="55" stroke="#9EC630" stroke-width="1"/>
+  
+  <!-- @ symbol -->
+  <circle cx="65" cy="52" r="8" fill="none" stroke="#9EC630" stroke-width="2"/>
+  <circle cx="65" cy="52" r="3" fill="#9EC630"/>
+  <line x1="68" y1="49" x2="68" y2="58" stroke="#9EC630" stroke-width="2"/>
+</svg>

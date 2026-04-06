@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Phone Icon</title>
+  <desc>Phone contact icon</desc>
+  
+  <!-- Phone body -->
+  <rect x="35" y="20" width="30" height="60" rx="6" 
+        fill="#D4C4A0" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Phone screen -->
+  <rect x="38" y="28" width="24" height="36" rx="2" 
+        fill="#9EC630" opacity="0.8"/>
+  
+  <!-- Phone speaker -->
+  <rect x="42" y="23" width="16" height="3" rx="2" 
+        fill="#C8B59B"/>
+  
+  <!-- Phone button -->
+  <circle cx="50" cy="72" r="4" fill="#C8B59B"/>
+  
+  <!-- Phone signal -->
+  <rect x="42" y="32" width="2" height="8" fill="white"/>
+  <rect x="46" y="35" width="2" height="5" fill="white"/>
+  <rect x="50" y="33" width="2" height="7" fill="white"/>
+  <rect x="54" y="30" width="2" height="10" fill="white"/>
+</svg>

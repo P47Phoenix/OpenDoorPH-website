@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Car Transportation Icon</title>
+  <desc>Car driving directions icon</desc>
+  
+  <!-- Car body -->
+  <rect x="25" y="50" width="50" height="20" rx="8" 
+        fill="#9EC630" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Car roof -->
+  <rect x="35" y="40" width="30" height="15" rx="6" 
+        fill="#D4C4A0" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Car wheels -->
+  <circle cx="35" cy="75" r="8" fill="#C8B59B" stroke="#D4C4A0" stroke-width="2"/>
+  <circle cx="65" cy="75" r="8" fill="#C8B59B" stroke="#D4C4A0" stroke-width="2"/>
+  <circle cx="35" cy="75" r="4" fill="#D4C4A0"/>
+  <circle cx="65" cy="75" r="4" fill="#D4C4A0"/>
+  
+  <!-- Car windows -->
+  <rect x="38" y="43" width="10" height="10" rx="2" fill="white" opacity="0.8"/>
+  <rect x="52" y="43" width="10" height="10" rx="2" fill="white" opacity="0.8"/>
+  
+  <!-- Movement lines -->
+  <line x1="10" y1="45" x2="20" y2="45" stroke="#C8B59B" stroke-width="2" stroke-linecap="round"/>
+  <line x1="12" y1="50" x2="18" y2="50" stroke="#C8B59B" stroke-width="2" stroke-linecap="round"/>
+  <line x1="14" y1="55" x2="22" y2="55" stroke="#C8B59B" stroke-width="2" stroke-linecap="round"/>
+</svg>

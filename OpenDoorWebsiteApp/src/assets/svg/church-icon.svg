@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="churchGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4C4A0" />
+      <stop offset="100%" style="stop-color:#C8B59B" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Church building silhouette -->
+  <rect x="16" y="32" width="32" height="24" fill="url(#churchGradient)" rx="2"/>
+  
+  <!-- Church steeple -->
+  <polygon points="32,8 40,28 24,28" fill="#9EC630"/>
+  
+  <!-- Cross on top -->
+  <rect x="30" y="8" width="4" height="8" fill="#FFFFFF"/>
+  <rect x="28" y="10" width="8" height="4" fill="#FFFFFF"/>
+  
+  <!-- Church doors -->
+  <rect x="28" y="44" width="8" height="12" fill="#2D3748" rx="4"/>
+  
+  <!-- Church windows -->
+  <circle cx="22" cy="40" r="3" fill="#FFFFFF" opacity="0.8"/>
+  <circle cx="42" cy="40" r="3" fill="#FFFFFF" opacity="0.8"/>
+  
+  <!-- Foundation -->
+  <rect x="14" y="56" width="36" height="4" fill="#C8B59B"/>
+</svg>

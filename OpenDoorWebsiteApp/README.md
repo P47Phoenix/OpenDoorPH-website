@@ -1,7 +1,230 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+# OpenDoor Website App - Deployment Guide
 
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+## Overview
+This React application supports dynamic deployment to multiple environments using environment variables for the root URI configuration. The app can be deployed to both custom domains (e.g., www.opendoorph.org) and GitHub Pages subdirectories (e.g., p47phoenix.github.io/OpenDoorPH-website) without code changes.
+
+## Environment Variable System
+
+### REACT_APP_ROOT_URI
+Controls the base path for React Router and asset references.
+
+- **Local Development**: `/` (or undefined, defaults to `/`)
+- **Custom Domain**: `/` 
+- **GitHub Pages**: `/OpenDoorPH-website/`
+
+The router automatically uses this variable: `<Router basename={process.env.REACT_APP_ROOT_URI || '/'}>`
+
+## Build Scripts
+
+### Available Commands
+
+```bash
+# Local development (uses .env.local)
+npm start
+
+# Production build for custom domain
+npm run build:prod
+
+# Production build for GitHub Pages
+npm run build:gh-pages
+
+# Build and deploy to GitHub Pages
+npm run deploy:gh-pages
+
+# Standard build (uses current environment)
+npm run build
+```
+
+### Environment Files
+
+- `.env.local` - Local development (REACT_APP_ROOT_URI=/)
+- `.env.gh-pages` - GitHub Pages build reference (not used in build scripts)
+
+**Note**: Build scripts use `cross-env` to set environment variables directly, ensuring cross-platform compatibility.
+
+## Local Development
+
+1. Start the development server:
+   ```bash
+   npm start
+   ```
+
+2. The app will open at:
+   - **URL**: `http://localhost:3000/` (local development uses root path)
+   - **With basename**: Router internally handles the basename configuration
+
+3. All routes work normally:
+   - Home: `/opendoor`
+   - About: `/opendoor/Home/About`
+   - Location: `/opendoor/Home/Location`
+   - Scripture Study: `/opendoor/Home/Scripture`
+
+## Building for Production
+
+### Custom Domain Deployment (www.opendoorph.org)
+
+```bash
+npm run build:prod
+```
+
+- Sets `REACT_APP_ROOT_URI=/`
+- Assets referenced from root (`/static/...`)
+- Router basename is `/`
+- Deploy the `build/` folder to web server root
+
+### GitHub Pages Deployment
+
+```bash
+npm run build:gh-pages
+```
+
+- Sets `REACT_APP_ROOT_URI=/OpenDoorPH-website/`
+- Assets referenced from subdirectory (`/OpenDoorPH-website/static/...`)
+- Router basename is `/OpenDoorPH-website/`
+- Deploys automatically with `npm run deploy:gh-pages`
+
+## Testing Deployments
+
+### Local Testing of Production Builds
+
+1. **Test Custom Domain Build**:
+   ```bash
+   npm run build:prod
+   npx serve -s build
+   # Visit: http://localhost:3000
+   ```
+
+2. **Test GitHub Pages Build**:
+   ```bash
+   npm run build:gh-pages
+   # Create directory structure matching GitHub Pages
+   mkdir temp_serve
+   cp -r build temp_serve/OpenDoorPH-website
+   npx serve temp_serve
+   # Visit: http://localhost:3000/OpenDoorPH-website/
+   ```
+
+### Verify Build Output
+
+Check `build/index.html` for correct asset paths:
+- **Custom Domain**: `src="/static/js/..."`
+- **GitHub Pages**: `src="/OpenDoorPH-website/static/js/..."`
+
+## Deployment Process
+
+### GitHub Pages (Automated)
+
+```bash
+npm run deploy:gh-pages
+```
+
+This command:
+1. Builds with correct environment variable
+2. Deploys to `gh-pages` branch
+3. Site available at: https://p47phoenix.github.io/OpenDoorPH-website/
+
+### Custom Domain (Manual)
+
+```bash
+npm run build:prod
+# Upload build/ folder contents to web server root
+```
+
+## Project Structure
+
+```
+OpenDoorWebsiteApp/
+├── src/
+│   ├── pages/MasterLayout/MasterLayout.tsx  # Router with dynamic basename
+│   ├── components/layout/                   # Navigation components using React Router Link
+│   └── App.tsx                             # Main app component
+├── public/                                 # Static assets
+├── build/                                  # Production build output
+├── .env.local                             # Local development environment
+├── .env.gh-pages                          # GitHub Pages environment reference
+└── package.json                           # Build scripts and homepage setting
+```
+
+## Key Implementation Details
+
+### Router Configuration
+```tsx
+<Router basename={process.env.REACT_APP_ROOT_URI || '/'}>
+```
+
+### Navigation Links
+All internal navigation uses React Router `Link` components:
+```tsx
+<Link to="/opendoor/Home/About">About</Link>
+```
+
+### Asset References
+- Static assets use relative imports or public folder references
+- No hardcoded absolute paths that would break with different base URIs
+
+### Package.json Configuration
+```json
+{
+  "homepage": "/OpenDoorPH-website/",
+  "scripts": {
+    "build:prod": "cross-env REACT_APP_ROOT_URI=/ react-scripts build",
+    "build:gh-pages": "cross-env REACT_APP_ROOT_URI=/OpenDoorPH-website/ react-scripts build"
+  }
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Blank page on GitHub Pages**
+   - Verify `homepage` field in package.json
+   - Check that assets reference `/OpenDoorPH-website/` prefix
+   - Ensure router basename is set correctly
+
+2. **404 errors on page refresh**
+   - GitHub Pages doesn't support client-side routing by default
+   - Consider adding a `404.html` that redirects to `index.html`
+
+3. **Missing environment variable**
+   - Verify `cross-env` is installed: `npm install --save-dev cross-env`
+   - Check that build scripts use correct syntax
+
+4. **Router not working**
+   - Confirm `react-router-dom` is installed
+   - Verify all navigation uses `Link` components, not `<a href>`
+
+### Debugging Steps
+
+1. **Check environment variable**:
+   ```tsx
+   console.log('REACT_APP_ROOT_URI:', process.env.REACT_APP_ROOT_URI);
+   ```
+
+2. **Verify build output**:
+   - Check `build/index.html` for correct asset paths
+   - Look for proper basename in router configuration
+
+3. **Test locally**:
+   - Use development server for local testing
+   - Use `serve` to test production builds
+
+## Dependencies
+
+- `react-router-dom`: Client-side routing
+- `cross-env`: Cross-platform environment variables
+- `gh-pages`: GitHub Pages deployment
+
+## Future Enhancements
+
+- Add environment-specific configuration files
+- Implement automated testing for both deployment scenarios
+- Add CI/CD pipeline for automatic deployments
+- Consider adding a 404.html for better GitHub Pages routing support
+
+---
+
+*Last updated: August 8, 2025*
 
 ## Table of Contents
 

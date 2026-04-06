@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="websiteGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9EC630" />
+      <stop offset="100%" style="stop-color:#D4C4A0" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Browser window -->
+  <rect x="8" y="16" width="48" height="36" fill="url(#websiteGradient)" rx="4"/>
+  
+  <!-- Browser top bar -->
+  <rect x="8" y="16" width="48" height="8" fill="#2D3748" rx="4 4 0 0"/>
+  
+  <!-- Browser buttons -->
+  <circle cx="14" cy="20" r="1.5" fill="#ff5f56"/>
+  <circle cx="18" cy="20" r="1.5" fill="#ffbd2e"/>
+  <circle cx="22" cy="20" r="1.5" fill="#27ca3f"/>
+  
+  <!-- Website content -->
+  <rect x="12" y="28" width="40" height="4" fill="#FFFFFF" rx="1"/>
+  <rect x="12" y="34" width="32" height="3" fill="#FFFFFF" rx="1"/>
+  <rect x="12" y="39" width="36" height="3" fill="#FFFFFF" rx="1"/>
+  <rect x="12" y="44" width="28" height="3" fill="#FFFFFF" rx="1"/>
+  
+  <!-- Church icon on website -->
+  <polygon points="44,36 48,30 52,36 44,36" fill="#C8B59B"/>
+  <rect x="46" y="36" width="4" height="8" fill="#C8B59B"/>
+  <rect x="47" y="38" width="2" height="3" fill="#2D3748"/>
+</svg>

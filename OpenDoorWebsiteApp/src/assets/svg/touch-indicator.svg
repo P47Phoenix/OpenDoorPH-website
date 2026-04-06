@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="touchGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9EC630;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#D4C4A0;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#C8B59B;stop-opacity:0.4" />
+    </linearGradient>
+    <radialGradient id="rippleGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#9EC630;stop-opacity:0.6" />
+      <stop offset="50%" style="stop-color:#D4C4A0;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#C8B59B;stop-opacity:0.1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Ripple effect circles -->
+  <circle cx="32" cy="32" r="28" fill="url(#rippleGradient)" opacity="0.3">
+    <animate attributeName="r" values="0;28;0" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0.1;0" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="32" cy="32" r="20" fill="url(#rippleGradient)" opacity="0.5">
+    <animate attributeName="r" values="0;20;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;0.2;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Central touch point -->
+  <circle cx="32" cy="32" r="8" fill="url(#touchGradient)"/>
+  
+  <!-- Touch indicator finger -->
+  <ellipse cx="32" cy="24" rx="4" ry="6" fill="#D4C4A0" opacity="0.8"/>
+  <circle cx="32" cy="20" r="3" fill="#C8B59B"/>
+</svg>

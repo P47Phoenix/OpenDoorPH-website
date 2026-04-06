@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="copyrightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C8B59B" />
+      <stop offset="100%" style="stop-color:#D4C4A0" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer circle -->
+  <circle cx="32" cy="32" r="28" fill="url(#copyrightGradient)" stroke="#2D3748" stroke-width="2"/>
+  
+  <!-- Inner circle -->
+  <circle cx="32" cy="32" r="20" fill="none" stroke="#2D3748" stroke-width="3"/>
+  
+  <!-- Copyright "C" -->
+  <path d="M 40 24 Q 48 24 48 32 Q 48 40 40 40" fill="none" stroke="#2D3748" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Small decorative elements -->
+  <circle cx="20" cy="20" r="2" fill="#9EC630" opacity="0.7"/>
+  <circle cx="44" cy="20" r="2" fill="#9EC630" opacity="0.7"/>
+  <circle cx="20" cy="44" r="2" fill="#9EC630" opacity="0.7"/>
+  <circle cx="44" cy="44" r="2" fill="#9EC630" opacity="0.7"/>
+</svg>

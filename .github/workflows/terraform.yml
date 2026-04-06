@@ -1,0 +1,256 @@
+name: Terraform Plan & Apply
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'Terraform/**'
+  push:
+    branches: [master]
+    paths:
+      - 'Terraform/**'
+
+concurrency:
+  group: ${{ github.event_name == 'pull_request'
+    && format('terraform-pr-{0}', github.event.pull_request.number)
+    || 'terraform-master' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: ./Terraform
+    outputs:
+      plan_exitcode: ${{ steps.plan.outputs.exitcode }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: Terraform-Plan-${{ github.run_id }}
+          aws-region: us-east-2
+
+      # Terraform 1.5.7 is the last version that fully supports the legacy
+      # HCL v0.11 syntax patterns used in Terraform/main.tf:
+      #   - "${var.name}" interpolation syntax
+      #   - tags {} blocks (not tags = {})
+      #   - acl argument directly on aws_s3_bucket
+      # Upgrading requires migrating main.tf to modern HCL first.
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.5.7"
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        id: plan
+        continue-on-error: true
+        run: |
+          set +e
+          PLAN_OUTPUT=$(terraform plan -detailed-exitcode -out=tfplan 2>&1)
+          PLAN_EXITCODE=$?
+          set -e
+
+          echo "exitcode=${PLAN_EXITCODE}" >> "$GITHUB_OUTPUT"
+
+          # Write plan output to a file for subsequent steps
+          echo "$PLAN_OUTPUT" > plan_output.txt
+
+          echo "Plan exit code: ${PLAN_EXITCODE}"
+
+      - name: Post PR comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const planOutput = fs.readFileSync('Terraform/plan_output.txt', 'utf8');
+            const exitCode = '${{ steps.plan.outputs.exitcode }}';
+
+            let status;
+            if (exitCode === '0') {
+              status = ':white_check_mark: Plan succeeded — no changes';
+            } else if (exitCode === '2') {
+              status = ':white_check_mark: Plan succeeded — changes detected';
+            } else {
+              status = ':x: Plan failed';
+            }
+
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+
+            let truncatedOutput = planOutput;
+            let truncationNote = '';
+            if (planOutput.length > 60000) {
+              truncatedOutput = planOutput.substring(0, 60000);
+              truncationNote = '\n\n... (output truncated, see full log in Actions tab)';
+            }
+
+            const body = `### Terraform Plan: \`Terraform/\`
+
+            **Status:** ${status}
+            **Run:** [#${context.runId}](${runUrl})
+
+            <details>
+            <summary>Show plan output</summary>
+
+            \`\`\`
+            ${truncatedOutput}${truncationNote}
+            \`\`\`
+
+            </details>
+
+            *Last updated: ${new Date().toISOString().replace('T', ' ').substring(0, 16)} UTC by workflow run [#${context.runId}](${runUrl})*`.replace(/^            /gm, '');
+
+            const marker = '### Terraform Plan:';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find(c =>
+              c.user.login === 'github-actions[bot]' && c.body.includes(marker)
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Post step summary
+        if: github.event_name == 'push'
+        run: |
+          PLAN_OUTPUT=$(cat plan_output.txt)
+          EXIT_CODE="${{ steps.plan.outputs.exitcode }}"
+
+          if [ "$EXIT_CODE" = "0" ]; then
+            STATUS=":white_check_mark: Plan succeeded — no changes"
+          elif [ "$EXIT_CODE" = "2" ]; then
+            STATUS=":white_check_mark: Plan succeeded — changes detected"
+          else
+            STATUS=":x: Plan failed"
+          fi
+
+          TRUNCATED_OUTPUT="$PLAN_OUTPUT"
+          TRUNCATION_NOTE=""
+          if [ ${#PLAN_OUTPUT} -gt 60000 ]; then
+            TRUNCATED_OUTPUT="${PLAN_OUTPUT:0:60000}"
+            TRUNCATION_NOTE=$'\n\n... (output truncated, see full log in Actions tab)'
+          fi
+
+          cat >> "$GITHUB_STEP_SUMMARY" <<EOF
+          ### Terraform Plan: \`Terraform/\`
+
+          **Status:** ${STATUS}
+
+          <details>
+          <summary>Show plan output</summary>
+
+          \`\`\`
+          ${TRUNCATED_OUTPUT}${TRUNCATION_NOTE}
+          \`\`\`
+
+          </details>
+          EOF
+
+      - name: Upload plan artifact
+        if: steps.plan.outputs.exitcode != '1'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: Terraform/tfplan
+          retention-days: 5
+
+      - name: Fail if plan errored
+        if: steps.plan.outputs.exitcode == '1'
+        run: |
+          echo "Terraform plan failed with errors. See plan output above."
+          exit 1
+
+  apply:
+    name: Terraform Apply
+    needs: plan
+    if: needs.plan.outputs.plan_exitcode == '2' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: production
+    defaults:
+      run:
+        working-directory: ./Terraform
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: Terraform-Apply-${{ github.run_id }}
+          aws-region: us-east-2
+
+      # Same version pin as plan job — see comment there for rationale.
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.5.7"
+          terraform_wrapper: false
+
+      - name: Download plan artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+          path: Terraform/
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+
+      - name: Commit updated Terraform state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git fetch origin master
+          git checkout master
+          git pull origin master --rebase
+
+          if git diff --quiet Terraform/terraform.tfstate; then
+            echo "No state file changes to commit."
+            exit 0
+          fi
+
+          git add Terraform/terraform.tfstate
+          git commit -m "chore(terraform): update state after apply [skip ci]"
+          git push origin master

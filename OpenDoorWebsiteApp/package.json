@@ -14,9 +14,25 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:prod": "cross-env REACT_APP_ROOT_URI=/ PUBLIC_URL=/ react-scripts build",
+    "build:gh-pages": "cross-env REACT_APP_ROOT_URI=/OpenDoorPH-website/ PUBLIC_URL=/OpenDoorPH-website react-scripts build",
+    "build:custom": "cross-env REACT_APP_ROOT_URI=/CustomPath/ PUBLIC_URL=/CustomPath react-scripts build",
+    "build:deep": "cross-env REACT_APP_ROOT_URI=/level1/level2/app/ PUBLIC_URL=/level1/level2/app react-scripts build",
+    "deploy:gh-pages": "npm run build:gh-pages && npx gh-pages -d build",
     "test": "react-scripts test",
     "test:ci": "react-scripts test --coverage --ci --watchAll=false --testTimeout=5000",
     "test:ci-simple": "react-scripts test --ci --watchAll=false --passWithNoTests",
+    "test:unit": "react-scripts test --watchAll=false",
+    "test:unit:watch": "react-scripts test",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:regression": "playwright test regression-broken-links.spec.ts",
+    "test:all": "npm run test:unit && npm run test:e2e",
+    "test:root": "npm run build:prod && serve -s build -p 3000",
+    "test:github": "npm run build:gh-pages && serve -s build -p 3001",
+    "test:custom": "npm run build:custom && serve -s build -p 3002",
+    "test:deep": "npm run build:deep && serve -s build -p 3003",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx}",
     "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix",
@@ -42,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
@@ -51,6 +68,11 @@
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
+  "cross-env": "^7.0.3",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "serve": "^14.2.4",
+    "tailwindcss": "^3.4.17",
     "typescript": "^4.9.5"
   }
 }

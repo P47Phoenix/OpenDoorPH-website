@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Comment Icon</title>
+  <desc>Church-themed comment/message icon</desc>
+  
+  <!-- Speech bubble -->
+  <path d="M20 25 L80 25 A10 10 0 0 1 90 35 L90 60 A10 10 0 0 1 80 70 L40 70 L25 80 L25 70 L20 70 A10 10 0 0 1 10 60 L10 35 A10 10 0 0 1 20 25 Z" 
+        fill="#D4C4A0" stroke="#C8B59B" stroke-width="2"/>
+  
+  <!-- Comment lines -->
+  <line x1="25" y1="40" x2="75" y2="40" stroke="#9EC630" stroke-width="2" stroke-linecap="round"/>
+  <line x1="25" y1="50" x2="65" y2="50" stroke="#9EC630" stroke-width="2" stroke-linecap="round"/>
+  <line x1="25" y1="60" x2="55" y2="60" stroke="#9EC630" stroke-width="2" stroke-linecap="round"/>
+</svg>
