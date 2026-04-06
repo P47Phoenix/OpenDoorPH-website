@@ -1,5 +1,5 @@
 variable "sitename" {
-    type = "string"
+    type = string
     default = "opendoor"
 }
 
