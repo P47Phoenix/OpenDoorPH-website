@@ -47,7 +47,7 @@ resource "aws_s3_bucket" "sitebucket" {
   website {
     index_document = "index.html"
   }
-  tags {
+  tags = {
     Name = "${var.sitename}sitebucket"
     SiteName = "${var.sitename}"
   }
@@ -103,7 +103,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
-  tags {
+  tags = {
     Environment = "production"
   }
 
