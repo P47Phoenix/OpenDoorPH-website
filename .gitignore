@@ -282,9 +282,7 @@ paket-files/
 __pycache__/
 *.pyc
 
-# Terraform state files (managed locally, not committed)
-Terraform/terraform.tfstate
-Terraform/terraform.tfstate.backup
+# Terraform provider cache (downloaded during init)
 Terraform/.terraform/
 
 # Delivery pipeline state files
