@@ -282,6 +282,11 @@ paket-files/
 __pycache__/
 *.pyc
 
+# Terraform state files (managed locally, not committed)
+Terraform/terraform.tfstate
+Terraform/terraform.tfstate.backup
+Terraform/.terraform/
+
 # Delivery pipeline state files
 .delivery/state.md
 .delivery/state.tmp.md
