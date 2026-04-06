@@ -1,0 +1,107 @@
+config_version: "2.6"
+project_type: FEATURE
+tech_stack:
+  languages: [TypeScript, JavaScript]
+  frameworks: [React, React Router, Tailwind CSS]
+  databases: []
+  ci_cd: github-actions
+  paradigm: auto
+  paradigm_by_language: {}
+  nx_workspace: false
+  clean_code_guide: ""
+  clean_code_enforcement: block
+architecture:
+  style: auto
+  style_overrides: {}
+  decomposition: auto
+  decision_matrix_inputs:
+    team_size: low
+    deploy_independence: medium
+    domain_complexity: low
+    change_rate: medium
+enforcement:
+  source_code_hook: true
+  retro_frequency: every-run
+  retro_skip_allowed: true
+team:
+  size: 1
+  composition: [fullstack]
+deployment:
+  environment: cloud-aws
+  containerized: false
+timeline:
+  risk_tolerance: standard
+  deadline: null
+compliance:
+  frameworks: []
+pipeline:
+  scope: code-only
+  scope_include: []
+  scope_exclude: [".delivery/", ".git/", "node_modules/", "__pycache__/"]
+  checkpoints: [refine, uat]
+  collaboration_patterns: [evaluator-optimizer, adversarial, decision-routing]
+  max_self_correction: 3
+  max_dod_rounds: 3
+  max_parallel_agents: 3
+  parallel_stories: true
+  parallel_validators: true
+  verify_skill_loading: true
+  delegation_retry_max: 2
+  isolation_audit: warn
+  metadata_max_chars: 200
+  agent_timeout: 120
+  required_agent_retry_max: 2
+dod_validators:
+  idea: [po, architect]
+  refine: [po, architect, qa]
+  design: [ux, po, qa, architect]
+  architect: [architect, qa, devops, security]
+  plan: [sm, po, qa, devops]
+  development: [developer, qa, architect, tech-writer]
+  uat: [qa, devops, po, tech-writer]
+personas:
+  categories: [web-users]
+  selected: [Average User Avery, First-Timer Fran, Accessible User Ash]
+  feedback_stages: [refine, design, dev, uat]
+  count: 5
+  overlays: []
+  custom: []
+aliases:
+  theme: business
+  custom_path: .delivery/aliases/
+notifications:
+  channels: [console]
+  events: [complete, abort, escalation]
+monorepo:
+  enabled: false
+  tool: none
+  scope: root
+git:
+  branch_strategy: github-flow
+  auto_branch: true
+  commit_convention: conventional
+  clean_tree_check: true
+github:
+  create_issues: false
+  create_pr: false
+  link_commits: true
+presentation:
+  default_format: structured-markdown
+  default_audience: technical
+  speaker_notes: false
+  save_to_artifacts: true
+  marp_theme: default
+  staleness_warning_days: 7
+  vocabulary_overrides: {}
+  narrative:
+    emphasis: true
+    cutting: true
+    framing: true
+    tension: true
+  light_mode: auto
+  thresholds: {}
+  thresholds_default: 90
+  pptx_template: ""
+  pptx_font: Calibri
+  pptx_accent_color: "#2d5aa0"
+wizard_completed: 2026-04-04
