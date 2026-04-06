@@ -246,11 +246,12 @@ jobs:
           git checkout master
           git pull origin master --rebase
 
-          if git diff --quiet Terraform/terraform.tfstate; then
+          git add Terraform/terraform.tfstate Terraform/terraform.tfstate.backup 2>/dev/null || true
+
+          if git diff --cached --quiet; then
             echo "No state file changes to commit."
             exit 0
           fi
 
-          git add Terraform/terraform.tfstate
           git commit -m "chore(terraform): update state after apply [skip ci]"
           git push origin master
