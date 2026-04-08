@@ -109,7 +109,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
                 <div className="flex items-center">
                   <img src={FacebookIcon} alt="" className="w-5 h-5 mr-3 opacity-70" />
                   <a 
-                    href="https://www.facebook.com/pages/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO/217411360471"
+                    href="https://www.facebook.com/profile.php?id=100064858415448"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm hover:text-green-400 transition-colors"

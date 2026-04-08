@@ -22,7 +22,7 @@ const SideBar: React.FC<SideBarProps> = ({
           <h3 className="text-white font-semibold mb-3 text-center">Quick Contact</h3>
           <div className="flex justify-center space-x-6">
             <a 
-              href="https://www.facebook.com/pages/Open-Door-Full-Gospel-Of-Pleasant-Hill-MO/217411360471" 
+              href="https://www.facebook.com/profile.php?id=100064858415448" 
               target="_blank"
               rel="noreferrer"
               className="flex flex-col items-center p-3 bg-white/20 rounded-lg backdrop-blur-sm hover:bg-white/30 transition-all touch-manipulation active:scale-95"
