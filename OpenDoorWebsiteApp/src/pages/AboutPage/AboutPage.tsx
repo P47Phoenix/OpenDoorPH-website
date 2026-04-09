@@ -9,8 +9,14 @@ import {
     LeadershipIcon,
     HistoryScrollIcon 
 } from "../../assets";
+import { usePageMeta } from '../../hooks/usePageMeta';
 
 export const About = (): ReactElement => {
+    usePageMeta({
+        title: 'About Us — Open Door Full Gospel Church',
+        description: 'Learn about Open Door Full Gospel Church, our faith, and our mission to the Pleasant Hill, MO community under Pastor Dennis Gulley.',
+    });
+
     useEffect(() => {
         // Track about page engagement
         trackAboutView();

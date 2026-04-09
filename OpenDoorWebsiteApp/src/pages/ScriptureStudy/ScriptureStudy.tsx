@@ -1,8 +1,14 @@
 import React, { ReactElement, useEffect } from "react";
 import { trackPageView } from "../../utils/analytics";
 import { BibleIcon, CrossIcon, HeartIcon } from "../../assets";
+import { usePageMeta } from '../../hooks/usePageMeta';
 
 export const ScriptureStudy = (): ReactElement => {
+    usePageMeta({
+        title: 'Scripture Study — Open Door Full Gospel Church',
+        description: 'Explore scripture study resources and biblical teaching from Open Door Full Gospel Church in Pleasant Hill, MO.',
+    });
+
     useEffect(() => {
         // Track scripture study page engagement
         trackPageView('/opendoor/Home/Scripture', 'Scripture Study - Galatians 6:1');

@@ -1,8 +1,14 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { CrossIcon, HeartIcon, BibleIcon, CommunityServiceIcon, WelcomeBanner } from "../../assets";
+import { usePageMeta } from '../../hooks/usePageMeta';
 
 export const Main = (): ReactElement => {
+    usePageMeta({
+        title: 'Open Door Full Gospel Church — Pleasant Hill, MO',
+        description: 'Welcome to Open Door Full Gospel Church in Pleasant Hill, MO. Sunday service at 10:30 AM. Join Pastor Dennis Gulley for Spirit-filled worship and community.',
+    });
+
     return (
         <div className="w-full p-4 md:p-6 space-y-6 md:space-y-8">
             {/* Welcome Section */}

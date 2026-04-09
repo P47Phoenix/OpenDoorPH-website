@@ -2,8 +2,14 @@ import React, { ReactElement, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { trackLocationView, trackExternalLink } from "../../utils/analytics";
 import { MapMarkerIcon, DirectionsIcon, AddressIcon, CarIcon } from "../../assets";
+import { usePageMeta } from '../../hooks/usePageMeta';
 
 export const Location = (): ReactElement => {
+    usePageMeta({
+        title: 'Location & Directions — Open Door Full Gospel Church',
+        description: 'Find Open Door Full Gospel Church at 135 S 1st St, Pleasant Hill, MO 64080. Get directions and service times.',
+    });
+
     useEffect(() => {
         // Track location page engagement
         trackLocationView();
