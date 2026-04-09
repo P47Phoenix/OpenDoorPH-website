@@ -81,6 +81,28 @@ const SideBar: React.FC<SideBarProps> = ({
           </div>
         </div>
 
+        {/* Facebook Subscribe Card */}
+        <div className="bg-white rounded-lg shadow-sm border border-stone-200 p-4">
+          <div className="flex items-center mb-4">
+            <img src={FacebookIcon} alt="" className="w-6 h-6 mr-3" />
+            <h3 className="text-lg font-semibold text-stone-800">
+              Follow Us on Facebook
+            </h3>
+          </div>
+          <p className="text-sm text-stone-600 leading-relaxed mb-4">
+            Stay connected with our church family for updates, events, and inspiration.
+          </p>
+          <a
+            href="https://www.facebook.com/profile.php?id=100064858415448"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow us on Facebook (opens in new tab)"
+            className="inline-flex items-center justify-center w-full px-4 py-3 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+          >
+            Follow on Facebook →
+          </a>
+        </div>
+
       </div>
     </aside>
   );
