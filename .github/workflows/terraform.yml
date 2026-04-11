@@ -257,8 +257,11 @@ jobs:
           set -e
           echo "Import step complete"
 
+      - name: Terraform Plan (re-plan after import)
+        run: terraform plan -out=tfplan-imported
+
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve tfplan-imported
 
       - name: Commit updated Terraform state
         run: |
