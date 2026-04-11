@@ -67,7 +67,7 @@ personas:
   overlays: []
   custom: []
 aliases:
-  theme: business
+  theme: bible
   custom_path: .delivery/aliases/
 notifications:
   channels: [console]

@@ -76,6 +76,20 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     "opendoorph.com", "www.opendoorph.com",
   ]
 
+  custom_error_response {
+    error_caching_min_ttl = 300
+    error_code            = 403
+    response_code         = 200
+    response_page_path    = "/index.html"
+  }
+
+  custom_error_response {
+    error_caching_min_ttl = 300
+    error_code            = 404
+    response_code         = 200
+    response_page_path    = "/index.html"
+  }
+
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
@@ -89,6 +103,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       }
     }
 
+    compress               = true
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 3600
@@ -108,7 +123,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate_validation.cert.certificate_arn
+    acm_certificate_arn      = aws_acm_certificate.cert.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
@@ -235,15 +250,6 @@ resource "aws_route53_record" "cert_validation" {
   zone_id         = each.value.zone_id
 }
 
-# =============================================================================
-# ACM Validation
-# =============================================================================
-
-resource "aws_acm_certificate_validation" "cert" {
-  provider                = aws.us_east_1
-  certificate_arn         = aws_acm_certificate.cert.arn
-  validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
-}
 
 # =============================================================================
 # Outputs

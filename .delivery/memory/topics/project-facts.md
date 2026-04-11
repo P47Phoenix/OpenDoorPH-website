@@ -10,6 +10,11 @@
 ## Pastor / leadership
 - Pastor: Dennis Gulley (referenced in HomePage content)
 
+## Alias theme etiquette (bible theme)
+- The human stakeholder is NEVER "Pharaoh." Pharaoh represents obstacles/antagonists (e.g., broken GoDaddy DNS, expired certs, blockers).
+- Address the stakeholder as "the elder," "the chief," or simply by their role. Use respect without deity/royalty metaphors that could cause offense.
+- Moses (PO) serves the mission on behalf of the people, not a king. He reports up to the stakeholder as a trusted counselor.
+
 ## Stack
 - React 18 + TypeScript + React Router v6 + Tailwind CSS 3
 - Create React App (react-scripts 5)
