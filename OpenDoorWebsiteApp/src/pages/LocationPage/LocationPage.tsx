@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { trackLocationView, trackExternalLink } from "../../utils/analytics";
+import { trackLocationView, trackDirectionsClick, trackCtaClick } from "../../utils/analytics";
 import { MapMarkerIcon, DirectionsIcon, AddressIcon, CarIcon } from "../../assets";
 import { usePageMeta } from '../../hooks/usePageMeta';
 
@@ -15,11 +15,14 @@ export const Location = (): ReactElement => {
         trackLocationView();
     }, []);
 
-    const handleMapLinkClick = () => {
-        trackExternalLink(
-            "https://maps.google.com/maps?f=q&source=embed&hl=en&geocode=&q=135+S+1st+St,+Pleasant+Hill,+Missouri+64080",
-            "View Larger Map"
-        );
+    const GOOGLE_MAPS_URL = "https://maps.google.com/maps?f=q&source=embed&hl=en&geocode=&q=Open+Door+Full+Gospel+Church,+Pleasant+Hill,+MO+64080";
+
+    const handleGetDirectionsClick = () => {
+        trackDirectionsClick("Get Directions", GOOGLE_MAPS_URL);
+    };
+
+    const handleViewLargerMapClick = () => {
+        trackDirectionsClick("View Larger Map", GOOGLE_MAPS_URL);
     };
 
     return (
@@ -66,8 +69,8 @@ export const Location = (): ReactElement => {
                         {/* Directions Button */}
                         <div className="pt-4">
                             <a
-                                href="https://maps.google.com/maps?f=q&source=embed&hl=en&geocode=&q=135+S+1st+St,+Pleasant+Hill,+Missouri+64080"
-                                onClick={handleMapLinkClick}
+                                href={GOOGLE_MAPS_URL}
+                                onClick={handleGetDirectionsClick}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center bg-church-green text-white px-6 py-3 rounded-lg font-semibold hover:bg-church-green/90 transition-colors duration-200"
@@ -91,12 +94,12 @@ export const Location = (): ReactElement => {
                     </div>
                     
                     <div className="relative">
-                        <iframe 
+                        <iframe
                             className="w-full h-96 lg:h-80"
-                            frameBorder="0" 
+                            frameBorder="0"
                             scrolling="no"
                             title="Google Maps location for Open Door Full Gospel Church"
-                            src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=135+S+1st+St,+Pleasant+Hill,+Missouri+64080+&amp;sll=38.784773,-94.274362&amp;sspn=0.001372,0.002411&amp;ie=UTF8&amp;hq=&amp;hnear=135+S+1st+St,+Pleasant+Hill,+Cass,+Missouri+64080&amp;ll=38.792159,-94.269133&amp;spn=0.023414,0.036478&amp;z=14&amp;iwloc=A&amp;output=embed"
+                            src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Open+Door+Full+Gospel+Church,+Pleasant+Hill,+MO+64080&amp;sll=38.784773,-94.274362&amp;sspn=0.001372,0.002411&amp;ie=UTF8&amp;hq=&amp;hnear=135+S+1st+St,+Pleasant+Hill,+Cass,+Missouri+64080&amp;ll=38.792159,-94.269133&amp;spn=0.023414,0.036478&amp;z=14&amp;iwloc=A&amp;output=embed"
                             allowFullScreen
                         />
                         <div className="absolute inset-0 border-4 border-transparent hover:border-church-green/20 transition-colors duration-200 pointer-events-none rounded-lg"></div>
@@ -104,8 +107,8 @@ export const Location = (): ReactElement => {
                     
                     <div className="p-4 bg-stone-50 text-center">
                         <a
-                            href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=135+S+1st+St,+Pleasant+Hill,+Missouri+64080+&amp;sll=38.784773,-94.274362&amp;sspn=0.001372,0.002411&amp;ie=UTF8&amp;hq=&amp;hnear=135+S+1st+St,+Pleasant+Hill,+Cass,+Missouri+64080&amp;ll=38.792159,-94.269133&amp;spn=0.023414,0.036478&amp;z=14&amp;iwloc=A"
-                            onClick={handleMapLinkClick}
+                            href={GOOGLE_MAPS_URL}
+                            onClick={handleViewLargerMapClick}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center text-church-green hover:text-church-green/80 font-medium transition-colors duration-200"
@@ -127,8 +130,9 @@ export const Location = (): ReactElement => {
                         We look forward to welcoming you to our church family. Come as you are and experience God's love.
                     </p>
                     <div className="flex justify-center">
-                        <Link 
-                            to="/opendoor/Home/About" 
+                        <Link
+                            to="/opendoor/Home/About"
+                            onClick={() => trackCtaClick('About Our Church', 'location_page', '/opendoor/Home/About')}
                             className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-church-green transition-colors duration-200"
                         >
                             About Our Church

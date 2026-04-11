@@ -8,6 +8,7 @@ import { About } from "../AboutPage/AboutPage";
 import { ScriptureStudy } from "../ScriptureStudy/ScriptureStudy";
 import Footer from "../../components/layout/Footer";
 import RouteTracker from "../../components/tracking/RouteTracker";
+import ConsentBanner from "../../components/ConsentBanner/ConsentBanner";
 
 interface MasterProps {}
 
@@ -33,6 +34,7 @@ export class Master extends Component<MasterProps> {
                         <Footer />
                     </div>
                 </RouteTracker>
+                <ConsentBanner />
             </Router>
         );
     }

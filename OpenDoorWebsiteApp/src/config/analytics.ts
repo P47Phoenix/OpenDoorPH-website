@@ -1,63 +1,55 @@
 /**
  * Google Analytics 4 Configuration
- * 
- * This file contains the GA4 configuration for OpenDoor PH Website.
- * Replace 'YOUR_GA4_MEASUREMENT_ID' with your actual GA4 Measurement ID (starts with G-)
+ *
+ * This file contains the GA4 configuration for the Open Door Full Gospel Church website.
  */
 
-// GA4 Measurement ID - Replace with your actual ID from Google Analytics
-export const GA_MEASUREMENT_ID = 'G-9VW8X3YKJ6'; // OpenDoor PH Website GA4 ID
+// GA4 Measurement ID
+export const GA_MEASUREMENT_ID = 'G-9VW8X3YKJ6';
 
-// Enhanced Ecommerce and Custom Events Configuration
+// GA4 Configuration
 export const GA_CONFIG = {
-  // Basic configuration
-  send_page_view: false, // We'll handle page views manually for SPA
-  
-  // Enhanced measurement features
-  enhanced_measurement: {
-    scroll: true,
-    outbound_clicks: true,
-    site_search: false,
-    video_engagement: false,
-    file_downloads: true
-  },
-  
-  // Custom parameters for church website
-  custom_parameters: {
-    content_group1: 'Church Website',
-    content_group2: 'OpenDoor PH'
-  }
+  send_page_view: false // We handle page views manually for SPA
 };
 
 // Custom Event Types for Church Website
 export const GA_EVENTS = {
   // Page tracking
   PAGE_VIEW: 'page_view',
-  
+
   // Navigation events
   NAVIGATION: 'navigation',
   EXTERNAL_LINK: 'external_link_click',
-  
-  // Church-specific events
-  VIDEO_PLAY: 'video_play',
-  VIDEO_COMPLETE: 'video_complete',
-  CONTACT_VIEW: 'contact_view',
-  LOCATION_VIEW: 'location_view',
-  ABOUT_VIEW: 'about_view',
-  
-  // User engagement
+  NAV_CLICK: 'nav_click',
+
+  // Conversion events
+  CTA_CLICK: 'cta_click',
+  DIRECTIONS_CLICK: 'directions_click',
+
+  // Engagement events
+  MOBILE_MENU_TOGGLE: 'mobile_menu_toggle',
   SCROLL_DEPTH: 'scroll_depth',
-  TIME_ON_PAGE: 'time_on_page'
+
+  // Social events
+  SOCIAL_CLICK: 'social_click',
+
+  // Content events
+  REFERENCE_CLICK: 'reference_click',
+
+  // Church-specific events
+  LOCATION_VIEW: 'location_view',
+  ABOUT_VIEW: 'about_view'
 };
 
 // Page titles mapping for better analytics
 export const PAGE_TITLES: Record<string, string> = {
-  '/': 'Home - OpenDoor PH',
-  '/about': 'About Us - OpenDoor PH', 
-  '/location': 'Location & Contact - OpenDoor PH'
+  '/opendoor': 'Home — Open Door Full Gospel Church',
+  '/opendoor/Home/About': 'About Us — Open Door Full Gospel Church',
+  '/opendoor/Home/Location': 'Location & Directions — Open Door Full Gospel Church',
+  '/opendoor/Home/Scripture': 'Scripture Study — Open Door Full Gospel Church'
 };
 
 // Helper function to get page title
 export const getPageTitle = (pathname: string): string => {
-  return PAGE_TITLES[pathname] || `OpenDoor PH - ${pathname}`;
+  return PAGE_TITLES[pathname] || 'Open Door Full Gospel Church';
 };

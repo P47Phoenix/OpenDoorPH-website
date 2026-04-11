@@ -1,18 +1,13 @@
-import React, { ReactElement, useEffect } from "react";
-import { trackPageView } from "../../utils/analytics";
+import React, { ReactElement } from "react";
 import { BibleIcon, CrossIcon, HeartIcon } from "../../assets";
 import { usePageMeta } from '../../hooks/usePageMeta';
+import { trackReferenceClick } from '../../utils/analytics';
 
 export const ScriptureStudy = (): ReactElement => {
     usePageMeta({
         title: 'Scripture Study — Open Door Full Gospel Church',
         description: 'Explore scripture study resources and biblical teaching from Open Door Full Gospel Church in Pleasant Hill, MO.',
     });
-
-    useEffect(() => {
-        // Track scripture study page engagement
-        trackPageView('/opendoor/Home/Scripture', 'Scripture Study - Galatians 6:1');
-    }, []);
 
     return (
         <div className="w-full p-4 md:p-6 space-y-6 md:space-y-8">
@@ -464,43 +459,43 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3 className="font-semibold text-stone-800 mb-3">Primary Sources</h3>
                         <ul className="space-y-2 text-sm text-gray-700">
-                            <li>• <a href="https://www.biblegateway.com/passage/?search=Galatians+6%3A1&version=NKJV" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">The Holy Bible, New King James Version</a></li>
-                            <li>• <a href="https://www.google.com/search?q=Nestle-Aland+28th+Edition+Greek+New+Testament" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Greek New Testament (Nestle-Aland 28th Edition)</a></li>
-                            <li>• <a href="https://archive.org/details/theologicaldicti0000unse" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Theological Dictionary of the New Testament (Kittel)</a></li>
-                            <li>• <a href="https://biblehub.com/commentaries/egt/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Expositor's Greek Testament</a></li>
+                            <li>• <a href="https://www.biblegateway.com/passage/?search=Galatians+6%3A1&version=NKJV" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('The Holy Bible, New King James Version', 'https://www.biblegateway.com/passage/?search=Galatians+6%3A1&version=NKJV')} className="text-blue-600 hover:text-blue-800 hover:underline">The Holy Bible, New King James Version</a></li>
+                            <li>• <a href="https://www.google.com/search?q=Nestle-Aland+28th+Edition+Greek+New+Testament" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Greek New Testament (Nestle-Aland 28th Edition)', 'https://www.google.com/search?q=Nestle-Aland+28th+Edition+Greek+New+Testament')} className="text-blue-600 hover:text-blue-800 hover:underline">Greek New Testament (Nestle-Aland 28th Edition)</a></li>
+                            <li>• <a href="https://archive.org/details/theologicaldicti0000unse" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Theological Dictionary of the New Testament (Kittel)', 'https://archive.org/details/theologicaldicti0000unse')} className="text-blue-600 hover:text-blue-800 hover:underline">Theological Dictionary of the New Testament (Kittel)</a></li>
+                            <li>• <a href="https://biblehub.com/commentaries/egt/" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick("Expositor's Greek Testament", 'https://biblehub.com/commentaries/egt/')} className="text-blue-600 hover:text-blue-800 hover:underline">Expositor's Greek Testament</a></li>
                         </ul>
                     </div>
                     
                     <div>
                         <h3 className="font-semibold text-stone-800 mb-3">Historical Commentaries</h3>
                         <ul className="space-y-2 text-sm text-gray-700">
-                            <li>• <a href="https://www.google.com/search?q=John+Chrysostom+Homilies+on+Galatians" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">John Chrysostom - Homilies on Galatians</a></li>
-                            <li>• <a href="https://www.ccel.org/ccel/calvin/calcom41.html" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">John Calvin - Commentary on Galatians</a></li>
-                            <li>• <a href="https://www.biblestudytools.com/commentaries/matthew-henry-complete/galatians/6.html" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Matthew Henry - Commentary on the Whole Bible</a></li>
-                            <li>• <a href="https://www.spurgeon.org/resource-library/sermons/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Charles Spurgeon - Sermon Collection</a></li>
-                            <li>• <a href="https://www.google.com/search?q=Martyn+Lloyd-Jones+Commentary+Galatians" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Martyn Lloyd-Jones - Commentary on Galatians</a></li>
-                            <li>• <a href="https://www.ivpress.com/the-message-of-galatians" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">John Stott - The Message of Galatians</a></li>
-                            <li>• <a href="https://www.google.com/search?q=F.F.+Bruce+Commentary+on+Galatians+NIGTC" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">F.F. Bruce - Commentary on Galatians</a></li>
+                            <li>• <a href="https://www.google.com/search?q=John+Chrysostom+Homilies+on+Galatians" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('John Chrysostom - Homilies on Galatians', 'https://www.google.com/search?q=John+Chrysostom+Homilies+on+Galatians')} className="text-blue-600 hover:text-blue-800 hover:underline">John Chrysostom - Homilies on Galatians</a></li>
+                            <li>• <a href="https://www.ccel.org/ccel/calvin/calcom41.html" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('John Calvin - Commentary on Galatians', 'https://www.ccel.org/ccel/calvin/calcom41.html')} className="text-blue-600 hover:text-blue-800 hover:underline">John Calvin - Commentary on Galatians</a></li>
+                            <li>• <a href="https://www.biblestudytools.com/commentaries/matthew-henry-complete/galatians/6.html" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Matthew Henry - Commentary on the Whole Bible', 'https://www.biblestudytools.com/commentaries/matthew-henry-complete/galatians/6.html')} className="text-blue-600 hover:text-blue-800 hover:underline">Matthew Henry - Commentary on the Whole Bible</a></li>
+                            <li>• <a href="https://www.spurgeon.org/resource-library/sermons/" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Charles Spurgeon - Sermon Collection', 'https://www.spurgeon.org/resource-library/sermons/')} className="text-blue-600 hover:text-blue-800 hover:underline">Charles Spurgeon - Sermon Collection</a></li>
+                            <li>• <a href="https://www.google.com/search?q=Martyn+Lloyd-Jones+Commentary+Galatians" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Martyn Lloyd-Jones - Commentary on Galatians', 'https://www.google.com/search?q=Martyn+Lloyd-Jones+Commentary+Galatians')} className="text-blue-600 hover:text-blue-800 hover:underline">Martyn Lloyd-Jones - Commentary on Galatians</a></li>
+                            <li>• <a href="https://www.ivpress.com/the-message-of-galatians" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('John Stott - The Message of Galatians', 'https://www.ivpress.com/the-message-of-galatians')} className="text-blue-600 hover:text-blue-800 hover:underline">John Stott - The Message of Galatians</a></li>
+                            <li>• <a href="https://www.google.com/search?q=F.F.+Bruce+Commentary+on+Galatians+NIGTC" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('F.F. Bruce - Commentary on Galatians', 'https://www.google.com/search?q=F.F.+Bruce+Commentary+on+Galatians+NIGTC')} className="text-blue-600 hover:text-blue-800 hover:underline">F.F. Bruce - Commentary on Galatians</a></li>
                         </ul>
                     </div>
                     
                     <div>
                         <h3 className="font-semibold text-stone-800 mb-3">Theological Resources</h3>
                         <ul className="space-y-2 text-sm text-gray-700">
-                            <li>• <a href="https://www.crossway.org/books/systematic-theology-tpb/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Systematic Theology by Wayne Grudem</a></li>
-                            <li>• <a href="https://www.google.com/search?q=New+Bible+Dictionary+IVP" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">The New Bible Dictionary (IVP)</a></li>
-                            <li>• <a href="https://www.google.com/search?q=Vine%27s+Expository+Dictionary+of+Biblical+Words" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Vine's Expository Dictionary</a></li>
-                            <li>• <a href="https://www.google.com/search?q=Anchor+Bible+Dictionary+Yale" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">The Anchor Bible Dictionary</a></li>
+                            <li>• <a href="https://www.crossway.org/books/systematic-theology-tpb/" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Systematic Theology by Wayne Grudem', 'https://www.crossway.org/books/systematic-theology-tpb/')} className="text-blue-600 hover:text-blue-800 hover:underline">Systematic Theology by Wayne Grudem</a></li>
+                            <li>• <a href="https://www.google.com/search?q=New+Bible+Dictionary+IVP" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('The New Bible Dictionary (IVP)', 'https://www.google.com/search?q=New+Bible+Dictionary+IVP')} className="text-blue-600 hover:text-blue-800 hover:underline">The New Bible Dictionary (IVP)</a></li>
+                            <li>• <a href="https://www.google.com/search?q=Vine%27s+Expository+Dictionary+of+Biblical+Words" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick("Vine's Expository Dictionary", 'https://www.google.com/search?q=Vine%27s+Expository+Dictionary+of+Biblical+Words')} className="text-blue-600 hover:text-blue-800 hover:underline">Vine's Expository Dictionary</a></li>
+                            <li>• <a href="https://www.google.com/search?q=Anchor+Bible+Dictionary+Yale" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('The Anchor Bible Dictionary', 'https://www.google.com/search?q=Anchor+Bible+Dictionary+Yale')} className="text-blue-600 hover:text-blue-800 hover:underline">The Anchor Bible Dictionary</a></li>
                         </ul>
                     </div>
                     
                     <div>
                         <h3 className="font-semibold text-stone-800 mb-3">Historical Context</h3>
                         <ul className="space-y-2 text-sm text-gray-700">
-                            <li>• <a href="https://www.zondervan.com/9780310279518/an-introduction-to-the-new-testament/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">New Testament Introduction by D.A. Carson & Douglas Moo</a></li>
-                            <li>• <a href="https://www.google.com/search?q=Paul+Apostle+of+the+Heart+Set+Free+F.F.+Bruce" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Paul: Apostle of the Heart Set Free by F.F. Bruce</a></li>
-                            <li>• <a href="https://www.google.com/search?q=Book+of+Acts+Setting+Hellenistic+History+Colin+Hemer" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">The Book of Acts in the Setting of Hellenistic History by Colin Hemer</a></li>
-                            <li>• <a href="https://www.google.com/search?q=Early+Christian+Doctrines+J.N.D.+Kelly" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Early Christian Doctrines by J.N.D. Kelly</a></li>
+                            <li>• <a href="https://www.zondervan.com/9780310279518/an-introduction-to-the-new-testament/" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('New Testament Introduction by D.A. Carson & Douglas Moo', 'https://www.zondervan.com/9780310279518/an-introduction-to-the-new-testament/')} className="text-blue-600 hover:text-blue-800 hover:underline">New Testament Introduction by D.A. Carson & Douglas Moo</a></li>
+                            <li>• <a href="https://www.google.com/search?q=Paul+Apostle+of+the+Heart+Set+Free+F.F.+Bruce" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Paul: Apostle of the Heart Set Free by F.F. Bruce', 'https://www.google.com/search?q=Paul+Apostle+of+the+Heart+Set+Free+F.F.+Bruce')} className="text-blue-600 hover:text-blue-800 hover:underline">Paul: Apostle of the Heart Set Free by F.F. Bruce</a></li>
+                            <li>• <a href="https://www.google.com/search?q=Book+of+Acts+Setting+Hellenistic+History+Colin+Hemer" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('The Book of Acts in the Setting of Hellenistic History by Colin Hemer', 'https://www.google.com/search?q=Book+of+Acts+Setting+Hellenistic+History+Colin+Hemer')} className="text-blue-600 hover:text-blue-800 hover:underline">The Book of Acts in the Setting of Hellenistic History by Colin Hemer</a></li>
+                            <li>• <a href="https://www.google.com/search?q=Early+Christian+Doctrines+J.N.D.+Kelly" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Early Christian Doctrines by J.N.D. Kelly', 'https://www.google.com/search?q=Early+Christian+Doctrines+J.N.D.+Kelly')} className="text-blue-600 hover:text-blue-800 hover:underline">Early Christian Doctrines by J.N.D. Kelly</a></li>
                         </ul>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { CrossIcon, HeartIcon, BibleIcon, CommunityServiceIcon, WelcomeBanner } from "../../assets";
 import { usePageMeta } from '../../hooks/usePageMeta';
+import { trackCtaClick } from '../../utils/analytics';
 
 export const Main = (): ReactElement => {
     usePageMeta({
@@ -118,14 +119,16 @@ export const Main = (): ReactElement => {
                     the love of Christ. We would love to have you as part of our church family.
                 </p>
                 <div className="flex flex-col space-y-3 md:space-y-0 md:flex-row md:space-x-4 justify-center">
-                    <Link 
-                        to="/opendoor/Home/Location" 
+                    <Link
+                        to="/opendoor/Home/Location"
+                        onClick={() => trackCtaClick('Visit Us', 'homepage_hero', '/opendoor/Home/Location')}
                         className="bg-white text-church-green px-6 py-3 rounded-lg font-semibold hover:bg-stone-100 transition-colors duration-200 touch-manipulation min-h-[44px] flex items-center justify-center"
                     >
                         Visit Us
                     </Link>
-                    <Link 
-                        to="/opendoor/Home/About" 
+                    <Link
+                        to="/opendoor/Home/About"
+                        onClick={() => trackCtaClick('Learn More', 'homepage_hero', '/opendoor/Home/About')}
                         className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-church-green transition-colors duration-200 touch-manipulation min-h-[44px] flex items-center justify-center"
                     >
                         Learn More

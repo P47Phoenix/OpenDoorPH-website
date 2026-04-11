@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  WebsiteIcon, 
-  CopyrightIcon, 
-  QuickLinksIcon, 
-  VisitIcon, 
+import {
+  WebsiteIcon,
+  CopyrightIcon,
+  QuickLinksIcon,
+  VisitIcon,
   FooterBorder,
   FacebookIcon,
-  AddressIcon 
+  AddressIcon
 } from '../../../assets';
+import { trackNavClick, trackSocialClick } from '../../../utils/analytics';
 
 interface FooterProps {
   className?: string;
@@ -61,6 +62,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
               <nav className="space-y-3">
                 <Link
                   to="/opendoor"
+                  onClick={() => trackNavClick('Home', '/opendoor', 'footer')}
                   className="flex items-center text-stone-300 hover:text-green-400 transition-colors duration-200 group"
                 >
                   <span className="w-2 h-2 bg-orange-300 rounded-full mr-3 group-hover:bg-green-400 transition-colors"></span>
@@ -68,6 +70,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
                 </Link>
                 <Link
                   to="/opendoor/Home/Location"
+                  onClick={() => trackNavClick('Location & Directions', '/opendoor/Home/Location', 'footer')}
                   className="flex items-center text-stone-300 hover:text-green-400 transition-colors duration-200 group"
                 >
                   <span className="w-2 h-2 bg-orange-300 rounded-full mr-3 group-hover:bg-green-400 transition-colors"></span>
@@ -75,6 +78,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
                 </Link>
                 <Link
                   to="/opendoor/Home/About"
+                  onClick={() => trackNavClick('About Us', '/opendoor/Home/About', 'footer')}
                   className="flex items-center text-stone-300 hover:text-green-400 transition-colors duration-200 group"
                 >
                   <span className="w-2 h-2 bg-orange-300 rounded-full mr-3 group-hover:bg-green-400 transition-colors"></span>
@@ -108,10 +112,11 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
                 </div>
                 <div className="flex items-center">
                   <img src={FacebookIcon} alt="" className="w-5 h-5 mr-3 opacity-70" />
-                  <a 
+                  <a
                     href="https://www.facebook.com/profile.php?id=100064858415448"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackSocialClick('facebook', 'footer')}
                     className="text-sm hover:text-green-400 transition-colors"
                   >
                     Follow us on Facebook

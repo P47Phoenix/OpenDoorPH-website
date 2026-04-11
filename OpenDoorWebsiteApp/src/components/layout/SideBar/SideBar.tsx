@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ScheduleIcon, FacebookIcon, QuickMap } from '../../../assets';
+import { trackNavClick, trackCtaClick, trackSocialClick } from '../../../utils/analytics';
 
 interface SideBarProps {
   className?: string;
@@ -21,18 +22,20 @@ const SideBar: React.FC<SideBarProps> = ({
         <div className="block md:hidden bg-gradient-to-r from-green-500 to-orange-300 rounded-lg p-4 shadow-md">
           <h3 className="text-white font-semibold mb-3 text-center">Quick Contact</h3>
           <div className="flex justify-center space-x-6">
-            <a 
-              href="https://www.facebook.com/profile.php?id=100064858415448" 
+            <a
+              href="https://www.facebook.com/profile.php?id=100064858415448"
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackSocialClick('facebook', 'sidebar_mobile')}
               className="flex flex-col items-center p-3 bg-white/20 rounded-lg backdrop-blur-sm hover:bg-white/30 transition-all touch-manipulation active:scale-95"
               aria-label="Visit our Facebook page"
             >
               <img src={FacebookIcon} alt="" className="w-8 h-8 mb-1" />
               <span className="text-xs text-white font-medium">Facebook</span>
             </a>
-            <Link 
-              to="/opendoor/Home/Location" 
+            <Link
+              to="/opendoor/Home/Location"
+              onClick={() => trackNavClick('Visit', '/opendoor/Home/Location', 'sidebar')}
               className="flex flex-col items-center p-3 bg-white/20 rounded-lg backdrop-blur-sm hover:bg-white/30 transition-all touch-manipulation active:scale-95"
               aria-label="View location"
             >
@@ -71,8 +74,9 @@ const SideBar: React.FC<SideBarProps> = ({
           
           {/* Mobile-specific call-to-action */}
           <div className="block md:hidden mt-4">
-            <Link 
-              to="/opendoor/Home/About" 
+            <Link
+              to="/opendoor/Home/About"
+              onClick={() => trackCtaClick('Learn More About Us', 'sidebar', '/opendoor/Home/About')}
               className="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors touch-manipulation active:bg-green-700"
             >
               Learn More About Us
@@ -96,6 +100,7 @@ const SideBar: React.FC<SideBarProps> = ({
             href="https://www.facebook.com/profile.php?id=100064858415448"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackSocialClick('facebook', 'sidebar_desktop')}
             aria-label="Follow us on Facebook (opens in new tab)"
             className="inline-flex items-center justify-center w-full px-4 py-3 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           >

@@ -1,8 +1,8 @@
 /**
  * Google Analytics 4 Utilities
- * 
+ *
  * This module provides utilities for tracking events and page views
- * in Google Analytics 4 for the OpenDoor PH website.
+ * in Google Analytics 4 for the Open Door Full Gospel Church website.
  */
 
 import { GA_MEASUREMENT_ID, GA_CONFIG, GA_EVENTS, getPageTitle } from '../config/analytics';
@@ -36,8 +36,6 @@ export const initGA = (): void => {
   // Configure gtag
   window.gtag('js', new Date());
   window.gtag('config', GA_MEASUREMENT_ID, GA_CONFIG);
-
-  console.log('Google Analytics 4 initialized with ID:', GA_MEASUREMENT_ID);
 };
 
 /**
@@ -48,38 +46,25 @@ export const trackPageView = (pathname: string, title?: string): void => {
   if (!isGAInitialized()) return;
 
   const pageTitle = title || getPageTitle(pathname);
-  
-  window.gtag('config', GA_MEASUREMENT_ID, {
+
+  window.gtag('event', GA_EVENTS.PAGE_VIEW, {
     page_path: pathname,
     page_title: pageTitle
   });
-
-  // Send custom page view event with additional context
-  window.gtag('event', GA_EVENTS.PAGE_VIEW, {
-    page_path: pathname,
-    page_title: pageTitle,
-    content_group1: 'Church Website',
-    content_group2: 'OpenDoor PH'
-  });
-
-  console.log('GA4 Page View:', { pathname, pageTitle });
 };
 
 /**
  * Track custom events
  */
 export const trackEvent = (
-  eventName: string, 
+  eventName: string,
   parameters: Record<string, any> = {}
 ): void => {
   if (!isGAInitialized()) return;
 
   window.gtag('event', eventName, {
-    ...parameters,
-    timestamp: new Date().toISOString()
+    ...parameters
   });
-
-  console.log('GA4 Event:', { eventName, parameters });
 };
 
 /**
@@ -105,25 +90,6 @@ export const trackExternalLink = (url: string, linkText?: string): void => {
 };
 
 /**
- * Track video interactions
- */
-export const trackVideoPlay = (videoTitle: string, videoUrl?: string): void => {
-  trackEvent(GA_EVENTS.VIDEO_PLAY, {
-    video_title: videoTitle,
-    video_url: videoUrl,
-    engagement_type: 'play'
-  });
-};
-
-export const trackVideoComplete = (videoTitle: string, duration?: number): void => {
-  trackEvent(GA_EVENTS.VIDEO_COMPLETE, {
-    video_title: videoTitle,
-    video_duration: duration,
-    engagement_type: 'complete'
-  });
-};
-
-/**
  * Track church-specific page views
  */
 export const trackAboutView = (): void => {
@@ -140,20 +106,96 @@ export const trackLocationView = (): void => {
   });
 };
 
-export const trackContactView = (): void => {
-  trackEvent(GA_EVENTS.CONTACT_VIEW, {
-    section: 'contact',
-    content_type: 'contact_info'
+/**
+ * Centralized click tracking utility (FR-17)
+ * All click tracking calls are wrapped in try/catch to prevent
+ * analytics errors from breaking navigation.
+ */
+export const trackClick = (
+  eventName: string,
+  parameters: Record<string, any> = {}
+): void => {
+  try {
+    trackEvent(eventName, parameters);
+  } catch {
+    // Never let analytics break navigation
+  }
+};
+
+/**
+ * Track navigation clicks (Story 2.1)
+ */
+export const trackNavClick = (
+  linkText: string,
+  linkUrl: string,
+  navSource: 'header_desktop' | 'header_mobile' | 'footer' | 'sidebar'
+): void => {
+  trackClick(GA_EVENTS.NAV_CLICK, {
+    link_text: linkText,
+    link_url: linkUrl,
+    nav_source: navSource
   });
 };
 
 /**
- * Track scroll depth (useful for engagement metrics)
+ * Track mobile menu toggle (Story 2.1)
  */
-export const trackScrollDepth = (percentage: number): void => {
-  trackEvent(GA_EVENTS.SCROLL_DEPTH, {
-    scroll_depth: percentage,
-    engagement_metric: true
+export const trackMobileMenuToggle = (action: 'open' | 'close'): void => {
+  trackClick(GA_EVENTS.MOBILE_MENU_TOGGLE, { action });
+};
+
+/**
+ * Track CTA button clicks (Story 2.2)
+ */
+export const trackCtaClick = (
+  buttonText: string,
+  buttonLocation: string,
+  destinationUrl: string
+): void => {
+  trackClick(GA_EVENTS.CTA_CLICK, {
+    button_text: buttonText,
+    button_location: buttonLocation,
+    destination_url: destinationUrl
+  });
+};
+
+/**
+ * Track "Get Directions" / "View Larger Map" clicks (Story 2.2)
+ * This is the single most important conversion signal on the site.
+ */
+export const trackDirectionsClick = (
+  linkText: string,
+  linkUrl: string
+): void => {
+  trackClick(GA_EVENTS.DIRECTIONS_CLICK, {
+    link_text: linkText,
+    link_url: linkUrl
+  });
+};
+
+/**
+ * Track social (Facebook) link clicks (Story 2.3)
+ */
+export const trackSocialClick = (
+  platform: string,
+  linkLocation: string
+): void => {
+  trackClick(GA_EVENTS.SOCIAL_CLICK, {
+    platform,
+    link_location: linkLocation
+  });
+};
+
+/**
+ * Track Scripture reference link clicks (Story 2.3)
+ */
+export const trackReferenceClick = (
+  linkText: string,
+  linkUrl: string
+): void => {
+  trackClick(GA_EVENTS.REFERENCE_CLICK, {
+    link_text: linkText,
+    link_url: linkUrl
   });
 };
 
@@ -161,48 +203,44 @@ export const trackScrollDepth = (percentage: number): void => {
  * Check if Google Analytics is properly initialized
  */
 export const isGAInitialized = (): boolean => {
-  return typeof window !== 'undefined' && 
-         typeof window.gtag === 'function' && 
+  return typeof window !== 'undefined' &&
+         typeof window.gtag === 'function' &&
          !GA_MEASUREMENT_ID.includes('XXXXXXXXXX') &&
          GA_MEASUREMENT_ID.length > 0;
 };
 
+// ---------------------------------------------------------------------------
+// Consent Mode v2 Utilities (Story 3.1 / 3.2)
+// ---------------------------------------------------------------------------
+
+const CONSENT_STORAGE_KEY = 'analytics-consent';
+
 /**
- * Enable debug mode for development
+ * Read the stored consent preference from localStorage.
+ * Returns 'granted', 'denied', or null when no preference exists
+ * or localStorage is unavailable (Safari Private Browsing, etc.).
  */
-export const enableDebugMode = (): void => {
-  if (!isGAInitialized()) return;
-  
-  window.gtag('config', GA_MEASUREMENT_ID, {
-    debug_mode: true
-  });
-  
-  console.log('GA4 Debug mode enabled');
+export const getStoredConsent = (): string | null => {
+  try {
+    return localStorage.getItem(CONSENT_STORAGE_KEY);
+  } catch {
+    // localStorage unavailable -- treat as no stored preference
+    return null;
+  }
 };
 
 /**
- * Set user properties (useful for audience segmentation)
+ * Update Google Consent Mode v2 analytics_storage state.
+ * Call with `true` to grant analytics consent.
+ * When `false`, the defaults set in index.html (analytics_storage: 'denied')
+ * remain in effect -- no explicit update call is needed.
  */
-export const setUserProperties = (properties: Record<string, any>): void => {
-  if (!isGAInitialized()) return;
+export const updateConsent = (granted: boolean): void => {
+  if (typeof window === 'undefined' || typeof window.gtag !== 'function') return;
 
-  window.gtag('config', GA_MEASUREMENT_ID, {
-    user_properties: properties
-  });
-};
-
-/**
- * GDPR Compliance: Disable analytics
- */
-export const disableGA = (): void => {
-  window[`ga-disable-${GA_MEASUREMENT_ID}`] = true;
-  console.log('Google Analytics disabled for privacy compliance');
-};
-
-/**
- * GDPR Compliance: Enable analytics
- */
-export const enableGA = (): void => {
-  window[`ga-disable-${GA_MEASUREMENT_ID}`] = false;
-  console.log('Google Analytics enabled');
+  if (granted) {
+    window.gtag('consent', 'update', {
+      analytics_storage: 'granted',
+    });
+  }
 };

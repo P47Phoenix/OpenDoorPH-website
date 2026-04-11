@@ -67,6 +67,16 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+
+    // Consent Mode v2 defaults -- MUST fire before gtag('config', ...)
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_personalization: 'denied',
+      ad_user_data: 'denied',
+      wait_for_update: 500
+    });
+
     gtag('js', new Date());
     // Configuration will be handled by React app
   </script>

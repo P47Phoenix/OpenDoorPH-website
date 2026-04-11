@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HamburgerMenu, CloseButton } from '../../../assets';
+import { trackNavClick, trackMobileMenuToggle } from '../../../utils/analytics';
 
 interface HeaderProps {
   className?: string;
@@ -10,11 +11,21 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
+    trackMobileMenuToggle(isMobileMenuOpen ? 'close' : 'open');
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const handleDesktopNavClick = (linkText: string, linkUrl: string) => {
+    trackNavClick(linkText, linkUrl, 'header_desktop');
+  };
+
+  const handleMobileNavClick = (linkText: string, linkUrl: string) => {
+    trackNavClick(linkText, linkUrl, 'header_mobile');
+    closeMobileMenu();
   };
 
   return (
@@ -70,6 +81,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
               <li>
                 <Link
                   to="/opendoor"
+                  onClick={() => handleDesktopNavClick('Home', '/opendoor')}
                   className="block px-6 py-3 rounded-lg text-stone-700 hover:bg-green-500 hover:text-white transition-all duration-200 font-medium touch-manipulation"
                   title="Open door home page"
                 >
@@ -79,6 +91,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
               <li>
                 <Link
                   to="/opendoor/Home/Location"
+                  onClick={() => handleDesktopNavClick('Location', '/opendoor/Home/Location')}
                   className="block px-6 py-3 rounded-lg text-stone-700 hover:bg-green-500 hover:text-white transition-all duration-200 font-medium touch-manipulation"
                   title="Open door location page"
                 >
@@ -88,6 +101,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
               <li>
                 <Link
                   to="/opendoor/Home/About"
+                  onClick={() => handleDesktopNavClick('About', '/opendoor/Home/About')}
                   className="block px-6 py-3 rounded-lg text-stone-700 hover:bg-green-500 hover:text-white transition-all duration-200 font-medium touch-manipulation"
                   title="Open door about page"
                 >
@@ -97,6 +111,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
               <li>
                 <Link
                   to="/opendoor/Home/Scripture"
+                  onClick={() => handleDesktopNavClick('Galatians 6:1', '/opendoor/Home/Scripture')}
                   className="block px-6 py-3 rounded-lg text-stone-700 hover:bg-green-500 hover:text-white transition-all duration-200 font-medium touch-manipulation"
                   title="Scripture study - Galatians 6:1"
                 >
@@ -113,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
                 <li>
                   <Link
                     to="/opendoor"
-                    onClick={closeMobileMenu}
+                    onClick={() => handleMobileNavClick('Home', '/opendoor')}
                     className="block px-6 py-4 rounded-lg text-stone-700 hover:bg-green-500 hover:text-white transition-all duration-200 font-medium text-center touch-manipulation active:bg-green-600"
                     title="Open door home page"
                   >
@@ -123,7 +138,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
                 <li>
                   <Link
                     to="/opendoor/Home/Location"
-                    onClick={closeMobileMenu}
+                    onClick={() => handleMobileNavClick('Location', '/opendoor/Home/Location')}
                     className="block px-6 py-4 rounded-lg text-stone-700 hover:bg-green-500 hover:text-white transition-all duration-200 font-medium text-center touch-manipulation active:bg-green-600"
                     title="Open door location page"
                   >
@@ -133,7 +148,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
                 <li>
                   <Link
                     to="/opendoor/Home/About"
-                    onClick={closeMobileMenu}
+                    onClick={() => handleMobileNavClick('About', '/opendoor/Home/About')}
                     className="block px-6 py-4 rounded-lg text-stone-700 hover:bg-green-500 hover:text-white transition-all duration-200 font-medium text-center touch-manipulation active:bg-green-600"
                     title="Open door about page"
                   >
@@ -143,7 +158,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
                 <li>
                   <Link
                     to="/opendoor/Home/Scripture"
-                    onClick={closeMobileMenu}
+                    onClick={() => handleMobileNavClick('Galatians 6:1', '/opendoor/Home/Scripture')}
                     className="block px-6 py-4 rounded-lg text-stone-700 hover:bg-green-500 hover:text-white transition-all duration-200 font-medium text-center touch-manipulation active:bg-green-600"
                     title="Scripture study - Galatians 6:1"
                   >
