@@ -115,7 +115,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 }
 
 # =============================================================================
-# Route 53 Hosted Zones
+# Route 53 Hosted Zones (created 2026-04-10, migrated from GoDaddy)
 # =============================================================================
 
 resource "aws_route53_zone" "org" {

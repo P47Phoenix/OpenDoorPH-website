@@ -234,6 +234,29 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      # One-time import of resources created by the timed-out apply on 2026-04-10.
+      # These resources exist in AWS but are not in state. Without import, Terraform
+      # would create duplicates. Safe to re-run (import of already-managed resources is a no-op error that we ignore).
+      - name: Import existing resources into state
+        run: |
+          set +e
+          terraform import aws_cloudfront_origin_access_identity.origin_access_identity E1IZ69UHRED0MM 2>/dev/null
+          terraform import aws_route53_zone.org Z02581961MPS0N99USGGY 2>/dev/null
+          terraform import aws_route53_zone.info Z0042424ZXLK8OHELNA6 2>/dev/null
+          terraform import aws_route53_zone.net Z0531878KXU8EONMLMVD 2>/dev/null
+          terraform import aws_route53_zone.com Z05253833OQIXUVS9IAFT 2>/dev/null
+          terraform import 'aws_acm_certificate.cert' 'arn:aws:acm:us-east-1:785341741686:certificate/464922f2-954f-49d9-a7b8-1359446a3012' 2>/dev/null
+          terraform import 'aws_route53_record.cert_validation["opendoorph.org"]' 'Z02581961MPS0N99USGGY__5c0eb33c995a353ce5fdf800990732e5.opendoorph.org._CNAME' 2>/dev/null
+          terraform import 'aws_route53_record.cert_validation["www.opendoorph.org"]' 'Z02581961MPS0N99USGGY__1b36377b7882a5a9d1d249ee63fad82b.www.opendoorph.org._CNAME' 2>/dev/null
+          terraform import 'aws_route53_record.cert_validation["opendoorph.info"]' 'Z0042424ZXLK8OHELNA6__04c406cdda26be2165ef6cf53d79cbea.opendoorph.info._CNAME' 2>/dev/null
+          terraform import 'aws_route53_record.cert_validation["www.opendoorph.info"]' 'Z0042424ZXLK8OHELNA6__1b007dfceebda823aca726ee79e68e0d.www.opendoorph.info._CNAME' 2>/dev/null
+          terraform import 'aws_route53_record.cert_validation["opendoorph.net"]' 'Z0531878KXU8EONMLMVD__9c063d7e462560c66a4906e75081ef28.opendoorph.net._CNAME' 2>/dev/null
+          terraform import 'aws_route53_record.cert_validation["www.opendoorph.net"]' 'Z0531878KXU8EONMLMVD__cd27ab62ac88893b1eaf566219f2ace2.www.opendoorph.net._CNAME' 2>/dev/null
+          terraform import 'aws_route53_record.cert_validation["opendoorph.com"]' 'Z05253833OQIXUVS9IAFT__dd24f4f954c8e04f5c883a3f4739c6ff.opendoorph.com._CNAME' 2>/dev/null
+          terraform import 'aws_route53_record.cert_validation["www.opendoorph.com"]' 'Z05253833OQIXUVS9IAFT__5f71f1e6a634762bec7dbf724271916a.www.opendoorph.com._CNAME' 2>/dev/null
+          set -e
+          echo "Import step complete"
+
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
 
