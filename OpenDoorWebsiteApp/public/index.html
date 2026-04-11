@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- TEMPORARY WORKAROUND: Redirect HTTPS to HTTP for custom opendoorph domains.
-       The SSL cert for opendoorph.info/.net/.org/.com is not valid, causing cert errors.
-       This redirect only applies to custom domains — localhost and *.cloudfront.net are excluded.
-       Remove this script once the SSL cert issue is resolved. See issue #30. -->
-  <script>
-    (function() {
-      var hostname = window.location.hostname;
-      var isCustomDomain = /^(.*\.)?opendoorph\.(info|net|org|com)$/.test(hostname);
-      if (window.location.protocol === 'https:' && isCustomDomain) {
-        window.location.replace('http:' + window.location.href.slice(6));
-      }
-    })();
-  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Open Door Full Gospel Church — Pleasant Hill, MO</title>
