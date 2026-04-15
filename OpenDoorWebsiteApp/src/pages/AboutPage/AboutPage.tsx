@@ -1,13 +1,14 @@
 import React, { ReactElement, useEffect } from "react";
 import { trackAboutView } from "../../utils/analytics";
-import { 
-    TimelineIcon, 
-    ChurchIcon, 
-    PastorIcon, 
-    ValuesIcon, 
-    HistoryIcon, 
+import {
+    TimelineIcon,
+    ChurchIcon,
+    PastorIcon,
+    ValuesIcon,
+    HistoryIcon,
     LeadershipIcon,
-    HistoryScrollIcon 
+    HistoryScrollIcon,
+    ExternalLinkIcon
 } from "../../assets";
 import { usePageMeta } from '../../hooks/usePageMeta';
 
@@ -73,10 +74,43 @@ export const About = (): ReactElement => {
                             <div>
                                 <h3 className="text-lg md:text-xl font-semibold text-stone-800 mb-2">Building Our Home</h3>
                                 <p className="text-gray-700 leading-relaxed">
-                                    Pastor Bryant bought the church's current building after it was damaged by smoke 
-                                    from a neighboring building. The church later bought the building from Pastor Bryant, 
+                                    Pastor Bryant bought the church's current building after it was damaged by smoke
+                                    from a neighboring building. The church later bought the building from Pastor Bryant,
                                     establishing our permanent home in Pleasant Hill.
                                 </p>
+                                <p className="text-gray-700 leading-relaxed mt-4">
+                                    Our home is a piece of Pleasant Hill itself — a limestone commercial building on
+                                    First Street that has stood at the heart of downtown since 1884. Long before it was
+                                    ours, it served the town as an opera house, a grocery, and a gathering place. Today
+                                    it is part of the Pleasant Hill Downtown Historic District, and we are honored to
+                                    keep its doors open for a new kind of gathering.
+                                </p>
+                                <div className="border-t border-stone-200 pt-3 mt-4">
+                                    <div className="flex flex-col md:flex-row md:items-center md:flex-wrap text-sm text-gray-700">
+                                        <span className="font-semibold mr-2 mb-2 md:mb-0">Learn more about our building:</span>
+                                        <a
+                                            href="https://historicmissouri.org/items/show/232"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="The Knorpp Opera House — University of Central Missouri History (opens in new tab)"
+                                            className="inline-flex items-center text-green-700 hover:text-green-900 underline mb-2 md:mb-0"
+                                        >
+                                            <img src={ExternalLinkIcon} alt="" className="w-4 h-4 mr-1" />
+                                            The Knorpp Opera House (University of Central Missouri History)
+                                        </a>
+                                        <span className="hidden md:inline mx-2 text-stone-400" aria-hidden="true">|</span>
+                                        <a
+                                            href="https://en.wikipedia.org/wiki/Pleasant_Hill_Downtown_Historic_District"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="Pleasant Hill Downtown Historic District — National Register (opens in new tab)"
+                                            className="inline-flex items-center text-green-700 hover:text-green-900 underline"
+                                        >
+                                            <img src={ExternalLinkIcon} alt="" className="w-4 h-4 mr-1" />
+                                            Pleasant Hill Downtown Historic District (National Register)
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

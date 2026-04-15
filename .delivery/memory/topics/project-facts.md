@@ -9,6 +9,12 @@
 
 ## Pastor / leadership
 - Pastor: Dennis Gulley (referenced in HomePage content)
+- Founders (1975, per About page): Herbert & Willetta Lowry, William & Mable Burnett. Founding pastor Harvey Bryant. Herbert Lowrey has passed away — do not cite him as an active contact or use his name from the assessor's stale tax-mailing record.
+
+## Property / legal entity
+- Deed Holder (legal entity): **Pleasant Hill Interdenom Inc** (DBA Open Door Full Gospel Church). Legal name is corporation-of-record at the county; DBA is the public branding. Do not put the legal entity name on the public website without PO approval.
+- Parcel: 02-04-19-104-000-086.000, Class EXEMPT, Pacific RR Addition E2 Lot 1 Blk E.
+- Building: Knorpp Opera House, **built 1884** (per Cass County Assessor). Limestone with red cast iron accents. Contributing structure in Pleasant Hill Downtown Historic District (NRHP #04000781, listed 2005).
 
 ## Alias theme etiquette (bible theme)
 - The human stakeholder is NEVER "Pharaoh." Pharaoh represents obstacles/antagonists (e.g., broken GoDaddy DNS, expired certs, blockers).
