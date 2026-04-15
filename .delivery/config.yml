@@ -38,7 +38,7 @@ pipeline:
   scope: code-only
   scope_include: []
   scope_exclude: [".delivery/", ".git/", "node_modules/", "__pycache__/"]
-  checkpoints: [refine, uat]
+  checkpoints: []
   collaboration_patterns: [evaluator-optimizer, adversarial, decision-routing]
   max_self_correction: 3
   max_dod_rounds: 3
