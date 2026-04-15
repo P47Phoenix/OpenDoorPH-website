@@ -44,8 +44,10 @@ test('renders church service information', () => {
   render(<App />);
   
   // Check for service time information in the sidebar
-  // E-2 refactored the SideBar to render from EVENTS config; Sunday Service is now the canonical title
-  expect(screen.getByText(/Sunday Service/i)).toBeInTheDocument();
+  // E-2 refactored the SideBar to render from EVENTS config; Sunday Service is now the canonical title.
+  // It appears in the SideBar card and may also appear in body copy, so assert at least one match.
+  const sundayServiceMatches = screen.getAllByText(/Sunday Service/i);
+  expect(sundayServiceMatches.length).toBeGreaterThan(0);
 });
 
 test('renders church name and branding', () => {
