@@ -2,22 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ScheduleIcon, FacebookIcon, QuickMap } from '../../../assets';
 import { trackNavClick, trackCtaClick, trackSocialClick } from '../../../utils/analytics';
+import { EVENTS } from '../../../config/events';
+import AddToCalendarButton from '../../AddToCalendarButton';
 
 interface SideBarProps {
   className?: string;
-  scheduleTitle?: string;
-  scheduleItems?: string[];
 }
 
-const SideBar: React.FC<SideBarProps> = ({ 
+const SideBar: React.FC<SideBarProps> = ({
   className = '',
-  scheduleTitle = "Sunday Service",
-  scheduleItems = ["Morning Service: 10:30 AM"]
 }) => {
   return (
     <aside className={`church-sidebar w-full lg:w-80 lg:min-w-80 lg:max-w-80 bg-stone-50 border-r border-stone-200 ${className}`}>
       <div className="p-6 space-y-6">
-        
+
         {/* Mobile Quick Contact Actions - Only visible on mobile */}
         <div className="block md:hidden bg-gradient-to-r from-green-500 to-orange-300 rounded-lg p-4 shadow-md">
           <h3 className="text-white font-semibold mb-3 text-center">Quick Contact</h3>
@@ -46,18 +44,30 @@ const SideBar: React.FC<SideBarProps> = ({
         </div>
 
         {/* Schedule Section */}
-        <div className="bg-white rounded-lg shadow-sm border border-stone-200 p-4">
+        <div className="mb-6">
           <div className="flex items-center mb-4">
-            <img src={ScheduleIcon} alt="" className="w-6 h-6 mr-3" />
-            <h3 className="text-lg font-semibold text-stone-800">
-              {scheduleTitle}
-            </h3>
+            <img src={ScheduleIcon} alt="" className="w-6 h-6 mr-3" aria-hidden="true" />
+            <h3 className="text-lg font-semibold text-stone-800">Schedule</h3>
           </div>
-          <div className="space-y-2">
-            {scheduleItems.map((item, index) => (
-              <p key={index} className="text-sm text-stone-600 leading-relaxed">
-                {item}
-              </p>
+          <div className="space-y-4">
+            {EVENTS.map((event) => (
+              <div
+                key={event.id}
+                className="bg-white rounded-lg shadow-sm border border-stone-200 p-4"
+              >
+                <h4 className="text-base font-semibold text-stone-800 mb-2">
+                  {event.title}
+                </h4>
+                <div className="space-y-1 mb-3">
+                  <p className="text-sm text-stone-600 leading-relaxed">
+                    {event.subtitle}
+                  </p>
+                  <p className="text-sm font-medium text-stone-700">
+                    {event.time}
+                  </p>
+                </div>
+                <AddToCalendarButton event={event} />
+              </div>
             ))}
           </div>
         </div>
@@ -68,10 +78,10 @@ const SideBar: React.FC<SideBarProps> = ({
             Welcome
           </h3>
           <p className="text-sm text-stone-700 leading-relaxed">
-            Join us for worship and fellowship. All are welcome to experience 
+            Join us for worship and fellowship. All are welcome to experience
             God's love and grace in our church family.
           </p>
-          
+
           {/* Mobile-specific call-to-action */}
           <div className="block md:hidden mt-4">
             <Link

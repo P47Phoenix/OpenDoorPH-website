@@ -36,6 +36,9 @@ export const GA_EVENTS = {
   // Content events
   REFERENCE_CLICK: 'reference_click',
 
+  // Calendar events
+  ADD_TO_CALENDAR: 'add_to_calendar',
+
   // Church-specific events
   LOCATION_VIEW: 'location_view',
   ABOUT_VIEW: 'about_view'

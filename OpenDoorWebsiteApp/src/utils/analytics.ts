@@ -187,6 +187,21 @@ export const trackSocialClick = (
 };
 
 /**
+ * Track Add-to-Calendar clicks (FR-10)
+ */
+export const trackCalendarClick = (
+  eventName: string,
+  calendarPlatform: string,
+  linkLocation: string
+): void => {
+  trackClick(GA_EVENTS.ADD_TO_CALENDAR, {
+    event_name: eventName,
+    calendar_platform: calendarPlatform,
+    link_location: linkLocation
+  });
+};
+
+/**
  * Track Scripture reference link clicks (Story 2.3)
  */
 export const trackReferenceClick = (
