@@ -230,7 +230,9 @@ jobs:
           path: Terraform/
 
       - name: Terraform Init
-        run: terraform init
+        # -upgrade matches the Plan job so the dependency lock file
+        # agrees with the provider constraint in versions.tf (TF-001 v5 upgrade).
+        run: terraform init -upgrade
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
