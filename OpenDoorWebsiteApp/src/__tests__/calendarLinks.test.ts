@@ -7,6 +7,14 @@
 import { generateGoogleCalendarUrl, generateIcsContent, downloadIcsFile } from '../utils/calendarLinks';
 import { ChurchEvent } from '../config/events';
 
+/**
+ * Unfold an ICS string per RFC 5545 §3.1: long content lines are split into
+ * multiple lines by inserting CRLF followed by a single linear-white-space
+ * character (space or horizontal tab). To unfold, remove any CRLF immediately
+ * followed by a single space or tab.
+ */
+const unfoldIcs = (ics: string): string => ics.replace(/\r\n[ \t]/g, '');
+
 const sundayService: ChurchEvent = {
   id: 'sunday-service',
   title: 'Sunday Service',
@@ -163,9 +171,13 @@ describe('E-4: ICS File Generation', () => {
   });
 
   // E-4.12: LOCATION includes church address
+  // NOTE: RFC 5545 §3.1 folds content lines longer than 75 octets. The
+  // LOCATION line exceeds 75 octets, so the raw ICS contains a CRLF-space
+  // continuation. We unfold before asserting on the canonical value.
   test('LOCATION includes church address', () => {
     const ics = generateIcsContent(sundayService);
-    expect(ics).toContain('LOCATION:Open Door Full Gospel Church, 135 S 1st St, Pleasant Hill, MO 64080');
+    const unfolded = unfoldIcs(ics);
+    expect(unfolded).toContain('LOCATION:Open Door Full Gospel Church, 135 S 1st St, Pleasant Hill, MO 64080');
   });
 
   // E-4.13: UID format

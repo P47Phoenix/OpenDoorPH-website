@@ -31,6 +31,28 @@ jest.mock('../assets', () => ({
   QuickMap: 'quick-map.svg',
 }));
 
+// Mock config/events with a getter that returns either the override (when
+// set on globalThis.__mockEventsOverride) or the real EVENTS array from the
+// actual module. This lets individual tests swap in an empty array without
+// needing jest.resetModules() or jest.isolateModules(), both of which would
+// re-load React and trigger "invalid hook call" errors.
+jest.mock('../config/events', () => {
+  const actual = jest.requireActual('../config/events');
+  return {
+    ...actual,
+    get EVENTS() {
+      const override = (globalThis as { __mockEventsOverride?: unknown[] })
+        .__mockEventsOverride;
+      return override !== undefined ? override : actual.EVENTS;
+    },
+  };
+});
+
+beforeEach(() => {
+  // Reset override before each test so the full EVENTS array is used by default.
+  delete (globalThis as { __mockEventsOverride?: unknown[] }).__mockEventsOverride;
+});
+
 const renderSideBar = () =>
   render(
     <MemoryRouter>
@@ -109,41 +131,22 @@ describe('E-2: SideBar EventCard Rendering', () => {
 
   // E-2 AC-10: Empty EVENTS array renders gracefully
   test('renders gracefully when EVENTS array is empty', () => {
-    // Override the events module to return an empty array
-    jest.resetModules();
-    jest.doMock('../config/events', () => ({
-      EVENTS: [],
-      CHURCH_LOCATION: 'Open Door Full Gospel Church, 135 S 1st St, Pleasant Hill, MO 64080',
-      CHURCH_TIMEZONE: 'America/Chicago',
-    }));
+    // Override EVENTS to an empty array via the shared mock getter.
+    (globalThis as { __mockEventsOverride?: unknown[] }).__mockEventsOverride =
+      [];
 
-    // Re-require the component with the mocked empty EVENTS
-    const React = require('react');
-    const { render: localRender, screen: localScreen } = require('@testing-library/react');
-    const { MemoryRouter } = require('react-router-dom');
-    const SideBarEmpty = require('../components/layout/SideBar').default;
-
-    localRender(
-      React.createElement(
-        MemoryRouter,
-        null,
-        React.createElement(SideBarEmpty)
-      )
-    );
+    renderSideBar();
 
     // Schedule heading should still render
-    const heading = localScreen.getByText('Schedule');
+    const heading = screen.getByText('Schedule');
     expect(heading).toBeInTheDocument();
     expect(heading.tagName).toBe('H3');
 
-    // No event cards should be present (no h4 elements within schedule)
-    expect(localScreen.queryByText('Sunday Service')).not.toBeInTheDocument();
-    expect(localScreen.queryByText('Woman of the Well')).not.toBeInTheDocument();
+    // No event cards should be present
+    expect(screen.queryByText('Sunday Service')).not.toBeInTheDocument();
+    expect(screen.queryByText('Woman of the Well')).not.toBeInTheDocument();
 
     // No AddToCalendar buttons
-    expect(localScreen.queryByText('Add to Calendar')).not.toBeInTheDocument();
-
-    // Restore original mock
-    jest.restoreAllMocks();
+    expect(screen.queryByText('Add to Calendar')).not.toBeInTheDocument();
   });
 });

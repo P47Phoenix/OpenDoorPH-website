@@ -72,19 +72,25 @@ export function generateGoogleCalendarUrl(event: ChurchEvent): string {
 
   const title = `${event.title} - Open Door Full Gospel Church`;
 
-  const params = new URLSearchParams({
-    action: 'TEMPLATE',
-    text: title,
-    dates: `${startStr}/${endStr}`,
-    location: event.location,
-    details: event.description,
-    ctz: event.timezone,
-  });
+  // Build query string using encodeURIComponent so spaces are %20 (RFC 3986)
+  // rather than '+' (application/x-www-form-urlencoded). The story AC (E-3.12)
+  // specifies %20 encoding; this also matches Google Calendar's canonical
+  // "render?..." link format.
+  const params: Array<[string, string]> = [
+    ['action', 'TEMPLATE'],
+    ['text', title],
+    ['dates', `${startStr}/${endStr}`],
+    ['location', event.location],
+    ['details', event.description],
+    ['ctz', event.timezone],
+    ['recur', `RRULE:${event.recurrenceRule}`],
+  ];
 
-  // Add recur param with RRULE: prefix
-  const recur = `RRULE:${event.recurrenceRule}`;
+  const queryString = params
+    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+    .join('&');
 
-  return `https://calendar.google.com/calendar/render?${params.toString()}&recur=${encodeURIComponent(recur)}`;
+  return `https://calendar.google.com/calendar/render?${queryString}`;
 }
 
 /**

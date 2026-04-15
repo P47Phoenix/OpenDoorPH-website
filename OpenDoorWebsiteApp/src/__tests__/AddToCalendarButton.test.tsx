@@ -54,6 +54,14 @@ const wotwEvent: ChurchEvent = {
 describe('E-3: AddToCalendarButton', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    // CRA's default Jest config sets `resetMocks: true`, which wipes mock
+    // implementations (not just call history) between tests. Re-establish
+    // the calendarLinks mock impl so generateGoogleCalendarUrl returns a
+    // real URL string instead of `undefined`.
+    const calendarLinks = require('../utils/calendarLinks');
+    (calendarLinks.generateGoogleCalendarUrl as jest.Mock).mockImplementation(
+      () => 'https://calendar.google.com/calendar/render?mock=true'
+    );
   });
 
   // E-3.2: Button renders with correct label
