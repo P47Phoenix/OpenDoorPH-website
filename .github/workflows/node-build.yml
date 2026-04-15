@@ -179,6 +179,157 @@ jobs:
           echo "  - https://opendoorph.org"
           echo "  - https://opendoorph.com"
 
+  # =============================================================================
+  # SV-001: Post-deploy site validation
+  # =============================================================================
+  # Runs after S3 sync + CloudFront invalidation. Probes the live production
+  # URLs (www + apex) and fails the workflow if the site is broken:
+  #   - non-200 status
+  #   - self-referential redirect (redirect loop — the bf7w failure class)
+  #   - TLS / certificate error
+  #   - missing expected content ("Open Door" / "Pleasant Hill")
+  # Uses only curl + openssl from the default ubuntu-latest runner. No third-
+  # party actions. Read-only — performs HTTP probes only.
+  validate-production:
+    name: Post-deploy site validation (SV-001)
+    needs: deploy
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for CloudFront invalidation propagation
+        run: |
+          echo "⏳ Sleeping 30s to let CloudFront invalidation propagate before probing..."
+          sleep 30
+
+      - name: Probe production URLs
+        id: probe
+        run: |
+          set -euo pipefail
+
+          URLS=(
+            "https://www.opendoorph.org/"
+            "https://opendoorph.org/"
+          )
+
+          # Bounded retry: up to 3 attempts per URL with 20s backoff to absorb
+          # transient CloudFront propagation blips. Total worst-case ~90s per URL.
+          MAX_ATTEMPTS=3
+          BACKOFF=20
+          FAIL=0
+
+          check_url() {
+            local url="$1"
+            local attempt="$2"
+            echo ""
+            echo "=== [$attempt/$MAX_ATTEMPTS] Probing $url ==="
+
+            # --- 1. TLS validity (curl without -k fails on bad cert) ---
+            # --- 2. HEAD: single-hop status + Location header inspection ---
+            local head_out head_status location
+            if ! head_out=$(curl -sS -I --max-time 15 "$url" 2>&1); then
+              echo "::error::TLS or network failure probing $url"
+              echo "$head_out"
+              echo "LIKELY CAUSE: expired/mismatched ACM certificate, DNS failure, or CloudFront outage."
+              return 1
+            fi
+
+            head_status=$(printf '%s\n' "$head_out" | awk 'toupper($1) ~ /^HTTP/ {print $2; exit}')
+            location=$(printf '%s\n' "$head_out" | awk 'BEGIN{IGNORECASE=1} /^[Ll]ocation:/ {sub(/^[^:]*:[[:space:]]*/,""); sub(/\r$/,""); print; exit}')
+
+            echo "Status: $head_status"
+            [ -n "$location" ] && echo "Location: $location"
+
+            # --- 3. Redirect-loop detection: Location must not point back to self ---
+            # The bf7w outage was an infinite redirect loop (HTTPS -> HTTP -> HTTPS).
+            # If Location points to the same host (or the http:// twin), that is a loop.
+            if [ -n "$location" ]; then
+              local url_host loc_host_stripped
+              url_host=$(printf '%s' "$url" | sed -E 's|^https?://([^/]+).*|\1|')
+              # Normalize: strip scheme from Location for host comparison
+              loc_host_stripped=$(printf '%s' "$location" | sed -E 's|^https?://([^/]+).*|\1|')
+              if [ "$loc_host_stripped" = "$url_host" ]; then
+                echo "::error::Redirect loop detected on $url — Location points back to same host ($location)"
+                echo "LIKELY CAUSE: orphan redirect script in deployed HTML, or CloudFront viewer-protocol-policy misconfiguration (bf7w-class failure)."
+                return 1
+              fi
+            fi
+
+            # --- 4. Status must be 200 after following at most one redirect ---
+            # (apex -> www is acceptable; anything deeper is a failure)
+            local final_status redirect_count
+            final_status=$(curl -sS -o /dev/null -w '%{http_code}' -L --max-redirs 2 --max-time 20 "$url")
+            redirect_count=$(curl -sS -o /dev/null -w '%{num_redirects}' -L --max-redirs 2 --max-time 20 "$url")
+            echo "Final status after ≤2 redirects: $final_status (hops: $redirect_count)"
+
+            if [ "$final_status" != "200" ]; then
+              echo "::error::$url returned final status $final_status (expected 200)"
+              echo "LIKELY CAUSE: S3 sync failed to upload index.html, CloudFront invalidation incomplete, or misconfigured error responses."
+              return 1
+            fi
+
+            if [ "$redirect_count" -gt 1 ]; then
+              echo "::error::$url required $redirect_count redirect hops (max 1 allowed)"
+              echo "LIKELY CAUSE: redirect chain / loop (bf7w-class failure)."
+              return 1
+            fi
+
+            # --- 5. Content check: body contains "Open Door" or "Pleasant Hill" ---
+            local body
+            body=$(curl -sS -L --max-redirs 2 --max-time 20 "$url")
+            if ! printf '%s' "$body" | grep -qE 'Open Door|Pleasant Hill'; then
+              echo "::error::$url body missing expected content ('Open Door' or 'Pleasant Hill')"
+              echo "LIKELY CAUSE: wrong site served, index.html not deployed, or CloudFront serving stale/empty response."
+              return 1
+            fi
+
+            echo "✅ $url passed all checks (status=$final_status, hops=$redirect_count, TLS ok, content ok)"
+            return 0
+          }
+
+          for url in "${URLS[@]}"; do
+            ok=0
+            for attempt in $(seq 1 $MAX_ATTEMPTS); do
+              if check_url "$url" "$attempt"; then
+                ok=1
+                break
+              fi
+              if [ "$attempt" -lt "$MAX_ATTEMPTS" ]; then
+                echo "Attempt $attempt failed; sleeping ${BACKOFF}s before retry..."
+                sleep $BACKOFF
+              fi
+            done
+            if [ "$ok" -ne 1 ]; then
+              echo "::error::$url failed after $MAX_ATTEMPTS attempts"
+              FAIL=1
+            fi
+          done
+
+          if [ "$FAIL" -ne 0 ]; then
+            echo ""
+            echo "❌ Post-deploy site validation FAILED. See errors above."
+            echo "Common causes:"
+            echo "  - Redirect loop (bf7w-class): orphan HTTPS→HTTP script or misconfigured CloudFront viewer-protocol-policy"
+            echo "  - Certificate issue: expired/mismatched ACM cert"
+            echo "  - Deploy failure: S3 sync did not upload expected files"
+            echo "  - Propagation: CloudFront invalidation may still be in flight (retry window exhausted)"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ All production URLs passed post-deploy validation."
+
+      - name: Validation summary
+        if: always()
+        run: |
+          {
+            echo "### Post-deploy site validation (SV-001)"
+            echo ""
+            echo "Probed: \`https://www.opendoorph.org/\`, \`https://opendoorph.org/\`"
+            echo ""
+            echo "Checks: HTTP 200, no self-referential redirect, valid TLS, content contains 'Open Door' or 'Pleasant Hill'."
+          } >> "$GITHUB_STEP_SUMMARY"
+
   demo-deploy:
     needs: test
     timeout-minutes: 10

@@ -4,14 +4,14 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.0"
+      version = "~> 5.0"
     }
   }
 }
 
 variable "sitename" {
-    type = string
-    default = "opendoor"
+  type    = string
+  default = "opendoor"
 }
 
 provider "aws" {
@@ -29,32 +29,85 @@ data "aws_iam_policy_document" "website_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"]
+      identifiers = [aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
     }
   }
 }
 
+# =============================================================================
+# S3 Bucket — AWS provider v4+ split resources (TF-001)
+# =============================================================================
+# In provider v3, aws_s3_bucket carried acl, policy, versioning, website,
+# server_side_encryption_configuration, etc. as inline arguments. Provider v4
+# split each of these into a dedicated sibling resource. The main bucket
+# resource below is address-preserving (same name "sitebucket"), so no moved
+# block is required for it. The new sibling resources are fresh addresses;
+# since the bucket already has versioning + SSE configured in the account,
+# the plan should show them being imported or no-op-detected once applied.
+# See SV-001-TF-001.md for state-migration commands.
 
 resource "aws_s3_bucket" "sitebucket" {
   bucket = "${var.sitename}sitebucket"
-  acl    = "private"
-  policy = "${data.aws_iam_policy_document.website_policy.json}"
-  website {
-    index_document = "index.html"
-  }
+
   tags = {
-    Name = "${var.sitename}sitebucket"
-    SiteName = "${var.sitename}"
+    Name     = "${var.sitename}sitebucket"
+    SiteName = var.sitename
+  }
+}
+
+resource "aws_s3_bucket_ownership_controls" "sitebucket" {
+  bucket = aws_s3_bucket.sitebucket.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "sitebucket" {
+  depends_on = [aws_s3_bucket_ownership_controls.sitebucket]
+
+  bucket = aws_s3_bucket.sitebucket.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_policy" "sitebucket" {
+  bucket = aws_s3_bucket.sitebucket.id
+  policy = data.aws_iam_policy_document.website_policy.json
+}
+
+resource "aws_s3_bucket_website_configuration" "sitebucket" {
+  bucket = aws_s3_bucket.sitebucket.id
+
+  index_document {
+    suffix = "index.html"
+  }
+}
+
+resource "aws_s3_bucket_versioning" "sitebucket" {
+  bucket = aws_s3_bucket.sitebucket.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "sitebucket" {
+  bucket = aws_s3_bucket.sitebucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
   }
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = "${aws_s3_bucket.sitebucket.bucket_domain_name}"
+    domain_name = aws_s3_bucket.sitebucket.bucket_regional_domain_name
     origin_id   = "${var.sitename}site"
 
     s3_origin_config {
-    origin_access_identity = "${aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path}"
+      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
     }
   }
 
@@ -63,7 +116,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   comment             = "cloud front for ${var.sitename}."
   default_root_object = "index.html"
 
- /*  logging_config {
+  /*  logging_config {
     include_cookies = false
     bucket          = "${var.sitename}logs.s3.amazonaws.com"
     prefix          = "${var.sitename}"
@@ -112,7 +165,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   price_class = "PriceClass_200"
 
-   restrictions {
+  restrictions {
     geo_restriction {
       restriction_type = "none"
     }
@@ -230,9 +283,9 @@ resource "aws_acm_certificate" "cert" {
 resource "aws_route53_record" "cert_validation" {
   for_each = {
     for dvo in aws_acm_certificate.cert.domain_validation_options : dvo.domain_name => {
-      name    = dvo.resource_record_name
-      type    = dvo.resource_record_type
-      record  = dvo.resource_record_value
+      name   = dvo.resource_record_name
+      type   = dvo.resource_record_type
+      record = dvo.resource_record_value
       zone_id = (
         can(regex("opendoorph\\.org$", dvo.domain_name)) ? aws_route53_zone.org.zone_id :
         can(regex("opendoorph\\.info$", dvo.domain_name)) ? aws_route53_zone.info.zone_id :

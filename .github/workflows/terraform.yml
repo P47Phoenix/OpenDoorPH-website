@@ -42,12 +42,10 @@ jobs:
           role-session-name: Terraform-Plan-${{ github.run_id }}
           aws-region: us-east-2
 
-      # Terraform 1.5.7 is the last version that fully supports the legacy
-      # HCL v0.11 syntax patterns used in Terraform/main.tf:
-      #   - "${var.name}" interpolation syntax
-      #   - tags {} blocks (not tags = {})
-      #   - acl argument directly on aws_s3_bucket
-      # Upgrading requires migrating main.tf to modern HCL first.
+      # HCL has been modernized (TF-001) and provider pinned to aws ~> 5.0.
+      # Terraform 1.5.7 retained for now to match the state file's serial and
+      # avoid any unintended state-format bumps during the provider upgrade
+      # apply. Revisit once TF-001 is green in production.
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
@@ -55,7 +53,7 @@ jobs:
           terraform_wrapper: false
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -upgrade
 
       - name: Terraform Plan
         id: plan
