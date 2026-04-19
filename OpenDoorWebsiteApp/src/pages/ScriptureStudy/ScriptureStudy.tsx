@@ -6,6 +6,7 @@ import {
     ENGLISH_LEV_19_17,
     ENGLISH_LEV_19_18,
     GREEK_BAROS,
+    GREEK_EIS_SE,
     GREEK_PHORTION,
     GREEK_PRAUTES,
     GREEK_PROLEMPHTHE,
@@ -15,6 +16,7 @@ import {
     HEBREW_SHUV,
     HEBREW_TESHUVAH,
     TRANSLIT_BAROS,
+    TRANSLIT_EIS_SE,
     TRANSLIT_HOCHEACH_TOCHIACH,
     TRANSLIT_LEV_19_18,
     TRANSLIT_PHORTION,
@@ -110,7 +112,7 @@ export const ScriptureStudy = (): ReactElement => {
                         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
                             <li id="fn-hc-1" tabIndex={-1} className="scroll-mt-4">
                                 F.F. Bruce, <em>Paul: Apostle of the Heart Set Free</em> (Eerdmans);
-                                {' '}D.A. Carson and Douglas Moo, <em>An Introduction to the New Testament</em> (Zondervan), pp. 458-461.
+                                {' '}D.A. Carson &amp; Douglas Moo, <em>An Introduction to the New Testament</em> (Zondervan), pp. 458-461.
                                 {' '}
                                 <a
                                     href="#fnref-hc-1"
@@ -688,12 +690,34 @@ export const ScriptureStudy = (): ReactElement => {
                             <div className="bg-stone-50 p-4 rounded-lg">
                                 <p className="font-semibold text-stone-800 mb-2">Matthew 18:15-17</p>
                                 <p className="text-gray-700 text-sm italic mb-2">
-                                    "Moreover if your brother sins against you, go and tell him his fault between you and him alone. 
+                                    "Moreover if your brother sins against you, go and tell him his fault between you and him alone.
                                     If he hears you, you have gained your brother."
                                 </p>
                                 <p className="text-gray-700 text-sm">
-                                    Jesus outlines the process for addressing sin in the church community, emphasizing private 
+                                    Jesus outlines the process for addressing sin in the church community, emphasizing private
                                     confrontation first and gradual escalation if needed.
+                                </p>
+                                {/* STORY-ISSUE-008 — Matthew 18:15 textual variant note.
+                                    Plain-prose small-italic paragraph per component-specs §8 / Luke Dim 8
+                                    (NOT a <details> block per FR-10). Text verbatim from source PRD
+                                    ISSUE-008 Required Action. Greek εἰς σέ in a smallest-wrapper
+                                    lang="grc" span (FR-07). Footnote cites NA28 apparatus + Metzger
+                                    UBS p. 36. */}
+                                <p className="mt-2 pt-2 border-t border-stone-200 text-sm italic text-stone-600">
+                                    Note: The phrase "against you" (<span lang="grc" className="font-serif not-italic">{GREEK_EIS_SE}</span>
+                                    <span className="italic ml-1" lang="en"> (<em>{TRANSLIT_EIS_SE}</em>)</span>)
+                                    is absent in key manuscripts including Sinaiticus. If not original, the verse addresses communal sin
+                                    broadly, strengthening its parallel to Galatians 6:1.
+                                    <sup className="ml-0.5">
+                                        <a
+                                            href="#fn-rs-1"
+                                            id="fnref-rs-1"
+                                            aria-label="Footnote 1"
+                                            className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded not-italic"
+                                        >
+                                            1
+                                        </a>
+                                    </sup>
                                 </p>
                             </div>
                             
@@ -783,6 +807,29 @@ export const ScriptureStudy = (): ReactElement => {
                             </div>
                         </div>
                     </div>
+
+                    {/* STORY-ISSUE-008 — Footnotes for Related Scripture Passages section.
+                        Section-scoped counter (rs-*) per component-specs §6.2/§6.3. */}
+                    <aside
+                        aria-label="Footnotes for this section"
+                        className="mt-8 pt-4 border-t border-stone-200"
+                    >
+                        <h3 className="sr-only">Footnotes</h3>
+                        <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
+                            <li id="fn-rs-1" tabIndex={-1} className="scroll-mt-4">
+                                Nestle-Aland 28th Edition apparatus; Bruce Metzger,{' '}
+                                <em>A Textual Commentary on the Greek New Testament</em> (UBS), p. 36.
+                                {' '}
+                                <a
+                                    href="#fnref-rs-1"
+                                    aria-label="Return to reference 1"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    ↩
+                                </a>
+                            </li>
+                        </ol>
+                    </aside>
                 </div>
             </section>
 
