@@ -2,6 +2,10 @@ import React, { ReactElement } from "react";
 import { BibleIcon, CrossIcon, HeartIcon } from "../../assets";
 import { usePageMeta } from '../../hooks/usePageMeta';
 import { trackReferenceClick } from '../../utils/analytics';
+import {
+    GREEK_PROLEMPHTHE,
+    TRANSLIT_PROLEMPHTHE,
+} from '../../constants/biblical-languages';
 
 export const ScriptureStudy = (): ReactElement => {
     usePageMeta({
@@ -159,10 +163,34 @@ export const ScriptureStudy = (): ReactElement => {
                                 </p>
                             </div>
                             <div className="border-l-4 border-green-300 pl-4">
-                                <p className="font-semibold text-stone-800">"Overtaken" (prolambano)</p>
+                                <p className="font-semibold text-stone-800">
+                                    "Overtaken" (<span lang="grc" className="font-serif">{GREEK_PROLEMPHTHE}</span>
+                                    <span className="italic ml-1">(<em>{TRANSLIT_PROLEMPHTHE}</em>)</span>)
+                                </p>
                                 <p className="text-gray-700 text-sm">
-                                    Literally means "to be caught beforehand" or "surprised by." This suggests the person 
-                                    didn't deliberately plan to sin but was caught off guard or overwhelmed.
+                                    The aorist passive form suggests one who has been overtaken or caught — whether by
+                                    sudden temptation or by the discovery of a fault — without necessarily resolving the
+                                    question of deliberate intent.
+                                    <sup className="ml-0.5">
+                                        <a
+                                            href="#fn-da-1"
+                                            id="fnref-da-1"
+                                            aria-label="Footnote 1"
+                                            className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                        >
+                                            1
+                                        </a>
+                                    </sup>
+                                    <sup className="ml-0.5">
+                                        <a
+                                            href="#fn-da-2"
+                                            id="fnref-da-2"
+                                            aria-label="Footnote 2"
+                                            className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                        >
+                                            2
+                                        </a>
+                                    </sup>
                                 </p>
                             </div>
                             <div className="border-l-4 border-green-300 pl-4">
@@ -205,6 +233,39 @@ export const ScriptureStudy = (): ReactElement => {
                             </div>
                         </div>
                     </div>
+
+                    {/* Footnotes for Detailed Analysis (§6.2 component-specs).
+                        Numbered per-section (da-*) to avoid collisions with other sections. */}
+                    <aside
+                        aria-label="Footnotes for this section"
+                        className="mt-8 pt-4 border-t border-stone-200"
+                    >
+                        <h3 className="sr-only">Footnotes</h3>
+                        <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
+                            <li id="fn-da-1" tabIndex={-1} className="scroll-mt-4">
+                                J.B. Lightfoot, <em>The Epistle of St. Paul to the Galatians</em> (Zondervan), p. 215.
+                                {' '}
+                                <a
+                                    href="#fnref-da-1"
+                                    aria-label="Return to reference 1"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    ↩
+                                </a>
+                            </li>
+                            <li id="fn-da-2" tabIndex={-1} className="scroll-mt-4">
+                                F.F. Bruce, <em>Commentary on Galatians</em>, NIGTC (Eerdmans), p. 260.
+                                {' '}
+                                <a
+                                    href="#fnref-da-2"
+                                    aria-label="Return to reference 2"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    ↩
+                                </a>
+                            </li>
+                        </ol>
+                    </aside>
                 </div>
             </section>
 
