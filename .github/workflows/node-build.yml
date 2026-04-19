@@ -23,6 +23,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run discourse-fidelity check
+        # Fail fast before we burn CI minutes on build/test. Operates on the
+        # repo root, so we override the job-level working-directory default.
+        working-directory: .
+        env:
+          BASE_REF: origin/${{ github.base_ref || 'master' }}
+        run: bash scripts/discourse-fidelity-check.sh
       - name: Configure Node.js
         uses: actions/setup-node@v4
         with:
@@ -73,8 +82,8 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-playwright-
-#      - name: Install Playwright browsers (Chromium only)
-#        run: npx playwright install --with-deps chromium
+      - name: Install Playwright browsers (Chromium only)
+        run: npx playwright install --with-deps chromium
       - name: Build production artifact
         run: npm run build:prod
       - name: Upload build artifacts (for deploy)
@@ -83,19 +92,23 @@ jobs:
           name: build-files
           path: ./OpenDoorWebsiteApp/build/
           retention-days: 1
-#      - name: Run Playwright tests
-#        env:
-#          CI: true
-#        run: |
-#          echo "🎭 Running Playwright E2E tests..."
-#          npm run test:e2e
-#      - name: Upload Playwright HTML report
-#        if: always()
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: playwright-report
-#          path: ./OpenDoorWebsiteApp/playwright-report/
-#          retention-days: 7
+      - name: Run Playwright tests
+        env:
+          CI: true
+        run: |
+          echo "🎭 Running Playwright E2E tests..."
+          npm run test:e2e
+      - name: Run axe-core accessibility scan
+        env:
+          CI: true
+        run: npx playwright test tests/a11y.spec.ts
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: ./OpenDoorWebsiteApp/playwright-report/
+          retention-days: 7
 
   deploy:
     needs: test
