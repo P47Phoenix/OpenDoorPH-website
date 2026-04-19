@@ -3,7 +3,9 @@ import { BibleIcon, CrossIcon, HeartIcon } from "../../assets";
 import { usePageMeta } from '../../hooks/usePageMeta';
 import { trackReferenceClick } from '../../utils/analytics';
 import {
+    GREEK_PRAUTES,
     GREEK_PROLEMPHTHE,
+    TRANSLIT_PRAUTES,
     TRANSLIT_PROLEMPHTHE,
 } from '../../constants/biblical-languages';
 
@@ -201,10 +203,25 @@ export const ScriptureStudy = (): ReactElement => {
                                 </p>
                             </div>
                             <div className="border-l-4 border-green-300 pl-4">
-                                <p className="font-semibold text-stone-800">"Gentleness" (prautes)</p>
+                                <p className="font-semibold text-stone-800">
+                                    "Gentleness" (<span lang="grc" className="font-serif">{GREEK_PRAUTES}</span>
+                                    <span className="italic ml-1">(<em>{TRANSLIT_PRAUTES}</em>)</span>)
+                                </p>
                                 <p className="text-gray-700 text-sm">
-                                    One of the fruits of the Spirit (5:23), meaning "meekness" or "controlled strength." 
-                                    It's power under control, like a well-trained horse.
+                                    One of the fruits of the Spirit (5:23). The <em>Theological Dictionary of the New
+                                    Testament</em> defines <span lang="grc" className="font-serif">{GREEK_PRAUTES}</span>{' '}
+                                    as "the humble and gentle attitude which expresses itself particularly in a patient
+                                    submissiveness to offense."
+                                    <sup className="ml-0.5">
+                                        <a
+                                            href="#fn-da-3"
+                                            id="fnref-da-3"
+                                            aria-label="Footnote 3"
+                                            className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                        >
+                                            3
+                                        </a>
+                                    </sup>
                                 </p>
                             </div>
                         </div>
@@ -259,6 +276,18 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-da-2"
                                     aria-label="Return to reference 2"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    ↩
+                                </a>
+                            </li>
+                            <li id="fn-da-3" tabIndex={-1} className="scroll-mt-4">
+                                G. Kittel (ed.), <em>Theological Dictionary of the New Testament</em>, Vol. VI
+                                (Eerdmans), p. 645.
+                                {' '}
+                                <a
+                                    href="#fnref-da-3"
+                                    aria-label="Return to reference 3"
                                     className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
                                 >
                                     ↩
