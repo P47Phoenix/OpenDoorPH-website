@@ -10,11 +10,15 @@ import {
     GREEK_PROLEMPHTHE,
     HEBREW_HOCHEACH_TOCHIACH,
     HEBREW_LEV_19_17,
+    HEBREW_SHUV,
+    HEBREW_TESHUVAH,
     TRANSLIT_BAROS,
     TRANSLIT_HOCHEACH_TOCHIACH,
     TRANSLIT_PHORTION,
     TRANSLIT_PRAUTES,
     TRANSLIT_PROLEMPHTHE,
+    TRANSLIT_SHUV,
+    TRANSLIT_TESHUVAH,
 } from '../../constants/biblical-languages';
 
 export const ScriptureStudy = (): ReactElement => {
@@ -232,6 +236,56 @@ export const ScriptureStudy = (): ReactElement => {
                                     </sup>
                                 </p>
                             </div>
+
+                            {/* STORY-ISSUE-012 — Teshuvah h4 sub-point of Restore (katartizo).
+                                Placed as last child of the Key Greek Terms space-y-4 list per
+                                component-specs §2.4; visually indented (pl-4 border-l-2 border-stone-300)
+                                to cue sub-of-katartizo depth. Parent chain is h2 → h3 → h4 (no
+                                h2→h4 skip per FR-06.a). Content verbatim from source PRD ISSUE-012. */}
+                            <div className="mt-4 pl-4 border-l-2 border-stone-300">
+                                <h4
+                                    id="teshuvah"
+                                    className="font-semibold text-stone-800 mb-2 scroll-mt-4"
+                                >
+                                    Teshuvah (
+                                    <span lang="he" dir="rtl">{HEBREW_TESHUVAH}</span>
+                                    ) — The Hebrew Return
+                                </h4>
+                                <p className="text-gray-700 text-sm leading-relaxed mb-2">
+                                    The Hebrew concept of <em>{TRANSLIT_TESHUVAH}</em>{' '}
+                                    (<span lang="he" dir="rtl" className="mx-1">{HEBREW_TESHUVAH}</span>) —{' '}
+                                    <em>return</em> — is the foundational framework for the New Testament
+                                    concept of repentance (<em>metanoia</em>). It derives from the root{' '}
+                                    <span lang="he" dir="rtl" className="mx-1">{HEBREW_SHUV}</span>{' '}
+                                    (<em>{TRANSLIT_SHUV}</em> — to turn, to return).
+                                </p>
+                                <p className="text-gray-700 text-sm leading-relaxed mb-2">
+                                    The act of restoring a fallen believer in Galatians 6:1 is, at its
+                                    deepest level, facilitating <em>{TRANSLIT_TESHUVAH}</em> — enabling
+                                    a return to God and to covenantal community. This is not a New
+                                    Testament innovation but the continuation of Israel's covenantal
+                                    life. Reading <em>katartizo</em> (restore) without this framework
+                                    reduces restoration to a social or relational exercise, stripping
+                                    it of its covenantal and theological weight.
+                                </p>
+                                <blockquote className="text-gray-700 text-sm italic border-l-4 border-green-300 pl-4 my-2">
+                                    <em>{TRANSLIT_TESHUVAH}</em> means to turn, to return. Sin is a
+                                    departure; repentance is a return.
+                                    <sup className="ml-0.5">
+                                        <a
+                                            href="#fn-da-6"
+                                            id="fnref-da-6"
+                                            aria-label="Footnote 6"
+                                            className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                        >
+                                            6
+                                        </a>
+                                    </sup>
+                                    <cite className="block text-stone-600 not-italic mt-1">
+                                        — Abraham Joshua Heschel, <em>God in Search of Man</em>
+                                    </cite>
+                                </blockquote>
+                            </div>
                         </div>
                     </div>
 
@@ -373,6 +427,18 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-da-5"
                                     aria-label="Return to reference 5"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    ↩
+                                </a>
+                            </li>
+                            <li id="fn-da-6" tabIndex={-1} className="scroll-mt-4">
+                                Abraham Joshua Heschel, <em>God in Search of Man</em>
+                                {' '}(Farrar, Straus and Giroux), p. 375.
+                                {' '}
+                                <a
+                                    href="#fnref-da-6"
+                                    aria-label="Return to reference 6"
                                     className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
                                 >
                                     ↩
