@@ -3,8 +3,12 @@ import { BibleIcon, CrossIcon, HeartIcon } from "../../assets";
 import { usePageMeta } from '../../hooks/usePageMeta';
 import { trackReferenceClick } from '../../utils/analytics';
 import {
+    GREEK_BAROS,
+    GREEK_PHORTION,
     GREEK_PRAUTES,
     GREEK_PROLEMPHTHE,
+    TRANSLIT_BAROS,
+    TRANSLIT_PHORTION,
     TRANSLIT_PRAUTES,
     TRANSLIT_PROLEMPHTHE,
 } from '../../constants/biblical-languages';
@@ -251,6 +255,61 @@ export const ScriptureStudy = (): ReactElement => {
                         </div>
                     </div>
 
+                    {/* STORY-ISSUE-007: Baros vs. Phortion — sibling h3 of Key Greek Terms,
+                        anchor id "baros-phortion" per FR-05.a. Block Greek display per
+                        component-specs §4.2. */}
+                    <div>
+                        <h3
+                            id="baros-phortion"
+                            className="text-xl font-semibold text-stone-800 mb-3 scroll-mt-4"
+                        >
+                            The Tension with Galatians 6:5
+                        </h3>
+                        <div className="border-l-4 border-green-300 pl-4 mb-4">
+                            <p className="mb-1">
+                                <span lang="grc" className="font-serif text-lg">{GREEK_BAROS}</span>
+                                <span className="italic ml-2 text-base" lang="en"> (<em>{TRANSLIT_BAROS}</em>)</span>
+                            </p>
+                            <p className="text-gray-700 text-sm">
+                                Galatians 6:2 — a crushing, oppressive burden too heavy to carry alone.
+                                <sup className="ml-0.5">
+                                    <a
+                                        href="#fn-da-4"
+                                        id="fnref-da-4"
+                                        aria-label="Footnote 4"
+                                        className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    >
+                                        4
+                                    </a>
+                                </sup>
+                            </p>
+                        </div>
+                        <div className="border-l-4 border-green-300 pl-4 mb-4">
+                            <p className="mb-1">
+                                <span lang="grc" className="font-serif text-lg">{GREEK_PHORTION}</span>
+                                <span className="italic ml-2 text-base" lang="en"> (<em>{TRANSLIT_PHORTION}</em>)</span>
+                            </p>
+                            <p className="text-gray-700 text-sm">
+                                Galatians 6:5 — a personal pack or assigned load; one's own responsibility before God.
+                                <sup className="ml-0.5">
+                                    <a
+                                        href="#fn-da-5"
+                                        id="fnref-da-5"
+                                        aria-label="Footnote 5"
+                                        className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    >
+                                        5
+                                    </a>
+                                </sup>
+                            </p>
+                        </div>
+                        <p className="text-gray-700 leading-relaxed">
+                            Paul is not contradicting himself. In 6:1-2 he calls the community to carry what is too
+                            heavy for one person; in 6:5 he calls each person to bear their own accountability before
+                            God.
+                        </p>
+                    </div>
+
                     {/* Footnotes for Detailed Analysis (§6.2 component-specs).
                         Numbered per-section (da-*) to avoid collisions with other sections. */}
                     <aside
@@ -288,6 +347,28 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-da-3"
                                     aria-label="Return to reference 3"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    ↩
+                                </a>
+                            </li>
+                            <li id="fn-da-4" tabIndex={-1} className="scroll-mt-4">
+                                F.F. Bruce, <em>Commentary on Galatians</em>, NIGTC (Eerdmans), p. 263.
+                                {' '}
+                                <a
+                                    href="#fnref-da-4"
+                                    aria-label="Return to reference 4"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    ↩
+                                </a>
+                            </li>
+                            <li id="fn-da-5" tabIndex={-1} className="scroll-mt-4">
+                                John Stott, <em>The Message of Galatians</em> (IVP), p. 159.
+                                {' '}
+                                <a
+                                    href="#fnref-da-5"
+                                    aria-label="Return to reference 5"
                                     className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
                                 >
                                     ↩
