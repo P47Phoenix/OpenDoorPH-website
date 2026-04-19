@@ -12,6 +12,7 @@
  *
  * Pass-2 scope: STORY-ISSUE-005, -006, -007.
  * Pass-3 scope: STORY-ISSUE-011, -012, -013 (Hebrew Foundations).
+ * Pass-4 scope: STORY-ISSUE-008 (Matt 18:15 εἰς σέ textual variant).
  */
 
 // Source PRD ISSUE-005 (line ~122): aorist passive subjunctive of prolambanō.
@@ -51,3 +52,9 @@ export const TRANSLIT_SHUV = "shuv";
 export const HEBREW_LEV_19_18 = "וְאָהַבְתָּ לְרֵעֲךָ כָּמוֹךָ";
 export const TRANSLIT_LEV_19_18 = "ve'ahavta lere'acha kamocha";
 export const ENGLISH_LEV_19_18 = "You shall love your neighbor as yourself";
+
+// Source PRD ISSUE-008 (line ~183, ~186): Matthew 18:15 textual variant.
+// "The phrase **εἰς σέ** (*eis se*, 'against you') is absent in several
+//  significant manuscripts, including Sinaiticus (א)."
+export const GREEK_EIS_SE = "εἰς σέ";
+export const TRANSLIT_EIS_SE = "eis se";

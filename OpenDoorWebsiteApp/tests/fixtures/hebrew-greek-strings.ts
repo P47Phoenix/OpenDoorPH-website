@@ -12,6 +12,7 @@
  *
  * Pass-2 scope: STORY-ISSUE-005, -006, -007.
  * Pass-3 scope: STORY-ISSUE-011, -012, -013 (Hebrew Foundations).
+ * Pass-4 scope: STORY-ISSUE-008 (Matt 18:15 εἰς σέ textual variant).
  */
 
 // Source PRD ISSUE-005: aorist passive subjunctive of prolambanō
@@ -57,4 +58,10 @@ export {
     HEBREW_LEV_19_18,
     TRANSLIT_LEV_19_18,
     ENGLISH_LEV_19_18,
+} from '../../src/constants/biblical-languages';
+
+// Source PRD ISSUE-008: Matt 18:15 textual variant — εἰς σέ (eis se)
+export {
+    GREEK_EIS_SE,
+    TRANSLIT_EIS_SE,
 } from '../../src/constants/biblical-languages';
