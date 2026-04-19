@@ -4,16 +4,19 @@ import { usePageMeta } from '../../hooks/usePageMeta';
 import { trackReferenceClick } from '../../utils/analytics';
 import {
     ENGLISH_LEV_19_17,
+    ENGLISH_LEV_19_18,
     GREEK_BAROS,
     GREEK_PHORTION,
     GREEK_PRAUTES,
     GREEK_PROLEMPHTHE,
     HEBREW_HOCHEACH_TOCHIACH,
     HEBREW_LEV_19_17,
+    HEBREW_LEV_19_18,
     HEBREW_SHUV,
     HEBREW_TESHUVAH,
     TRANSLIT_BAROS,
     TRANSLIT_HOCHEACH_TOCHIACH,
+    TRANSLIT_LEV_19_18,
     TRANSLIT_PHORTION,
     TRANSLIT_PRAUTES,
     TRANSLIT_PROLEMPHTHE,
@@ -537,6 +540,61 @@ export const ScriptureStudy = (): ReactElement => {
                             This is the direct halakhic backdrop against which Paul writes
                             Galatians 6:1. His use of <em>katartizo</em> (restore) is the Greek
                             expression of the Hebrew practice rooted in Torah.
+                        </p>
+                    </div>
+
+                    {/* STORY-ISSUE-013 — Law of Christ and Leviticus 19:18.
+                        Sibling h3 of Tochacha inside Hebrew Foundations h2.
+                        Content verbatim from source PRD ISSUE-013 Required Action / Problem. */}
+                    <div>
+                        <h3
+                            id="law-of-christ"
+                            className="text-xl font-semibold text-stone-800 mb-3 scroll-mt-4"
+                        >
+                            Law of Christ and Leviticus 19:18
+                        </h3>
+
+                        <p className="text-gray-700 leading-relaxed mb-4">
+                            The document identifies the "law of Christ" but Paul himself provides
+                            the answer in Galatians 5:14, where he explicitly quotes Leviticus 19:18:
+                        </p>
+
+                        <blockquote className="text-gray-700 italic leading-relaxed border-l-4 border-green-500 pl-6 mb-4">
+                            "For all the law is fulfilled in one word, even in this: 'You shall
+                            love your neighbor as yourself.'"
+                            <cite className="block text-green-600 font-semibold mt-2 not-italic text-sm">
+                                — Galatians 5:14
+                            </cite>
+                        </blockquote>
+
+                        <p className="text-gray-700 leading-relaxed mb-4">
+                            The Hebrew source is:
+                        </p>
+
+                        <div className="hebrew-block mt-4 mb-6">
+                            <blockquote
+                                lang="he"
+                                dir="rtl"
+                                className="border-r-4 border-green-500 pr-6 text-right text-lg md:text-xl text-stone-800 leading-relaxed"
+                            >
+                                {HEBREW_LEV_19_18}
+                            </blockquote>
+                            <p className="italic text-center text-stone-600 mt-2 text-base" lang="en">
+                                <em>{TRANSLIT_LEV_19_18}</em>
+                            </p>
+                            <p className="text-gray-700 leading-relaxed mt-2 text-base">
+                                {ENGLISH_LEV_19_18}
+                            </p>
+                            <p className="text-stone-600 text-sm mt-1">
+                                — Leviticus 19:18
+                            </p>
+                        </div>
+
+                        <p className="text-gray-700 leading-relaxed">
+                            This is not conjecture — it is the textual logic Paul himself
+                            establishes in the same letter, one chapter earlier. The "law of
+                            Christ" in 6:2 loops back directly to 5:14, which is itself a quotation
+                            of Leviticus 19:18.
                         </p>
                     </div>
 
