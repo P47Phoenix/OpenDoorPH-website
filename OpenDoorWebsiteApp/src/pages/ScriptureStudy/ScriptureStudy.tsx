@@ -215,7 +215,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     One of the fruits of the Spirit (5:23). The <em>Theological Dictionary of the New
                                     Testament</em> defines <span lang="grc" className="font-serif">{GREEK_PRAUTES}</span>{' '}
                                     as "the humble and gentle attitude which expresses itself particularly in a patient
-                                    submissiveness to offense."
+                                    submissiveness to offense".
                                     <sup className="ml-0.5">
                                         <a
                                             href="#fn-da-3"
@@ -271,7 +271,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <span className="italic ml-2 text-base" lang="en"> (<em>{TRANSLIT_BAROS}</em>)</span>
                             </p>
                             <p className="text-gray-700 text-sm">
-                                Galatians 6:2 — a crushing, oppressive burden too heavy to carry alone.
+                                Galatians 6:2 — a crushing, oppressive burden too heavy to carry alone
                                 <sup className="ml-0.5">
                                     <a
                                         href="#fn-da-4"
@@ -290,7 +290,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <span className="italic ml-2 text-base" lang="en"> (<em>{TRANSLIT_PHORTION}</em>)</span>
                             </p>
                             <p className="text-gray-700 text-sm">
-                                Galatians 6:5 — a personal pack or assigned load; one's own responsibility before God.
+                                Galatians 6:5 — a personal pack or assigned load; one's own responsibility before God
                                 <sup className="ml-0.5">
                                     <a
                                         href="#fn-da-5"
