@@ -11,7 +11,7 @@
  * tests import from THIS path. Production code imports from the src-side path.
  *
  * Pass-2 scope: STORY-ISSUE-005, -006, -007.
- * Pass-3 entries (ISSUE-011, -012, -013) will be appended in a later story.
+ * Pass-3 scope: STORY-ISSUE-011, -012, -013 (Hebrew Foundations).
  */
 
 // Source PRD ISSUE-005: aorist passive subjunctive of prolambanō
@@ -32,4 +32,29 @@ export {
     TRANSLIT_BAROS,
     GREEK_PHORTION,
     TRANSLIT_PHORTION,
+} from '../../src/constants/biblical-languages';
+
+// Source PRD ISSUE-011: Leviticus 19:17 — tochacha / hocheach tochiach
+// (Source PRD supplies no whole-verse transliteration of Lev 19:17; only the
+//  phrase-level TRANSLIT_HOCHEACH_TOCHIACH is re-exported.)
+export {
+    HEBREW_LEV_19_17,
+    ENGLISH_LEV_19_17,
+    HEBREW_HOCHEACH_TOCHIACH,
+    TRANSLIT_HOCHEACH_TOCHIACH,
+} from '../../src/constants/biblical-languages';
+
+// Source PRD ISSUE-012: teshuvah (תְּשׁוּבָה) and root שׁוּב (shuv)
+export {
+    HEBREW_TESHUVAH,
+    TRANSLIT_TESHUVAH,
+    HEBREW_SHUV,
+    TRANSLIT_SHUV,
+} from '../../src/constants/biblical-languages';
+
+// Source PRD ISSUE-013: Leviticus 19:18 — ve'ahavta lere'acha kamocha
+export {
+    HEBREW_LEV_19_18,
+    TRANSLIT_LEV_19_18,
+    ENGLISH_LEV_19_18,
 } from '../../src/constants/biblical-languages';
