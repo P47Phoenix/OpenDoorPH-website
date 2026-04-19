@@ -62,14 +62,30 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3 className="text-xl font-semibold text-stone-800 mb-3">The Galatian Churches</h3>
                         <p className="text-gray-700 leading-relaxed mb-4">
-                            The letter to the Galatians was written by the Apostle Paul around AD 48-50 to the churches 
-                            in the region of Galatia (modern-day Turkey). These churches were established during Paul's 
+                            The letter to the Galatians was written by the Apostle Paul around AD 48-50 to the churches
+                            in the region of Galatia (modern-day Turkey). These churches were established during Paul's
                             first missionary journey and included cities like Antioch of Pisidia, Iconium, Lystra, and Derbe.
                         </p>
+                        {/* STORY-ISSUE-014 — Dating debate parenthetical per source PRD
+                            ISSUE-014 Required Action. Text is verbatim from the PRD;
+                            footnote cites Bruce + Carson/Moo per component-specs §6. */}
+                        <p className="text-gray-700 leading-relaxed mb-4 italic text-sm">
+                            This study follows the South Galatian theory (cf. Bruce, Carson/Moo), dating the letter to approximately AD 48-49. The North Galatian theory dates the letter later, circa AD 53-57. The exegetical conclusions of this study are unaffected by either dating.
+                            <sup className="ml-0.5">
+                                <a
+                                    href="#fn-hc-1"
+                                    id="fnref-hc-1"
+                                    aria-label="Footnote 1"
+                                    className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded not-italic"
+                                >
+                                    1
+                                </a>
+                            </sup>
+                        </p>
                         <p className="text-gray-700 leading-relaxed">
-                            The Galatian believers were predominantly Gentile converts who had embraced the Gospel of 
-                            grace through faith in Christ. However, they were being influenced by Judaizers—Jewish 
-                            Christians who insisted that Gentile converts must follow the Mosaic Law, particularly 
+                            The Galatian believers were predominantly Gentile converts who had embraced the Gospel of
+                            grace through faith in Christ. However, they were being influenced by Judaizers—Jewish
+                            Christians who insisted that Gentile converts must follow the Mosaic Law, particularly
                             circumcision, to be truly saved.
                         </p>
                     </div>
@@ -77,12 +93,35 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3 className="text-xl font-semibold text-stone-800 mb-3">Paul's Pastoral Concern</h3>
                         <p className="text-gray-700 leading-relaxed">
-                            Galatians 6:1 comes at the conclusion of Paul's letter, after he has vigorously defended 
-                            the doctrine of justification by faith alone. Having established the theological foundation, 
-                            Paul turns to practical Christian living. This verse addresses how believers should respond 
+                            Galatians 6:1 comes at the conclusion of Paul's letter, after he has vigorously defended
+                            the doctrine of justification by faith alone. Having established the theological foundation,
+                            Paul turns to practical Christian living. This verse addresses how believers should respond
                             when a fellow Christian falls into sin—a common challenge in any church community.
                         </p>
                     </div>
+
+                    {/* STORY-ISSUE-014 — Footnotes for Historical Context section.
+                        Section-scoped counter (hc-*) per component-specs §6.2/§6.3. */}
+                    <aside
+                        aria-label="Footnotes for this section"
+                        className="mt-8 pt-4 border-t border-stone-200"
+                    >
+                        <h3 className="sr-only">Footnotes</h3>
+                        <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
+                            <li id="fn-hc-1" tabIndex={-1} className="scroll-mt-4">
+                                F.F. Bruce, <em>Paul: Apostle of the Heart Set Free</em> (Eerdmans);
+                                {' '}D.A. Carson and Douglas Moo, <em>An Introduction to the New Testament</em> (Zondervan), pp. 458-461.
+                                {' '}
+                                <a
+                                    href="#fnref-hc-1"
+                                    aria-label="Return to reference 1"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    ↩
+                                </a>
+                            </li>
+                        </ol>
+                    </aside>
                 </div>
             </section>
 
