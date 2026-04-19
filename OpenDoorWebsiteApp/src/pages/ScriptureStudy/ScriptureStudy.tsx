@@ -140,9 +140,14 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3 className="text-xl font-semibold text-stone-800 mb-3">Key Doctrinal Contributions</h3>
                         <ul className="space-y-2 text-gray-700">
+                            {/* STORY-ISSUE-010 — Sola Fide reframed per source PRD ISSUE-010
+                                Required Action. Replacement text is verbatim from the PRD.
+                                Galatians 2:16 retained as the supporting citation (AC-2). */}
                             <li className="flex items-start">
                                 <span className="text-green-600 mr-2">•</span>
-                                <span><strong>Sola Fide:</strong> "A man is not justified by the works of the law but by faith in Jesus Christ" (2:16)</span>
+                                <span>
+                                    <strong>Sola Fide:</strong> The doctrine later articulated by the Reformers as Sola Fide finds its foundational Pauline expression here. Paul's immediate concern, however, was the Judaizer insistence on Torah observance and circumcision as conditions of salvation for Gentile believers. (Galatians 2:16)
+                                </span>
                             </li>
                             <li className="flex items-start">
                                 <span className="text-green-600 mr-2">•</span>
