@@ -3,11 +3,15 @@ import { BibleIcon, CrossIcon, HeartIcon } from "../../assets";
 import { usePageMeta } from '../../hooks/usePageMeta';
 import { trackReferenceClick } from '../../utils/analytics';
 import {
+    ENGLISH_LEV_19_17,
     GREEK_BAROS,
     GREEK_PHORTION,
     GREEK_PRAUTES,
     GREEK_PROLEMPHTHE,
+    HEBREW_HOCHEACH_TOCHIACH,
+    HEBREW_LEV_19_17,
     TRANSLIT_BAROS,
+    TRANSLIT_HOCHEACH_TOCHIACH,
     TRANSLIT_PHORTION,
     TRANSLIT_PRAUTES,
     TRANSLIT_PROLEMPHTHE,
@@ -369,6 +373,132 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-da-5"
                                     aria-label="Return to reference 5"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    ↩
+                                </a>
+                            </li>
+                        </ol>
+                    </aside>
+                </div>
+            </section>
+
+            {/* Hebrew Foundations (STORY-ISSUE-011, -013) — new h2 inserted between
+                "Detailed Analysis of Galatians 6:1" and "Related Scripture Passages"
+                per FR-06.a. Content verbatim from source PRD ISSUE-011 and ISSUE-013
+                Required Action / Problem fields. Footnote numbering is per-section
+                with the `hf-` prefix (hebrew-foundations counter). */}
+            <section
+                className="bg-white rounded-lg shadow-md p-4 md:p-8 scroll-mt-4"
+                aria-labelledby="hebrew-foundations"
+            >
+                <div className="flex items-center mb-6">
+                    <img src={BibleIcon} alt="" className="w-8 h-8 mr-3" />
+                    <h2
+                        id="hebrew-foundations"
+                        className="text-2xl md:text-3xl font-bold text-stone-800"
+                    >
+                        Hebrew Foundations
+                    </h2>
+                </div>
+
+                <div className="space-y-6">
+                    {/* STORY-ISSUE-011 — The Hebrew Foundation: Tochacha */}
+                    <div>
+                        <h3
+                            id="tochacha"
+                            className="text-xl font-semibold text-stone-800 mb-3 scroll-mt-4"
+                        >
+                            The Hebrew Foundation: Tochacha (
+                            <span lang="he" dir="rtl">{HEBREW_HOCHEACH_TOCHIACH}</span>
+                            )
+                        </h3>
+
+                        <p className="text-gray-700 leading-relaxed mb-4">
+                            Paul, a trained Pharisee (Philippians 3:5), wrote within this framework
+                            and his readers would have understood it.
+                        </p>
+
+                        <div className="hebrew-block mt-4 mb-6">
+                            <blockquote
+                                lang="he"
+                                dir="rtl"
+                                className="border-r-4 border-green-500 pr-6 text-right text-lg md:text-xl text-stone-800 leading-relaxed"
+                            >
+                                {HEBREW_LEV_19_17}
+                            </blockquote>
+                            <p className="text-gray-700 leading-relaxed mt-2 text-base">
+                                {ENGLISH_LEV_19_17}
+                            </p>
+                            <p className="text-stone-600 text-sm mt-1">
+                                — Leviticus 19:17
+                            </p>
+                        </div>
+
+                        <p className="text-gray-700 leading-relaxed mb-4">
+                            The Hebrew{' '}
+                            <span lang="he" dir="rtl" className="mx-1">{HEBREW_HOCHEACH_TOCHIACH}</span>{' '}
+                            (<em>{TRANSLIT_HOCHEACH_TOCHIACH}</em>) is an infinitive absolute
+                            construction — the doubling of the verb intensifies and obligates the
+                            command. The Talmud (<em>Arachin</em> 16b) records rabbinic debate over
+                            how many times one must rebuke.
+                            <sup className="ml-0.5">
+                                <a
+                                    href="#fn-hf-1"
+                                    id="fnref-hf-1"
+                                    aria-label="Footnote 1"
+                                    className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    1
+                                </a>
+                            </sup>
+                            {' '}Maimonides codifies this in <em>Mishneh Torah</em>,{' '}
+                            <em>Hilchot De'ot</em> 6:7 — one must rebuke a neighbor who sins,
+                            gently and privately, until the person accepts or refuses.
+                            <sup className="ml-0.5">
+                                <a
+                                    href="#fn-hf-2"
+                                    id="fnref-hf-2"
+                                    aria-label="Footnote 2"
+                                    className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    2
+                                </a>
+                            </sup>
+                        </p>
+
+                        <p className="text-gray-700 leading-relaxed">
+                            This is the direct halakhic backdrop against which Paul writes
+                            Galatians 6:1. His use of <em>katartizo</em> (restore) is the Greek
+                            expression of the Hebrew practice rooted in Torah.
+                        </p>
+                    </div>
+
+                    {/* Footnotes for Hebrew Foundations (§6.2 component-specs).
+                        Numbered per-section (hf-*) to avoid collisions with other sections. */}
+                    <aside
+                        aria-label="Footnotes for this section"
+                        className="mt-8 pt-4 border-t border-stone-200"
+                    >
+                        <h3 className="sr-only">Footnotes</h3>
+                        <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
+                            <li id="fn-hf-1" tabIndex={-1} className="scroll-mt-4">
+                                Talmud Bavli, <em>Arachin</em> 16b.
+                                {' '}
+                                <a
+                                    href="#fnref-hf-1"
+                                    aria-label="Return to reference 1"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                >
+                                    ↩
+                                </a>
+                            </li>
+                            <li id="fn-hf-2" tabIndex={-1} className="scroll-mt-4">
+                                Maimonides, <em>Mishneh Torah</em>, <em>Hilchot De'ot</em> 6:7.
+                                {' '}
+                                <a
+                                    href="#fnref-hf-2"
+                                    aria-label="Return to reference 2"
                                     className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
                                 >
                                     ↩
