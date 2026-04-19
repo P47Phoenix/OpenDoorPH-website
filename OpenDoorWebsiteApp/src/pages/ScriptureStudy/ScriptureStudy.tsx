@@ -660,8 +660,8 @@ export const ScriptureStudy = (): ReactElement => {
                                     let him know that he who turns a sinner from the error of his way will save a soul from death."
                                 </p>
                                 <p className="text-gray-700 text-sm">
-                                    James emphasizes the eternal significance of restoration—it's literally a matter of 
-                                    life and death, both spiritually and sometimes physically.
+                                    James emphasizes the eternal significance of restoration—it's literally a matter of
+                                    life and death, spiritually.
                                 </p>
                             </div>
 
