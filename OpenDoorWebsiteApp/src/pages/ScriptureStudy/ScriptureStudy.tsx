@@ -840,11 +840,16 @@ export const ScriptureStudy = (): ReactElement => {
                 <div className="space-y-6">
                     <div>
                         <h3 className="text-xl font-semibold text-stone-800 mb-3">Who Should Restore?</h3>
+                        {/* STORY-ISSUE-001 — trailing "John Chrysostom … gentle, meek, and
+                            considerate" direct-quote sentence REMOVED per ISSUE-001 AC-3
+                            ("No direct-quote marks surround Chrysostom text on the rendered
+                            page unless wrapped in a block with a verified NPNF citation").
+                            The NPNF Homily on Galatians 6 (CCEL) contains no verbatim
+                            match; path (c) removal per elder directive 2026-04-16. */}
                         <p className="text-gray-700 leading-relaxed mb-4">
-                            Paul specifies "you who are spiritual" (hoi pneumatikoi). This doesn't mean "perfect people" 
-                            but rather those who are walking in the Spirit, demonstrating the fruit of the Spirit, 
-                            and have spiritual maturity and wisdom. John Chrysostom (349-407 AD) noted that this 
-                            refers to those who are "gentle, meek, and considerate."
+                            Paul specifies "you who are spiritual" (hoi pneumatikoi). This doesn't mean "perfect people"
+                            but rather those who are walking in the Spirit, demonstrating the fruit of the Spirit,
+                            and have spiritual maturity and wisdom.
                         </p>
                         <div className="bg-green-50 p-4 rounded-lg">
                             <h4 className="font-semibold text-green-700 mb-2">Qualifications for Restoration Ministry:</h4>
@@ -905,17 +910,15 @@ export const ScriptureStudy = (): ReactElement => {
                 <h2 className="text-2xl md:text-3xl font-bold text-stone-800 mb-6">Historical Christian Commentary</h2>
                 
                 <div className="space-y-6">
-                    <div className="border-l-4 border-green-500 pl-6">
-                        <h3 className="text-lg font-semibold text-stone-800 mb-2">John Chrysostom (349-407 AD)</h3>
-                        <p className="text-gray-700 italic mb-2">
-                            "If you see anyone falling into sin, do not despise him, but reach out your hand to him as 
-                            you would to someone who has fallen into a ditch. For you do not know if tomorrow you might 
-                            not be in need of the same assistance."
-                        </p>
-                        <p className="text-gray-700 text-sm">
-                            The golden-mouthed preacher emphasized the practical nature of Christian love in restoration.
-                        </p>
-                    </div>
+                    {/* STORY-ISSUE-001 — Chrysostom quotation REMOVED per source PRD path (c)
+                        + elder directive 2026-04-16 (verify-or-remove only, no reframe).
+                        Primary-source verification attempted against NPNF Series 1 Vol. 13
+                        (Chrysostom, Homily on Galatians 6) via CCEL
+                        https://ccel.org/ccel/schaff/npnf113/npnf113.iii.iii.vi.html — the
+                        "fallen into a ditch / same assistance tomorrow" wording does NOT
+                        appear verbatim in the homily. Callout block removed entirely per
+                        PRD §10 Edge Case 12 visual-slot rule. Counts toward the ≥3-removal
+                        editorial-note threshold (elder-authored; not authored here). */}
 
                     <div className="border-l-4 border-green-500 pl-6">
                         <h3 className="text-lg font-semibold text-stone-800 mb-2">John Calvin (1509-1564)</h3>
