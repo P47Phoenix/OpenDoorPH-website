@@ -866,8 +866,14 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3 className="text-xl font-semibold text-stone-800 mb-3">The Manner of Restoration</h3>
                         <p className="text-gray-700 leading-relaxed mb-4">
-                            Matthew Henry (1662-1714) emphasized that restoration should be done "in the spirit of meekness," 
-                            meaning with genuine humility and love. The goal is not to punish but to heal and restore.
+                            Paul specifies that restoration is to be done "in the spirit of meekness" (Galatians 6:1, KJV) —
+                            with genuine humility and love. The goal is not to punish but to heal and restore. Matthew Henry,
+                            expounding this verse, glosses the manner as "with the spirit of meekness; not in wrath and
+                            passion, as those who triumph in a brother's falls, but with meekness, as those who rather mourn
+                            for them."
+                            <cite className="block text-stone-600 not-italic mt-1 text-sm">
+                                — Matthew Henry, <em>Commentary on the Whole Bible</em>, Galatians 6:1.
+                            </cite>
                         </p>
                         <div className="grid md:grid-cols-2 gap-4">
                             <div className="bg-red-50 p-4 rounded-lg">
@@ -937,17 +943,23 @@ export const ScriptureStudy = (): ReactElement => {
                         Callout block removed entirely per PRD §10 Edge Case 12 visual-
                         slot rule. Counts toward ≥3-removal editorial-note threshold. */}
 
-                    <div className="border-l-4 border-green-500 pl-6">
-                        <h3 className="text-lg font-semibold text-stone-800 mb-2">Matthew Henry (1662-1714)</h3>
-                        <p className="text-gray-700 italic mb-2">
-                            "Those who are spiritual should restore such as have fallen, not with roughness, severity, 
-                            and insulting, but with the spirit of meekness, in a mild and gentle manner, endeavoring to 
-                            convince them of their error and to bring them to repentance."
-                        </p>
-                        <p className="text-gray-700 text-sm">
-                            Henry's commentary emphasizes the method and manner of biblical restoration.
-                        </p>
-                    </div>
+                    {/* ELDER-AUDIT-2026-04-20 — Matthew Henry direct-quote callout REMOVED
+                        per elder's expanded verify-or-remove principle. The rendered quote
+                        contained phrases that do NOT appear verbatim in Matthew Henry's
+                        Commentary on the Whole Bible, Galatians 6:1, verified against
+                        https://www.biblestudytools.com/commentaries/matthew-henry-complete/galatians/6.html
+                        (also cross-checked against Bible Hub and CCEL). Absent phrases
+                        include "roughness, severity, and insulting", "mild and gentle
+                        manner", and "convince them of their error". Henry's actual
+                        wording on the manner of restoration is "with the spirit of
+                        meekness; not in wrath and passion, as those who triumph in a
+                        brother's falls, but with meekness, as those who rather mourn
+                        for them." Because the rendered sentence is not attested in the
+                        primary source, Path (c) removal applies per elder directive —
+                        verify-or-remove, no reframe-by-paraphrase into the callout
+                        visual slot. The Practical Application inline attribution below
+                        is rewritten (Path b) to attribute "spirit of meekness" to Paul
+                        (its source in Gal 6:1 KJV) with Henry cited as expositor. */}
 
                     {/* STORY-ISSUE-003 — Both Spurgeon quotations REMOVED per source PRD
                         path (c) + elder directive 2026-04-16.
@@ -1001,12 +1013,16 @@ export const ScriptureStudy = (): ReactElement => {
                     
                     <div>
                         <h3 className="font-semibold text-stone-800 mb-3">Historical Commentaries</h3>
+                        {/* ELDER-AUDIT-2026-04-20 — dangling reference links REMOVED under
+                            elder's verify-or-remove principle: Chrysostom, Calvin, Spurgeon,
+                            and Lloyd-Jones quotations were all removed in Pass-1; their
+                            reference-list entries no longer served a cited purpose on the
+                            page. Matthew Henry KEPT because this link now grounds the
+                            inline citation in the Practical Application section. Stott
+                            KEPT (cited at baros/phortion footnote). F.F. Bruce KEPT
+                            (cited in Pass-2 footnotes with direct volume + page). */}
                         <ul className="space-y-2 text-sm text-gray-700">
-                            <li>• <a href="https://www.google.com/search?q=John+Chrysostom+Homilies+on+Galatians" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('John Chrysostom - Homilies on Galatians', 'https://www.google.com/search?q=John+Chrysostom+Homilies+on+Galatians')} className="text-blue-600 hover:text-blue-800 hover:underline">John Chrysostom - Homilies on Galatians</a></li>
-                            <li>• <a href="https://www.ccel.org/ccel/calvin/calcom41.html" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('John Calvin - Commentary on Galatians', 'https://www.ccel.org/ccel/calvin/calcom41.html')} className="text-blue-600 hover:text-blue-800 hover:underline">John Calvin - Commentary on Galatians</a></li>
                             <li>• <a href="https://www.biblestudytools.com/commentaries/matthew-henry-complete/galatians/6.html" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Matthew Henry - Commentary on the Whole Bible', 'https://www.biblestudytools.com/commentaries/matthew-henry-complete/galatians/6.html')} className="text-blue-600 hover:text-blue-800 hover:underline">Matthew Henry - Commentary on the Whole Bible</a></li>
-                            <li>• <a href="https://www.spurgeon.org/resource-library/sermons/" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Charles Spurgeon - Sermon Collection', 'https://www.spurgeon.org/resource-library/sermons/')} className="text-blue-600 hover:text-blue-800 hover:underline">Charles Spurgeon - Sermon Collection</a></li>
-                            <li>• <a href="https://www.google.com/search?q=Martyn+Lloyd-Jones+Commentary+Galatians" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Martyn Lloyd-Jones - Commentary on Galatians', 'https://www.google.com/search?q=Martyn+Lloyd-Jones+Commentary+Galatians')} className="text-blue-600 hover:text-blue-800 hover:underline">Martyn Lloyd-Jones - Commentary on Galatians</a></li>
                             <li>• <a href="https://www.ivpress.com/the-message-of-galatians" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('John Stott - The Message of Galatians', 'https://www.ivpress.com/the-message-of-galatians')} className="text-blue-600 hover:text-blue-800 hover:underline">John Stott - The Message of Galatians</a></li>
                             <li>• <a href="https://www.google.com/search?q=F.F.+Bruce+Commentary+on+Galatians+NIGTC" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('F.F. Bruce - Commentary on Galatians', 'https://www.google.com/search?q=F.F.+Bruce+Commentary+on+Galatians+NIGTC')} className="text-blue-600 hover:text-blue-800 hover:underline">F.F. Bruce - Commentary on Galatians</a></li>
                         </ul>
