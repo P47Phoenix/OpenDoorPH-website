@@ -895,11 +895,17 @@ export const ScriptureStudy = (): ReactElement => {
 
                     <div>
                         <h3 className="text-xl font-semibold text-stone-800 mb-3">Guarding Against Temptation</h3>
+                        {/* STORY-ISSUE-003 — trailing "As Charles Spurgeon … lift up the
+                            fallen" direct-quote sentence REMOVED per ISSUE-003 AC-3
+                            (page-wide: "No direct-quote marks surround any Spurgeon-
+                            attributed text ... unless the text matches a primary-source
+                            sermon cited inline via <cite> with title, date, volume, and
+                            page"). No verbatim match found in Spurgeon Center sermon
+                            archive. Path (c) removal per elder directive 2026-04-16. */}
                         <p className="text-gray-700 leading-relaxed">
-                            The warning "considering yourself lest you also be tempted" serves multiple purposes. 
-                            It keeps the restorer humble, prevents spiritual pride, and acknowledges that involvement 
-                            in someone else's sin can sometimes lead to our own temptation. As Charles Spurgeon (1834-1892) 
-                            noted, "He who would lift up the fallen must take care that he does not fall himself."
+                            The warning "considering yourself lest you also be tempted" serves multiple purposes.
+                            It keeps the restorer humble, prevents spiritual pride, and acknowledges that involvement
+                            in someone else's sin can sometimes lead to our own temptation.
                         </p>
                     </div>
                 </div>
@@ -943,17 +949,23 @@ export const ScriptureStudy = (): ReactElement => {
                         </p>
                     </div>
 
-                    <div className="border-l-4 border-green-500 pl-6">
-                        <h3 className="text-lg font-semibold text-stone-800 mb-2">Charles Spurgeon (1834-1892)</h3>
-                        <p className="text-gray-700 italic mb-2">
-                            "When you restore a fallen brother, do it as surgeons work upon a broken limb—very tenderly, 
-                            lest you cause more damage than good. Remember that you are handling a soul that is already 
-                            wounded."
-                        </p>
-                        <p className="text-gray-700 text-sm">
-                            The Prince of Preachers used medical imagery to illustrate gentle restoration.
-                        </p>
-                    </div>
+                    {/* STORY-ISSUE-003 — Both Spurgeon quotations REMOVED per source PRD
+                        path (c) + elder directive 2026-04-16.
+                        Quote #1 ("He who would lift up the fallen must take care that he
+                        does not fall himself") was excised below from the Practical
+                        Application section; it also had no Historical Christian Commentary
+                        callout.
+                        Quote #2 ("surgeons work upon a broken limb ... handling a soul
+                        already wounded") verified against Spurgeon Center sermon archive
+                        https://www.spurgeon.org/resource-library/sermons/burden-bearing/
+                        (Sermon #2831, Burden-bearing, Metropolitan Tabernacle Pulpit
+                        Vol. 49, delivered 26 Aug 1886, published 1903) — the exact
+                        surgeon/broken-limb wording does NOT appear in that sermon.
+                        Spurgeon's actual metaphor is "Set his bones for him" — a
+                        different image. Also searched Morning and Evening / Faith's
+                        Checkbook indices: no verbatim match. Callout removed entirely
+                        per PRD §10 Edge Case 12. Both quotations count toward the ≥3-
+                        removal editorial-note threshold. */}
 
                     <div className="border-l-4 border-green-500 pl-6">
                         <h3 className="text-lg font-semibold text-stone-800 mb-2">Martyn Lloyd-Jones (1899-1981)</h3>
