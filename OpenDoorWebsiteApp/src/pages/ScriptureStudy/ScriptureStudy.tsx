@@ -137,10 +137,19 @@ export const ScriptureStudy = (): ReactElement => {
                 <div className="space-y-6">
                     <div>
                         <h3 className="text-xl font-semibold text-stone-800 mb-3">Central Theme: Freedom in Christ</h3>
+                        {/* UAT-PERSONA-FEEDBACK-2026-04-20 — "my Katie von Bora" clause
+                            softened per Whitfield finding #9, Harrow FACTUAL-01, and
+                            Callister S-1. The Tischreden attribution is a popular
+                            paraphrase lacking a precise WA/LW volume-and-page locator
+                            verifiable by the team. Retaining only the universally
+                            attested "my epistle" form (Callister S-1 suggested fix).
+                            No theological content is lost; the paragraph's work is
+                            carried by the remaining prose. */}
                         <p className="text-gray-700 leading-relaxed">
-                            Martin Luther called Galatians "my epistle" and "my Katie von Bora" (his wife), emphasizing 
-                            its central role in understanding Christian freedom. The letter's main theme is that 
-                            salvation comes through faith in Christ alone, not through works of the law.
+                            Martin Luther called Galatians &quot;my epistle,&quot; emphasizing
+                            its central role in understanding Christian freedom. The letter&apos;s
+                            main theme is that salvation comes through faith in Christ alone,
+                            not through works of the law.
                         </p>
                     </div>
 
@@ -300,6 +309,22 @@ export const ScriptureStudy = (): ReactElement => {
                                     <span lang="he" dir="rtl">{HEBREW_TESHUVAH}</span>
                                     ) — The Hebrew Return
                                 </h4>
+                                {/* UAT-PERSONA-FEEDBACK-2026-04-20 — placement clarifier
+                                    per Hargrove L-05. Teshuvah is Hebrew but sits under
+                                    "Key Greek Terms" by design (FR-06.a / ISSUE-012 AC-1:
+                                    h4 within Restore (katartizo) block). This one-sentence
+                                    orienter preserves the committed heading structure
+                                    while keeping a careful lay reader from stumbling on
+                                    the Hebrew-under-Greek-Terms placement. Framing
+                                    language draws on source PRD ISSUE-012 Problem: the
+                                    PRD establishes teshuvah as the "foundational framework"
+                                    underlying katartizo. */}
+                                <p className="text-gray-700 text-sm leading-relaxed mb-2 italic">
+                                    <em>Teshuvah</em> is a Hebrew concept, presented here
+                                    because Paul&apos;s Greek <em>katartizo</em>{' '}
+                                    (&quot;restore&quot;) in Galatians 6:1 draws on this
+                                    Jewish theological framework.
+                                </p>
                                 <p className="text-gray-700 text-sm leading-relaxed mb-2">
                                     The Hebrew concept of <em>{TRANSLIT_TESHUVAH}</em>{' '}
                                     (<span lang="he" dir="rtl" className="mx-1">{HEBREW_TESHUVAH}</span>) —{' '}
@@ -518,6 +543,18 @@ export const ScriptureStudy = (): ReactElement => {
                 </div>
 
                 <div className="space-y-6">
+                    {/* UAT-PERSONA-FEEDBACK-2026-04-20 — pastoral framing sentence
+                        added per Harrow TONE-02 / OMISSION-01. The Hebrew Foundations
+                        section reads more academic than pastoral; Harrow asked for a
+                        one-sentence warming of the cold blocks. This is introductory
+                        framing connecting material already on the page — not a new
+                        theological claim — so team authorship is appropriate. */}
+                    <p className="text-gray-700 leading-relaxed italic mb-2">
+                        Before we look at how the early Church spoke of restoration,
+                        consider how the Hebrew Bible — Paul&apos;s own formation — taught
+                        the same practice.
+                    </p>
+
                     {/* STORY-ISSUE-011 — The Hebrew Foundation: Tochacha */}
                     <div>
                         <h3
@@ -551,12 +588,16 @@ export const ScriptureStudy = (): ReactElement => {
                         </div>
 
                         <p className="text-gray-700 leading-relaxed mb-4">
+                            {/* UAT-PERSONA-FEEDBACK-2026-04-20 — "infinitive absolute"
+                                gloss added per Hargrove L-06 and Harrow ACCESSIBILITY-01.
+                                The parenthetical is grammatical fact (not theological
+                                interpretation), so team authorship is appropriate. */}
                             The Hebrew{' '}
                             <span lang="he" dir="rtl" className="mx-1">{HEBREW_HOCHEACH_TOCHIACH}</span>{' '}
                             (<em>{TRANSLIT_HOCHEACH_TOCHIACH}</em>) is an infinitive absolute
-                            construction — the doubling of the verb intensifies and obligates the
-                            command. The Talmud (<em>Arachin</em> 16b) records rabbinic debate over
-                            how many times one must rebuke.
+                            construction — a Hebrew grammatical pattern where the doubled verb
+                            intensifies and obligates the command. The Talmud (<em>Arachin</em>{' '}
+                            16b) records rabbinic debate over how many times one must rebuke.
                             <sup className="ml-0.5">
                                 <a
                                     href="#fn-hf-1"
@@ -917,84 +958,28 @@ export const ScriptureStudy = (): ReactElement => {
                 </div>
             </section>
 
-            {/* Historical Christian Commentary */}
-            <section className="bg-white rounded-lg shadow-md p-4 md:p-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-stone-800 mb-6">Historical Christian Commentary</h2>
-                
-                <div className="space-y-6">
-                    {/* STORY-ISSUE-001 — Chrysostom quotation REMOVED per source PRD path (c)
-                        + elder directive 2026-04-16 (verify-or-remove only, no reframe).
-                        Primary-source verification attempted against NPNF Series 1 Vol. 13
-                        (Chrysostom, Homily on Galatians 6) via CCEL
-                        https://ccel.org/ccel/schaff/npnf113/npnf113.iii.iii.vi.html — the
-                        "fallen into a ditch / same assistance tomorrow" wording does NOT
-                        appear verbatim in the homily. Callout block removed entirely per
-                        PRD §10 Edge Case 12 visual-slot rule. Counts toward the ≥3-removal
-                        editorial-note threshold (elder-authored; not authored here). */}
+            {/*
+                UAT-PERSONA-FEEDBACK-2026-04-20 — "Historical Christian Commentary"
+                section REMOVED (heading + empty container) per three-persona UAT
+                consensus (Whitfield finding #11, Harrow TONE-04, Callister §4,
+                Hargrove L-09). The section previously contained five commentator
+                callouts (Chrysostom, Calvin, Spurgeon ×2, Lloyd-Jones); all were
+                removed under elder verify-or-remove directive 2026-04-16. A Matthew
+                Henry callout was removed under ELDER-AUDIT-2026-04-20 and its
+                verified wording relocated inline to Practical Application.
 
-                    {/* STORY-ISSUE-002 — Calvin "sailing in the same ship" quotation
-                        REMOVED per source PRD path (c) + elder directive 2026-04-16.
-                        Verification against Calvin's Commentary on Galatians 6:1 via CCEL
-                        https://www.ccel.org/ccel/calvin/calcom41.iii.viii.i.html found NO
-                        verbatim match for the sailing / storms / trample wording.
-                        Calvin's actual commentary on this verse emphasizes "spirit of
-                        meekness," restoring "in a mild manner," and "mix oil with the
-                        vinegar" — imagery materially different from the rendered quote.
-                        Callout block removed entirely per PRD §10 Edge Case 12 visual-
-                        slot rule. Counts toward ≥3-removal editorial-note threshold. */}
+                With no verified content remaining to show, the empty h2 shell
+                whispered a falsehood to the reader ("the historical tradition has
+                nothing to say about this verse"). The elder's verify-or-remove
+                principle applies to the container as well as to the contents:
+                if nothing empirically verified sits here, remove cleanly.
 
-                    {/* ELDER-AUDIT-2026-04-20 — Matthew Henry direct-quote callout REMOVED
-                        per elder's expanded verify-or-remove principle. The rendered quote
-                        contained phrases that do NOT appear verbatim in Matthew Henry's
-                        Commentary on the Whole Bible, Galatians 6:1, verified against
-                        https://www.biblestudytools.com/commentaries/matthew-henry-complete/galatians/6.html
-                        (also cross-checked against Bible Hub and CCEL). Absent phrases
-                        include "roughness, severity, and insulting", "mild and gentle
-                        manner", and "convince them of their error". Henry's actual
-                        wording on the manner of restoration is "with the spirit of
-                        meekness; not in wrath and passion, as those who triumph in a
-                        brother's falls, but with meekness, as those who rather mourn
-                        for them." Because the rendered sentence is not attested in the
-                        primary source, Path (c) removal applies per elder directive —
-                        verify-or-remove, no reframe-by-paraphrase into the callout
-                        visual slot. The Practical Application inline attribution below
-                        is rewritten (Path b) to attribute "spirit of meekness" to Paul
-                        (its source in Gal 6:1 KJV) with Henry cited as expositor. */}
-
-                    {/* STORY-ISSUE-003 — Both Spurgeon quotations REMOVED per source PRD
-                        path (c) + elder directive 2026-04-16.
-                        Quote #1 ("He who would lift up the fallen must take care that he
-                        does not fall himself") was excised below from the Practical
-                        Application section; it also had no Historical Christian Commentary
-                        callout.
-                        Quote #2 ("surgeons work upon a broken limb ... handling a soul
-                        already wounded") verified against Spurgeon Center sermon archive
-                        https://www.spurgeon.org/resource-library/sermons/burden-bearing/
-                        (Sermon #2831, Burden-bearing, Metropolitan Tabernacle Pulpit
-                        Vol. 49, delivered 26 Aug 1886, published 1903) — the exact
-                        surgeon/broken-limb wording does NOT appear in that sermon.
-                        Spurgeon's actual metaphor is "Set his bones for him" — a
-                        different image. Also searched Morning and Evening / Faith's
-                        Checkbook indices: no verbatim match. Callout removed entirely
-                        per PRD §10 Edge Case 12. Both quotations count toward the ≥3-
-                        removal editorial-note threshold. */}
-
-                    {/* STORY-ISSUE-004 — Lloyd-Jones "different from other people"
-                        quotation REMOVED per source PRD path (c) + elder directive
-                        2026-04-16. Verification searches against the MLJ Trust sermon
-                        database (https://www.mljtrust.org/) and general web search
-                        returned zero verbatim matches. The source PRD's suggested
-                        volumes (Banner of Truth Galatians, Studies in the Sermon on
-                        the Mount, Romans series) could not be searched inside for
-                        this exact wording through open-access channels — the Lloyd-
-                        Jones corpus is less fully digitised than CCEL/NPNF/CCEL-
-                        Spurgeon, and we will not cite a volume and page we cannot
-                        confirm. No chapter-and-page reference is known to carry the
-                        quote. Callout removed entirely per PRD §10 Edge Case 12.
-                        Counts toward the ≥3-removal editorial-note threshold
-                        (already reached after STORY-ISSUE-003). */}
-                </div>
-            </section>
+                The verify-or-remove audit trail for the five original quotations
+                is preserved in STORY-ISSUE-001 / ISSUE-002 / ISSUE-003 / ISSUE-004
+                and ELDER-AUDIT-2026-04-20 under .delivery/artifacts/06-dev/. The
+                Matthew Henry verified fragment remains rendered in the Practical
+                Application section above with its inline <cite> attribution.
+            */}
 
             {/* References */}
             <section className="bg-stone-50 rounded-lg p-4 md:p-6">
