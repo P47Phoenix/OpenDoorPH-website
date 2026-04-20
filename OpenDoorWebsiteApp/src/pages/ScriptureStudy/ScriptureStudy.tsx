@@ -967,17 +967,20 @@ export const ScriptureStudy = (): ReactElement => {
                         per PRD §10 Edge Case 12. Both quotations count toward the ≥3-
                         removal editorial-note threshold. */}
 
-                    <div className="border-l-4 border-green-500 pl-6">
-                        <h3 className="text-lg font-semibold text-stone-800 mb-2">Martyn Lloyd-Jones (1899-1981)</h3>
-                        <p className="text-gray-700 italic mb-2">
-                            "The moment you begin to think that you are different from other people, and that you are 
-                            not as likely to fall as they are, you are in the greatest danger. The person who is not 
-                            afraid of sinning is most likely to sin."
-                        </p>
-                        <p className="text-gray-700 text-sm">
-                            Lloyd-Jones warned against the spiritual pride that can make us ineffective in restoration ministry.
-                        </p>
-                    </div>
+                    {/* STORY-ISSUE-004 — Lloyd-Jones "different from other people"
+                        quotation REMOVED per source PRD path (c) + elder directive
+                        2026-04-16. Verification searches against the MLJ Trust sermon
+                        database (https://www.mljtrust.org/) and general web search
+                        returned zero verbatim matches. The source PRD's suggested
+                        volumes (Banner of Truth Galatians, Studies in the Sermon on
+                        the Mount, Romans series) could not be searched inside for
+                        this exact wording through open-access channels — the Lloyd-
+                        Jones corpus is less fully digitised than CCEL/NPNF/CCEL-
+                        Spurgeon, and we will not cite a volume and page we cannot
+                        confirm. No chapter-and-page reference is known to carry the
+                        quote. Callout removed entirely per PRD §10 Edge Case 12.
+                        Counts toward the ≥3-removal editorial-note threshold
+                        (already reached after STORY-ISSUE-003). */}
                 </div>
             </section>
 
