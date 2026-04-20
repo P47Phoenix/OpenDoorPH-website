@@ -920,17 +920,16 @@ export const ScriptureStudy = (): ReactElement => {
                         PRD §10 Edge Case 12 visual-slot rule. Counts toward the ≥3-removal
                         editorial-note threshold (elder-authored; not authored here). */}
 
-                    <div className="border-l-4 border-green-500 pl-6">
-                        <h3 className="text-lg font-semibold text-stone-800 mb-2">John Calvin (1509-1564)</h3>
-                        <p className="text-gray-700 italic mb-2">
-                            "Let us remember that we are all sailing in the same ship, and are equally exposed to the 
-                            same storms. When we see a brother fall, let us not triumphantly trample upon him, but let us 
-                            stretch out our hand and lift him up."
-                        </p>
-                        <p className="text-gray-700 text-sm">
-                            Calvin emphasized the shared vulnerability of all believers to sin.
-                        </p>
-                    </div>
+                    {/* STORY-ISSUE-002 — Calvin "sailing in the same ship" quotation
+                        REMOVED per source PRD path (c) + elder directive 2026-04-16.
+                        Verification against Calvin's Commentary on Galatians 6:1 via CCEL
+                        https://www.ccel.org/ccel/calvin/calcom41.iii.viii.i.html found NO
+                        verbatim match for the sailing / storms / trample wording.
+                        Calvin's actual commentary on this verse emphasizes "spirit of
+                        meekness," restoring "in a mild manner," and "mix oil with the
+                        vinegar" — imagery materially different from the rendered quote.
+                        Callout block removed entirely per PRD §10 Edge Case 12 visual-
+                        slot rule. Counts toward ≥3-removal editorial-note threshold. */}
 
                     <div className="border-l-4 border-green-500 pl-6">
                         <h3 className="text-lg font-semibold text-stone-800 mb-2">Matthew Henry (1662-1714)</h3>
