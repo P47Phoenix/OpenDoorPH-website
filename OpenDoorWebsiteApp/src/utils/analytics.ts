@@ -27,13 +27,17 @@ export const initGA = (): void => {
     return;
   }
 
-  // Initialize dataLayer
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function(...args: any[]) {
-    window.dataLayer.push(args);
-  };
+  // dataLayer and window.gtag are already set up by the inline script in
+  // public/index.html. Do NOT reassign window.gtag here -- the inline version
+  // uses `arguments` (canonical gtag.js form). Any reassignment with a
+  // rest-parameter wrapper pushes real Arrays into dataLayer, which gtag.js
+  // silently ignores, causing zero events to reach GA4. See issue #35.
+  if (typeof window.gtag !== 'function') {
+    console.warn('Google Analytics: inline gtag shim missing from index.html; skipping config');
+    return;
+  }
 
-  // Configure gtag
+  // Configure gtag (uses the inline arguments-form shim)
   window.gtag('js', new Date());
   window.gtag('config', GA_MEASUREMENT_ID, GA_CONFIG);
 };
