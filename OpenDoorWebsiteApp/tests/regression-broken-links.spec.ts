@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { grantConsent } from './helpers/consent';
 
 /**
  * Regression tests for the specific link fixes implemented in tasks 10-12
@@ -28,7 +29,13 @@ const environments = [
 
 environments.forEach(({ name, baseURL, basePath, expectedPrefix }) => {
   test.describe(`Regression Tests - Previously Broken Links - ${name}`, () => {
-    
+    test.beforeEach(async ({ page }) => {
+      // Dismiss ConsentBanner before the first paint — see tests/helpers/consent.ts
+      // and issue #37. Each test calls page.goto itself, so we only register the
+      // init script here; navigation stays per-test.
+      await grantConsent(page);
+    });
+
     test('Homepage "Visit Us" button should work correctly', async ({ page }) => {
       // Navigate to homepage
       await page.goto(`${baseURL}${basePath}`);

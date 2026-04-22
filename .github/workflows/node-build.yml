@@ -92,16 +92,22 @@ jobs:
           name: build-files
           path: ./OpenDoorWebsiteApp/build/
           retention-days: 1
-      - name: Run Playwright a11y smoke only
+      - name: Run Playwright PR suite (a11y + regression-broken-links)
         env:
           CI: true
         run: |
-          echo "🎭 Running Playwright a11y smoke (tests/a11y.spec.ts)..."
-          # Pre-existing E2E specs (external-links, multi-environment-navigation, regression-broken-links)
-          # are disabled on PR pending repair — see follow-up issue filed 2026-04-20.
-          # Activating the full suite surfaced latent ConsentBanner pointer-interception
-          # failures that are orthogonal to Scripture-study content work.
-          npx playwright test tests/a11y.spec.ts
+          echo "🎭 Running Playwright PR suite (test:e2e:pr)..."
+          # Issue #37 repair: ConsentBanner pointer-interception was neutralised
+          # via tests/helpers/consent.ts (pre-seeds localStorage analytics-consent
+          # before the first paint). test:e2e:pr runs the a11y smoke plus the
+          # regression-broken-links suite — fast, high-signal, every PR.
+          #
+          # NOTE: full link-crawl specs (external-links-assets, multi-environment-
+          # navigation) are reachable via `npm run test:e2e:full` but are NOT
+          # wired into this PR-gate step. Consider a scheduled workflow (nightly
+          # or weekly) to run test:e2e:full; tracked as a follow-up, not in scope
+          # for issue #37.
+          npm run test:e2e:pr
       - name: Run axe-core accessibility scan
         env:
           CI: true
