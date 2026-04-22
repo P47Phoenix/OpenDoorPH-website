@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { grantConsent } from './helpers/consent';
 
 // Test environments configuration
 const environments = [
@@ -22,6 +23,9 @@ const environments = [
 environments.forEach(({ name, baseURL, basePath }) => {
   test.describe(`External Links and Assets - ${name} Environment`, () => {
     test.beforeEach(async ({ page }) => {
+      // Dismiss ConsentBanner before the first paint — see tests/helpers/consent.ts
+      // and issue #37. Must run BEFORE page.goto so addInitScript registers.
+      await grantConsent(page);
       await page.goto(`${baseURL}${basePath}`);
     });
 

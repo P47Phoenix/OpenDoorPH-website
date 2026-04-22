@@ -28,6 +28,8 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:regression": "playwright test regression-broken-links.spec.ts",
+    "test:e2e:pr": "playwright test tests/a11y.spec.ts tests/regression-broken-links.spec.ts",
+    "test:e2e:full": "playwright test",
     "test:all": "npm run test:unit && npm run test:e2e",
     "test:root": "npm run build:prod && serve -s build -p 3000",
     "test:github": "npm run build:gh-pages && serve -s build -p 3001",
