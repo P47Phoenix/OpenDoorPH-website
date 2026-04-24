@@ -8,6 +8,11 @@
 
 # production
 /build
+# Issue #53: per-environment build outputs (one dir per webServer port to avoid the shared-`build/` race)
+/build-prod
+/build-gh-pages
+/build-custom
+/build-deep
 
 # misc
 .DS_Store

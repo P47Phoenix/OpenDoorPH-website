@@ -37,9 +37,18 @@ export default defineConfig({
   })(),
 
   /* Run your local dev server before starting the tests */
+  /*
+   * Issue #53 — webServer race fix: each environment's `react-scripts build`
+   * now writes to its own BUILD_PATH (build-prod, build-gh-pages, build-custom)
+   * via the cross-env-prefixed `build:*` scripts in package.json. Each `serve`
+   * command below points at its dedicated dir so the three concurrent
+   * webServers no longer fight over the shared `./build/` output, and each
+   * port serves the bundle whose PUBLIC_URL matches its describe block in
+   * tests/regression-broken-links.spec.ts.
+   */
   webServer: [
     {
-      command: 'npm run build:prod && npx serve -s build -p 3100',
+      command: 'npm run build:prod && npx serve -s build-prod -p 3100',
       port: 3100,
       reuseExistingServer: !process.env.CI,
       env: {
@@ -47,7 +56,7 @@ export default defineConfig({
       }
     },
     {
-      command: 'npm run build:gh-pages && npx serve -s build -p 3101',
+      command: 'npm run build:gh-pages && npx serve -s build-gh-pages -p 3101',
       port: 3101,
       reuseExistingServer: !process.env.CI,
       env: {
@@ -55,7 +64,7 @@ export default defineConfig({
       }
     },
     {
-      command: 'npm run build:custom && npx serve -s build -p 3102',
+      command: 'npm run build:custom && npx serve -s build-custom -p 3102',
       port: 3102,
       reuseExistingServer: !process.env.CI,
       env: {
