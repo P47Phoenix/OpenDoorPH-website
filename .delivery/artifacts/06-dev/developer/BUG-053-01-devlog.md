@@ -230,7 +230,16 @@ Running 8 tests using 1 worker
 
 ### Commit SHA
 
-To be recorded after `git commit` lands. (Message uses `Refs #53`, not
-`Closes #53`, because the closing trailer is on the prior commit `6b8193b`
-and we don't want a double-close on the issue.)
+`be68e28` — `fix(ci): align deploy workflow with BUILD_PATH-per-env outputs`,
+landed on `fix/e2e-webserver-isolation` on top of `6b8193b` (NOT an amend;
+`6b8193b` preserved so the four prior validators' DoD signatures still
+apply). Message uses `Refs #53`, not `Closes #53`, because the closing
+trailer is on `6b8193b` and we don't want a double-close on the issue.
+
+Verification: `git log -2 --oneline` shows:
+
+```
+be68e28 fix(ci): align deploy workflow with BUILD_PATH-per-env outputs
+6b8193b fix(e2e): isolate per-env build outputs; narrow PR gate to Root
+```
 
