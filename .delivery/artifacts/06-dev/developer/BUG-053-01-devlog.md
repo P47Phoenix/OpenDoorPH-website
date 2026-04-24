@@ -174,3 +174,63 @@ build output dir and the `gh-pages -d` source dir match.
 **DONE** — 8/8 green twice + bundle isolation verified on disk + deploy chain
 consistent. Race fix shipped; prefix-mismatch deferred to a tracked follow-up
 per the elder's option-#4 decision.
+
+---
+
+## Self-correction commit (UAT DoD round 2)
+
+**Triggered by:** Ezra (UAT tech-writer DoD validator), 2026-04-22.
+
+Ezra cross-referenced the runbook against `git show 6b8193b --stat` and
+caught that `6b8193b` renamed `build:prod`'s output directory to
+`./build-prod/` via `BUILD_PATH` but did **not** update the deploy workflow
+that consumed `./build/`. On merge to master the deploy job would have run
+`aws s3 sync build/ s3://opendoorsitebucket --delete` against an empty
+directory, **emptying the live production bucket**. The `gh-pages` job
+would similarly have shipped an empty bundle to GitHub Pages. Block was
+correct; this is the corrective commit.
+
+A new commit on the same branch (do **not** amend `6b8193b` — it has been
+DoD-reviewed by four other validators and amending would re-set those gates).
+
+### Files updated in this commit
+
+- `.github/workflows/node-build.yml`
+  - Production deploy chain: `Upload build artifacts` step `path:` → `./OpenDoorWebsiteApp/build-prod/`
+  - Production deploy chain: `Download build artifacts` step `path:` → `./OpenDoorWebsiteApp/build-prod/`
+  - Production deploy chain: both `aws s3 sync` invocations → `build-prod/`
+  - GitHub Pages chain: `Upload to GitHub Pages` step `path:` → `./OpenDoorWebsiteApp/build-gh-pages`
+  - Comment block above `npm run test:e2e:pr`: appended a paragraph noting the
+    issue #53 BUILD_PATH-per-env work alongside the existing #37 reference.
+- `OpenDoorWebsiteApp/README.md`
+  - Line 73 (Custom Domain Deployment): `build/` → `build-prod/` with `BUILD_PATH=./build-prod` annotation.
+  - Lines 93, 102 (local-test command snippets): `npx serve -s build` → `npx serve -s build-prod`; `cp -r build` → `cp -r build-gh-pages`.
+  - Line 109 (Verify Build Output): `build/index.html` → `build-prod/index.html` (or `build-gh-pages/index.html`).
+  - Line 130 (Custom Domain Manual deploy snippet): `Upload build/ folder` → `Upload build-prod/ folder`.
+  - Line 142 (ASCII project tree): `build/` row replaced with `build-prod/` and a new `build-gh-pages/` row, each annotated with its `BUILD_PATH`.
+  - Line 205 (Debugging Steps): `build/index.html` → `build-prod/index.html` (or `build-gh-pages/index.html`).
+  - CRA-boilerplate references to `build/` further down the README (Travis URL, Firebase wizard transcript, Express server example, source-map-explorer snippet) are upstream copy and **not** about this project's outputs; left untouched per single-purpose discipline.
+
+### Post-fix test output
+
+```
+> opendoorwebsiteapp@0.2.0 test:e2e:pr
+> playwright test tests/a11y.spec.ts tests/regression-broken-links.spec.ts --grep-invert "GitHub Pages|Custom Path"
+
+
+Running 8 tests using 1 worker
+[a11y smoke] Home has 2 axe violations (baseline 2):
+  - color-contrast: Elements must meet minimum color contrast ratio thresholds (6 nodes)
+  - landmark-unique: Landmarks should have a unique role or role/label/title (i.e. accessible name) combination (1 nodes)
+········
+  8 passed (32.3s)
+```
+
+8 passed. Same baselined axe violations as runs 1 and 2 above; no regression.
+
+### Commit SHA
+
+To be recorded after `git commit` lands. (Message uses `Refs #53`, not
+`Closes #53`, because the closing trailer is on the prior commit `6b8193b`
+and we don't want a double-close on the issue.)
+

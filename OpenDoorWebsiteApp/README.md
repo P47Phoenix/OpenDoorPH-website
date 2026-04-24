@@ -70,7 +70,7 @@ npm run build:prod
 - Sets `REACT_APP_ROOT_URI=/`
 - Assets referenced from root (`/static/...`)
 - Router basename is `/`
-- Deploy the `build/` folder to web server root
+- Deploy the `build-prod/` folder (set via `BUILD_PATH=./build-prod`) to web server root
 
 ### GitHub Pages Deployment
 
@@ -90,7 +90,7 @@ npm run build:gh-pages
 1. **Test Custom Domain Build**:
    ```bash
    npm run build:prod
-   npx serve -s build
+   npx serve -s build-prod
    # Visit: http://localhost:3000
    ```
 
@@ -99,14 +99,14 @@ npm run build:gh-pages
    npm run build:gh-pages
    # Create directory structure matching GitHub Pages
    mkdir temp_serve
-   cp -r build temp_serve/OpenDoorPH-website
+   cp -r build-gh-pages temp_serve/OpenDoorPH-website
    npx serve temp_serve
    # Visit: http://localhost:3000/OpenDoorPH-website/
    ```
 
 ### Verify Build Output
 
-Check `build/index.html` for correct asset paths:
+Check `build-prod/index.html` (or `build-gh-pages/index.html`) for correct asset paths:
 - **Custom Domain**: `src="/static/js/..."`
 - **GitHub Pages**: `src="/OpenDoorPH-website/static/js/..."`
 
@@ -127,7 +127,7 @@ This command:
 
 ```bash
 npm run build:prod
-# Upload build/ folder contents to web server root
+# Upload build-prod/ folder contents to web server root
 ```
 
 ## Project Structure
@@ -139,7 +139,8 @@ OpenDoorWebsiteApp/
 │   ├── components/layout/                   # Navigation components using React Router Link
 │   └── App.tsx                             # Main app component
 ├── public/                                 # Static assets
-├── build/                                  # Production build output
+├── build-prod/                            # Production build output (BUILD_PATH=./build-prod)
+├── build-gh-pages/                        # GitHub Pages build output (BUILD_PATH=./build-gh-pages)
 ├── .env.local                             # Local development environment
 ├── .env.gh-pages                          # GitHub Pages environment reference
 └── package.json                           # Build scripts and homepage setting
@@ -202,7 +203,7 @@ All internal navigation uses React Router `Link` components:
    ```
 
 2. **Verify build output**:
-   - Check `build/index.html` for correct asset paths
+   - Check `build-prod/index.html` (or `build-gh-pages/index.html`) for correct asset paths
    - Look for proper basename in router configuration
 
 3. **Test locally**:
