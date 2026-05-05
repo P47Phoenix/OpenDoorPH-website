@@ -32,7 +32,7 @@ import {
     extractNAPFromElement,
     buildNAPTuple,
     NAP,
-} from './helpers/extractNAP';
+} from '../utils/extractNAP';
 
 // Mock assets BEFORE any component import (component files import these).
 jest.mock('../assets', () => ({
@@ -190,24 +190,16 @@ describe('NAP byte-equality (FR-05)', () => {
         }
     }
 
-    test('Footer renders street + postalCode that byte-match schema', () => {
-        const { container } = renderInRouter(React.createElement(Footer));
-        const nap = extractNAPFromElement(container);
-        const text = container.textContent ?? '';
-        assertSurfaceMatchesSchema('Footer', nap, text);
-    });
+    const surfaces: Array<[string, React.ComponentType<any>]> = [
+        ['Footer', Footer],
+        ['LocationPage', Location],
+        ['AboutPage', About],
+    ];
 
-    test('LocationPage renders street + postalCode that byte-match schema', () => {
-        const { container } = renderInRouter(React.createElement(Location));
+    test.each(surfaces)('%s renders street + postalCode that byte-match schema', (name, Component) => {
+        const { container } = renderInRouter(React.createElement(Component));
         const nap = extractNAPFromElement(container);
         const text = container.textContent ?? '';
-        assertSurfaceMatchesSchema('LocationPage', nap, text);
-    });
-
-    test('AboutPage renders street + postalCode that byte-match schema', () => {
-        const { container } = renderInRouter(React.createElement(About));
-        const nap = extractNAPFromElement(container);
-        const text = container.textContent ?? '';
-        assertSurfaceMatchesSchema('AboutPage', nap, text);
+        assertSurfaceMatchesSchema(name, nap, text);
     });
 });
