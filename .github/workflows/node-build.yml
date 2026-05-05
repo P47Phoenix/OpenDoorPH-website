@@ -86,6 +86,16 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Build production artifact
         run: npm run build:prod
+      - name: FR-06 forbidden-string source guard (Issue #58 slice A)
+        # Source-side grep covers all four production builds (build-prod,
+        # build-gh-pages, build-custom, build-deep) uniformly because they
+        # share source. Forbids 'philippines', 'pleasant hill interdenom',
+        # and 'herbert lowrey' (case-insensitive) on production-shipped
+        # source (test files excluded; CRA does not bundle them).
+        # BUG-053-01 hot-lesson note: this is the single workflow edit
+        # for slice A; reviewer should cross-reference deploy-plan §8.
+        run: bash OpenDoorWebsiteApp/scripts/check-forbidden-strings.sh
+        working-directory: .
       - name: Upload build artifacts (for deploy)
         uses: actions/upload-artifact@v4
         with:
