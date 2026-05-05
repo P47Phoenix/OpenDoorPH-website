@@ -72,10 +72,16 @@ jest.mock('../hooks/usePageMeta', () => ({
     usePageMeta: jest.fn(),
 }));
 
-// Imports AFTER mocks are registered.
+// Imports AFTER mocks are registered. Jest requires `jest.mock()` calls to
+// run before the modules under test are imported, which is enforced by
+// hoisting in babel-plugin-jest-hoist for `jest.mock` only — `import`
+// statements that depend on the mocks must come after. ESLint's
+// `import/first` doesn't recognize this pattern, so disable per-line.
+/* eslint-disable import/first */
 import Footer from '../components/layout/Footer/Footer';
 import { Location } from '../pages/LocationPage/LocationPage';
 import { About } from '../pages/AboutPage/AboutPage';
+/* eslint-enable import/first */
 
 const INDEX_HTML_PATH = path.resolve(
     __dirname,
