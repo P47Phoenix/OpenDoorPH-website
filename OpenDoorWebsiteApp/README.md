@@ -106,9 +106,94 @@ npm run build:gh-pages
 
 ### Verify Build Output
 
-Check `build-prod/index.html` (or `build-gh-pages/index.html`) for correct asset paths:
+Check `build-prod/index.html` (or `build-gh-pages/OpenDoorPH-website/index.html`) for correct asset paths:
 - **Custom Domain**: `src="/static/js/..."`
 - **GitHub Pages**: `src="/OpenDoorPH-website/static/js/..."`
+- **Custom Path**: `src="/CustomPath/static/js/..."`
+
+## Nested-Prefix-Subdir Convention (Issue #56)
+
+For envs whose bundle is built with a non-root `PUBLIC_URL` prefix (currently
+`gh-pages` and `custom`), `build:*` writes its output to
+`<dir>/<prefix>/` rather than the flat `<dir>/`. The on-disk tree mirrors the
+published URL tree, so a flat `serve <dir>` (mounting disk-root at URL-root)
+resolves prefixed asset URLs correctly.
+
+Concretely:
+
+| Env | Build script | On-disk output | Served URL |
+|-----|--------------|----------------|------------|
+| Root | `build:prod` | `build-prod/index.html` | `http://host/index.html` |
+| GitHub Pages | `build:gh-pages` | `build-gh-pages/OpenDoorPH-website/index.html` | `http://host/OpenDoorPH-website/index.html` |
+| Custom Path | `build:custom` | `build-custom/CustomPath/index.html` | `http://host/CustomPath/index.html` |
+
+### `serve.json` companion (Option-1 + Option-2 combined fix)
+
+The nested-subdir layout alone is not enough for local Playwright runs.
+`npx serve <build-dir>` does two things by default that break the prefixed
+envs:
+
+1. For an extensionless request like `GET /OpenDoorPH-website` it stats the
+   on-disk directory and renders a `serve` directory listing (an HTML
+   `<title>Files within build-gh-pages/...</title>` page) instead of the
+   nested `OpenDoorPH-website/index.html`. React never mounts.
+2. The `-s` (single-page) flag prepends a `**` → `/index.html` rewrite which,
+   for a prefixed bundle, would point at a non-existent root-level
+   `build-gh-pages/index.html`, returning 404 for every client route.
+
+The fix is a `serve.json` emitted into the build dir alongside the nested
+subdir. `build:gh-pages` and `build:custom` write their config post-build:
+
+```json
+{
+  "directoryListing": false,
+  "rewrites": [
+    { "source": "/OpenDoorPH-website",     "destination": "/OpenDoorPH-website/index.html" },
+    { "source": "/OpenDoorPH-website/**",  "destination": "/OpenDoorPH-website/index.html" }
+  ]
+}
+```
+
+`serve` (via `serve-handler`) auto-detects `serve.json` in the served root and
+applies the rewrites BEFORE the directory stat for extensionless paths, so
+`/OpenDoorPH-website` and `/OpenDoorPH-website/about` both resolve to the
+nested `index.html`. `directoryListing: false` belt-and-suspenders the
+listing path. Asset requests (`*.js`, `*.css`, …) hit the on-disk file
+directly because `serve-handler` stats first when the path has an extension.
+
+Because our explicit prefix rewrites must take precedence, the prefixed-env
+Playwright `webServer` commands run `npx serve <dir>` *without* the `-s` flag
+(see `playwright.config.ts` ports 3101/3102 comments). The root-prefix env
+(port 3100, `build-prod`) still uses `-s` since it has no prefix and needs
+the catchall SPA fallback.
+
+### Downstream consumers (must stay aligned)
+
+Four downstream consumers must stay aligned with this convention — change one,
+change all four:
+
+1. **Playwright `webServer` commands** (`playwright.config.ts`, ports 3101 and
+   3102): `npx serve build-gh-pages` and `npx serve build-custom` serve the
+   disk-root of each env's build dir; the nested subdir surfaces at the
+   prefixed URL Playwright requests, and the emitted `serve.json` rewrites
+   handle the bare-prefix and SPA-fallback cases.
+2. **`deploy:gh-pages` script** (`package.json`): `npx gh-pages -d
+   build-gh-pages/OpenDoorPH-website` publishes the *prefix-rooted* tree to
+   the `gh-pages` branch. Pointing `-d` at the wrapper dir
+   (`build-gh-pages`) would publish a double-prefixed tree
+   (`/OpenDoorPH-website/OpenDoorPH-website/static/...`) and break prod.
+3. **`demo-deploy` workflow** (`.github/workflows/node-build.yml`,
+   `actions/upload-pages-artifact@v3` `path:`): uploads
+   `./OpenDoorWebsiteApp/build-gh-pages/OpenDoorPH-website` so the demo at
+   https://p47phoenix.github.io/OpenDoorPH-website/ serves correctly.
+4. **`serve.json` emission** (`build:gh-pages` and `build:custom` in
+   `package.json`): the post-build `node -e` step writes `serve.json` to the
+   *wrapper dir* (`build-gh-pages/`, not `build-gh-pages/OpenDoorPH-website/`)
+   so `npx serve build-gh-pages` picks it up at the served root. The wrapper
+   dir is intentionally not published to gh-pages — `deploy:gh-pages` points
+   at the nested subdir, so the local-only `serve.json` never ships.
+
+If you add a fourth prefixed env, name a fifth consumer to match.
 
 ## Deployment Process
 
@@ -140,7 +225,8 @@ OpenDoorWebsiteApp/
 │   └── App.tsx                             # Main app component
 ├── public/                                 # Static assets
 ├── build-prod/                            # Production build output (BUILD_PATH=./build-prod)
-├── build-gh-pages/                        # GitHub Pages build output (BUILD_PATH=./build-gh-pages)
+├── build-gh-pages/OpenDoorPH-website/     # GitHub Pages build output (BUILD_PATH=./build-gh-pages/OpenDoorPH-website — nested-prefix convention)
+├── build-custom/CustomPath/               # Custom Path build output (BUILD_PATH=./build-custom/CustomPath — nested-prefix convention)
 ├── .env.local                             # Local development environment
 ├── .env.gh-pages                          # GitHub Pages environment reference
 └── package.json                           # Build scripts and homepage setting

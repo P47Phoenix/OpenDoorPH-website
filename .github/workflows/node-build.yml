@@ -417,7 +417,7 @@ jobs:
       - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./OpenDoorWebsiteApp/build-gh-pages
+          path: ./OpenDoorWebsiteApp/build-gh-pages/OpenDoorPH-website
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

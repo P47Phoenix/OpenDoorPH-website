@@ -56,7 +56,17 @@ export default defineConfig({
       }
     },
     {
-      command: 'npm run build:gh-pages && npx serve -s build-gh-pages -p 3101',
+      // Issue #56: serves the nested-prefix subdir written by build:gh-pages's
+      // BUILD_PATH=./build-gh-pages/OpenDoorPH-website. `npx serve build-gh-pages`
+      // (no `-s`) mounts disk-root at URL-root and honours the serve.json that
+      // build:gh-pages emits at build-gh-pages/serve.json. The serve.json
+      // rewrites map /OpenDoorPH-website[/**] → /OpenDoorPH-website/index.html
+      // (SPA fallback for client routes) AND disable directoryListing so a
+      // bare /OpenDoorPH-website request lands on React's index.html instead
+      // of `serve`'s file-tree listing. `-s` is intentionally omitted: it
+      // would prepend a `**` → `/index.html` rewrite that always wins over our
+      // explicit prefix rewrite, breaking SPA fallback for the prefixed env.
+      command: 'npm run build:gh-pages && npx serve build-gh-pages -p 3101',
       port: 3101,
       reuseExistingServer: !process.env.CI,
       env: {
@@ -64,7 +74,12 @@ export default defineConfig({
       }
     },
     {
-      command: 'npm run build:custom && npx serve -s build-custom -p 3102',
+      // Issue #56: serves the nested-prefix subdir written by build:custom's
+      // BUILD_PATH=./build-custom/CustomPath. Same serve.json + no-`-s`
+      // pattern as port 3101 — see that block's comment for the rationale.
+      // serve.json at build-custom/serve.json maps /CustomPath[/**] →
+      // /CustomPath/index.html and disables directoryListing.
+      command: 'npm run build:custom && npx serve build-custom -p 3102',
       port: 3102,
       reuseExistingServer: !process.env.CI,
       env: {
