@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import AddToCalendarButton from '../components/AddToCalendarButton';
 import { ChurchEvent } from '../config/events';
@@ -241,6 +241,10 @@ describe('E-3: AddToCalendarButton', () => {
   // E-5.15: Decorative chevron has aria-hidden
   test('chevron SVG has aria-hidden', () => {
     render(<AddToCalendarButton event={sundayService} />);
+    // Decorative SVG without role; the testing-library/no-node-access rule is
+    // intended to catch query escapes, but asserting on a decorative inline SVG
+    // requires DOM traversal — there is no accessible-name query for it.
+    // eslint-disable-next-line testing-library/no-node-access
     const svg = screen.getByText('Add to Calendar').closest('button')?.querySelector('svg');
     expect(svg).toHaveAttribute('aria-hidden', 'true');
   });

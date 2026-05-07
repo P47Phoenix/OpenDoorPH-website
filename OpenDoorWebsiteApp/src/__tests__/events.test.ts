@@ -8,8 +8,6 @@ import {
   EVENTS,
   CHURCH_LOCATION,
   CHURCH_TIMEZONE,
-  ChurchEvent,
-  CalendarPlatform,
 } from '../config/events';
 
 describe('E-1: Event Data Model', () => {
