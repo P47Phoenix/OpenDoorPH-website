@@ -107,8 +107,8 @@ describe('E-2: SideBar EventCard Rendering', () => {
 
   // E-2.12: No Philippines reference
   test('no Philippines reference in rendered output', () => {
-    const { container } = renderSideBar();
-    expect(container.textContent?.toLowerCase()).not.toContain('philippines');
+    renderSideBar();
+    expect(screen.queryByText(/philippines/i)).not.toBeInTheDocument();
   });
 
   // Verify aria-labels for both AddToCalendar buttons
