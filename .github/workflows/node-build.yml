@@ -195,7 +195,7 @@ jobs:
           fi
           
           echo "✅ Found CloudFront distribution: $DISTRIBUTION_ID"
-          echo "DISTRIBUTION_ID=$DISTRIBUTION_ID" >> $GITHUB_OUTPUT
+          echo "DISTRIBUTION_ID=$DISTRIBUTION_ID" >> "$GITHUB_OUTPUT"
       - name: Invalidate CloudFront cache
         run: |
           echo "🔄 Invalidating CloudFront cache..."
