@@ -153,8 +153,7 @@ echo "✅ Security audit completed"
 
 echo "📋 Step 8: Testing installation..."
 echo "Starting test build..."
-npm run build
-if [ $? -ne 0 ]; then
+if ! npm run build; then
     echo "❌ Build failed. Please check the errors above."
     exit 1
 fi
