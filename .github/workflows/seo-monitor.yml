@@ -1,0 +1,273 @@
+name: SEO Monitor
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # Mondays 06:00 UTC; first Monday after merge is the first scheduled tick (FR-CI-01)
+  workflow_dispatch:       # Manual trigger; used for the Jericho first-march (deploy-plan §8) and on-demand probes
+
+permissions:
+  contents: read
+  issues: write            # FR-CI-04: post comments on Issue #58
+
+concurrency:
+  group: seo-monitor
+  cancel-in-progress: false
+
+jobs:
+  seo-monitor:
+    name: seo-monitor
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: ./OpenDoorWebsiteApp   # AC-36 - mirrors node-build.yml job-level wd discipline
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # Step-0: discourse-fidelity guard (D-10). Mirrors node-build.yml's
+      # existing precedent (lines 28-34) - same script, same fail-fast posture.
+      # Failure here aborts the run before any network probe or comment-posting
+      # step executes.
+      - name: Discourse-fidelity check (step-0)
+        working-directory: ${{ github.workspace }}
+        env:
+          BASE_REF: origin/${{ github.base_ref || 'master' }}
+        run: bash scripts/discourse-fidelity-check.sh
+
+      - name: Configure Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'                       # AC-29 - matches node-build.yml line 38
+          cache: 'npm'
+          cache-dependency-path: './OpenDoorWebsiteApp/package-lock.json'
+
+      - name: Install dependencies (npm ci)
+        run: npm ci
+
+      # Per pre-flight Spike 1.1 (PASS-B fired): CRA's react-scripts test
+      # only scans src/** for .{js,jsx,ts,tsx}, so we use the dedicated
+      # npm run test:seo target (jest with the seo-monitor jest.config.cjs).
+      # See OpenDoorWebsiteApp/scripts/seo-monitor/__tests__/ + the
+      # npm run test:seo entry in package.json (eighth script, non-seo:* namespace).
+      - name: Run seo-monitor unit tests
+        env:
+          CI: true
+          NODE_ENV: test
+        run: npm run test:seo
+
+      - name: Run seo:check (capture stdout)
+        id: seo
+        env:
+          CI: true
+        continue-on-error: true
+        run: |
+          set +e
+          npm run seo:check 2>&1 | tee seo-check.out
+          echo "exitcode=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Detect MILESTONE_DAY marker
+        id: milestone
+        run: |
+          set -euo pipefail
+          MARKER=$(grep -E '^MILESTONE_DAY=(30|60|90)$' seo-check.out || true)
+          if [ -n "$MARKER" ]; then
+            DAY="${MARKER#MILESTONE_DAY=}"
+            echo "is_milestone=true"  >> "$GITHUB_OUTPUT"
+            echo "milestone_day=$DAY" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_milestone=false" >> "$GITHUB_OUTPUT"
+            echo "milestone_day=none" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Post failure-class comment to Issue #58
+        if: ${{ steps.seo.outputs.exitcode != '0' }}
+        uses: actions/github-script@v7
+        env:
+          UTC_NOW: ${{ github.event.repository.updated_at }}
+          TRIGGER: ${{ github.event_name }}
+          RUNNER_OS: ubuntu-latest
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const stdout = fs.readFileSync('OpenDoorWebsiteApp/seo-check.out', 'utf8');
+
+            // 4KB stdout truncation per FR-CI-04 / cli-ux-spec §11.3.
+            const MAX = 4096;
+            const truncate = (s) => s.length <= MAX ? s : s.slice(0, MAX) + '\n[... truncated to 4096 bytes; see workflow run for full log ...]';
+
+            // Parse SUMMARY lines for the verdict table.
+            const summaryRe = /^SUMMARY (\S+) exit=(\d+) pass=(\d+) fail=(\d+) warn=(\d+) error=(\d+)/gm;
+            const verdicts = [];
+            let m;
+            while ((m = summaryRe.exec(stdout)) !== null) {
+              const sub = m[1];
+              if (sub === 'all') continue;
+              const exit = Number(m[2]);
+              const marker = exit === 0 ? 'PASS' : (exit === 1 ? 'FAIL' : 'ERROR');
+              verdicts.push(`| \`${sub}\` | ${marker} | ${exit} | pass=${m[3]} fail=${m[4]} warn=${m[5]} error=${m[6]} |`);
+            }
+
+            // Carve out failed sub-blocks for the details section.
+            const blocks = stdout.split(/^=== seo-monitor /m).slice(1);
+            const failedBlocks = [];
+            for (const b of blocks) {
+              const blockText = '=== seo-monitor ' + b;
+              const sm = /^SUMMARY \S+ exit=(\d+)/m.exec(blockText);
+              if (sm && Number(sm[1]) !== 0) {
+                failedBlocks.push('```text\n' + truncate(blockText.trim()) + '\n```');
+              }
+            }
+
+            const utc = new Date().toISOString();
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const sha = (context.sha || '').slice(0, 7);
+
+            const body = [
+              `### seo-monitor - FAILURE on ${utc}`,
+              ``,
+              `| Field          | Value                                                              |`,
+              `|----------------|--------------------------------------------------------------------|`,
+              `| UTC time       | \`${utc}\`                                                |`,
+              `| Workflow run   | [${runUrl}](${runUrl})                       |`,
+              `| Trigger        | \`${process.env.TRIGGER}\`                                                      |`,
+              `| Commit         | \`${sha}\`                                             |`,
+              `| Runner OS      | \`ubuntu-latest\`                                                    |`,
+              ``,
+              `#### Subcommand verdicts`,
+              ``,
+              `| Subcommand     | Marker | Exit | Summary                                            |`,
+              `|----------------|--------|------|----------------------------------------------------|`,
+              ...verdicts,
+              ``,
+              `#### Failed subcommand details`,
+              ``,
+              ...failedBlocks,
+              ``,
+              `#### Manual probe`,
+              ``,
+              `Open the Google Rich Results Test for the live page and record the LocalBusiness eligibility verdict in your devlog:`,
+              ``,
+              `- [https://search.google.com/test/rich-results?url=https%3A%2F%2Fopendoorph.org%2F](https://search.google.com/test/rich-results?url=https%3A%2F%2Fopendoorph.org%2F)`,
+              ``,
+              `---`,
+              ``,
+              `Posted by \`seo-monitor.yml\` - disable via \`gh workflow disable seo-monitor.yml\`.`,
+            ].join('\n');
+
+            // Runtime self-check per cli-ux-spec §11.3 / NFR-04 / D-9 surface 2:
+            // grep the rendered body for the country token. Composed from
+            // bytes so this script does not contain the literal.
+            const forbiddenToken = ['p','h','i','l','i','p','p','i','n','e','s'].join('');
+            if (body.toLowerCase().includes(forbiddenToken)) {
+              throw new Error('seo-monitor.yml render-body guard: forbidden country token detected in rendered comment body. Aborting comment-post.');
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              issue_number: 58,
+              body,
+            });
+
+      - name: Post milestone-class comment to Issue #58
+        if: ${{ steps.milestone.outputs.is_milestone == 'true' }}
+        uses: actions/github-script@v7
+        env:
+          MILESTONE_DAY_NUM: ${{ steps.milestone.outputs.milestone_day }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const stdout = fs.readFileSync('OpenDoorWebsiteApp/seo-check.out', 'utf8');
+
+            const day = process.env.MILESTONE_DAY_NUM;
+            const utc = new Date().toISOString();
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+
+            // Pull the rank-due block's metadata for baseline/today/days-since.
+            const rankBlockMatch = /=== seo-monitor rank-due ===[\s\S]*?(?=^=== seo-monitor |\Z)/m.exec(stdout);
+            const rankBlock = rankBlockMatch ? rankBlockMatch[0] : '';
+            const todayMatch = /today=(\d{4}-\d{2}-\d{2})/.exec(rankBlock);
+            const baselineMatch = /baseline=(\d{4}-\d{2}-\d{2})/.exec(rankBlock);
+            const daysMatch = /days_since=(\d+)/.exec(rankBlock);
+
+            const baselineLocal = baselineMatch ? baselineMatch[1] : '(unknown)';
+            const todayLocal    = todayMatch    ? todayMatch[1]    : '(unknown)';
+            const daysSince     = daysMatch     ? daysMatch[1]     : day;
+
+            const nextMilestones = day === '30'
+              ? 'Next milestones at days 60 and 90 from your baseline.'
+              : day === '60'
+                ? 'Next milestone at day 90 from your baseline.'
+                : 'rank-due milestones complete after this run; re-baseline only on a new GBP claim.';
+
+            const body = [
+              `### seo-monitor - DAY ${day} milestone reminder`,
+              ``,
+              `| Field                  | Value                                                              |`,
+              `|------------------------|--------------------------------------------------------------------|`,
+              `| UTC time               | \`${utc}\`                                                |`,
+              `| Workflow run           | [${runUrl}](${runUrl})                       |`,
+              `| Baseline (local)       | \`${baselineLocal}\` (America/Chicago)                        |`,
+              `| Today (local)          | \`${todayLocal}\` (America/Chicago)                                |`,
+              `| Days since baseline    | \`${daysSince}\`                                                   |`,
+              ``,
+              `#### Action checklist (runbook 5.4)`,
+              ``,
+              `Run each query in a clean browser session (no Google account signed in) from a Pleasant Hill area network if possible. Record the rank position for \`opendoorph.org\` in your devlog.`,
+              ``,
+              `- [ ] \`church pleasant hill mo\``,
+              `- [ ] \`full gospel church pleasant hill\``,
+              `- [ ] \`pentecostal church pleasant hill mo\``,
+              `- [ ] \`open door full gospel church\``,
+              ``,
+              `#### Manual probe`,
+              ``,
+              `While you have a browser open, also re-run the Google Rich Results Test for the live page:`,
+              ``,
+              `- [https://search.google.com/test/rich-results?url=https%3A%2F%2Fopendoorph.org%2F](https://search.google.com/test/rich-results?url=https%3A%2F%2Fopendoorph.org%2F)`,
+              ``,
+              `---`,
+              ``,
+              `Posted by \`seo-monitor.yml\` - disable via \`gh workflow disable seo-monitor.yml\`. ${nextMilestones}`,
+            ].join('\n');
+
+            // Runtime self-check per cli-ux-spec §11.3 / NFR-04 / D-9 surface 2.
+            const forbiddenToken = ['p','h','i','l','i','p','p','i','n','e','s'].join('');
+            if (body.toLowerCase().includes(forbiddenToken)) {
+              throw new Error('seo-monitor.yml render-body guard: forbidden country token detected in rendered comment body. Aborting comment-post.');
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              issue_number: 58,
+              body,
+            });
+
+      - name: Upload seo-check stdout (audit trail)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-check-stdout
+          path: ./OpenDoorWebsiteApp/seo-check.out
+          retention-days: 30
+
+      - name: Upload Lighthouse HTML report (when present)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: ./OpenDoorWebsiteApp/scripts/seo-monitor/.cache/*.html
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Re-raise non-zero exit (so run history shows red)
+        if: ${{ steps.seo.outputs.exitcode != '0' }}
+        run: |
+          echo "seo:check exited ${{ steps.seo.outputs.exitcode }}; re-raising so the run is marked failed."
+          exit ${{ steps.seo.outputs.exitcode }}

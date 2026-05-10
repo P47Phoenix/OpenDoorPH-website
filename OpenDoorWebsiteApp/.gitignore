@@ -33,3 +33,8 @@ yarn-error.log*
 test-results/
 playwright-report/
 playwright/.cache/
+
+# seo-monitor (Issue #58 slice C) — runtime caches; never committed
+scripts/seo-monitor/.cache/
+.lighthouseci/
+seo-check.out
