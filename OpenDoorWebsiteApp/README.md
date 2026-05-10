@@ -42,6 +42,12 @@ npm run build
 
 **Note**: Build scripts use `cross-env` to set environment variables directly, ensuring cross-platform compatibility.
 
+## Scripts & utilities
+
+Operational utilities live under `OpenDoorWebsiteApp/scripts/`. Each utility carries its own README with subcommand reference, exit-code semantics, and troubleshooting guidance.
+
+- [`scripts/seo-monitor/`](scripts/seo-monitor/README.md) — SEO monitoring + post-merge UAT automation utility (`npm run seo:check`). Wraps four-domain canonical posture, JSON-LD schema invariants, Lighthouse SEO/A11y/Perf, Rich Results URL, and 30/60/90-day rank-tracking milestone signaller. Scheduled weekly via `.github/workflows/seo-monitor.yml`.
+
 ## Local Development
 
 1. Start the development server:

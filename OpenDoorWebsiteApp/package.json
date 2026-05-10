@@ -39,7 +39,15 @@
     "lint": "eslint src/**/*.{js,jsx,ts,tsx}",
     "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix",
     "type-check": "tsc --noEmit",
-    "type-check:watch": "tsc --noEmit --watch"
+    "type-check:watch": "tsc --noEmit --watch",
+    "seo:check": "node scripts/seo-monitor/seo-monitor.mjs all",
+    "seo:canonical": "node scripts/seo-monitor/seo-monitor.mjs canonical",
+    "seo:schema": "node scripts/seo-monitor/seo-monitor.mjs schema",
+    "seo:lighthouse": "node scripts/seo-monitor/seo-monitor.mjs lighthouse",
+    "seo:rich-results": "node scripts/seo-monitor/seo-monitor.mjs rich-results",
+    "seo:rank-due": "node scripts/seo-monitor/seo-monitor.mjs rank-due",
+    "seo:all": "node scripts/seo-monitor/seo-monitor.mjs all",
+    "test:seo": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config scripts/seo-monitor/jest.config.cjs"
   },
   "eslintConfig": {
     "extends": [
@@ -61,6 +69,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.2",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.59.1",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/user-event": "^14.6.1",
