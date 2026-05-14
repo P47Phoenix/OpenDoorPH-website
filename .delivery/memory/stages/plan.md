@@ -16,9 +16,10 @@
 - **Last**: run-2026-05-03-58aa
 
 ## Lesson 4
-- **Insight**: "FR/Test wired to CI vs UAT vs attestation" must agree across stories.md, test-strategy.md, and deploy-plan.md. A single source of truth (the PRD's FR text) is not sufficient if downstream artifacts paraphrase the wiring differently — adversarial caught run-2026-05-03-58aa with FR-06 wired three different ways across the four Plan artifacts. Cross-reference at Plan DoD: every CI/UAT/attestation claim should match exactly across primaries. Reprised on a light-mode Plan in run-2026-05-13-w0a1 (4-vs-5 command battery drift); confirms drift is structural, not depth-correlated.
+- **Insight**: "FR/Test wired to CI vs UAT vs attestation" must agree across stories.md, test-strategy.md, and deploy-plan.md. A single source of truth (the PRD's FR text) is not sufficient if downstream artifacts paraphrase the wiring differently — adversarial caught run-2026-05-03-58aa with FR-06 wired three different ways across the four Plan artifacts. Cross-reference at Plan DoD: every CI/UAT/attestation claim should match exactly across primaries. Reprised on a light-mode Plan in run-2026-05-13-w0a1 (4-vs-5 command battery drift); confirms drift is structural, not depth-correlated. Positive counter-example in w1a1: when Lesson 7's anti-narrowing assertion was carried verbatim PO→SM→QA, drift surface shrank to zero (clean r1 DoD).
 - **Validated**: 3
 - **Last**: run-2026-05-13-w0a1
+- **Positive counter-example**: run-2026-05-13-w1a1 (no drift triggered when L7 was applied)
 
 ## Lesson 5
 - **Insight**: After the first round of 4 parallel Plan primaries, ALWAYS dispatch a CONSENSUS facilitator + ADVERSARIAL reviewer BEFORE DoD — the two together caught 5 Lesson-4 species drifts in run-2026-05-09-seo1 (test-runner wired 3 ways, slice letter B/C, MILESTONE_DAY regex 3 forms, test file names long vs short, extractNAP path 3 stances) that DoD alone would have missed. Adversarial confidence trajectory: 2/5 → 4/5 → 3/5 (last round caught 3 NEW surgical drifts). Consensus + adversarial in parallel after Plan primaries is now a standing pattern.
@@ -31,6 +32,11 @@
 - **Last**: run-2026-05-09-seo1
 
 ## Lesson 7
-- **Insight**: BUG_FIX idea-briefs must lock an explicit "extension/scope lock" / anti-narrowing assertion line that downstream primaries copy verbatim — e.g., "all four file extensions {js,jsx,ts,tsx} must remain present in both globs after fix." Without it, test design can pass a fix that silently narrows scope (TC-4 in w0a1 would have passed a fix that dropped `.jsx`; caught only at Plan DoD r1 QA BLOCKING on AC-4). Mitigation: add "Scope lock / anti-narrowing assertion" field to BUG_FIX idea-brief template; Plan QA DoD must verify a negative-narrowing test case exists.
-- **Validated**: 1
-- **Last**: run-2026-05-13-w0a1
+- **Insight**: BUG_FIX / FEATURE-Light idea-briefs must lock an explicit "extension/scope lock" / anti-narrowing assertion line that downstream primaries copy verbatim — e.g., "all four file extensions {js,jsx,ts,tsx} must remain present in both globs after fix." Without it, test design can pass a fix that silently narrows scope (TC-4 in w0a1 would have passed a fix that dropped `.jsx`; caught only at Plan DoD r1 QA BLOCKING on AC-4). Mitigation: add "Scope lock / anti-narrowing assertion" field to BUG_FIX / FEATURE-Light idea-brief template; Plan QA DoD must verify a negative-narrowing test case exists. In w1a1 the assertion was carried verbatim from Idea § 8 → Plan stories AC-5 → Dev test file runtime sentinel; Plan-stage wiring drift (L4) did NOT trigger (positive counter-example). Flag for hot-lesson promotion review at Wave 3 if pattern continues.
+- **Validated**: 2
+- **Last**: run-2026-05-13-w1a1
+
+## Lesson 8 (CANDIDATE)
+- **Insight**: Encoding a policy as a RUNTIME assertion (lesson-as-code) is more durable than encoding it only as documentation / ACs. w1a1 demonstrated this: AC-33 and AC-35 had been documented since seo1 PRD but went unenforced for one full wave; once converted to fail-loud jest assertions with offender path + remediation hint, the policy became self-defending and the anti-narrowing sentinel fires when injected. Generalizable shape: when a wave closes a "policy carry" issue, prefer test-encoded enforcement over doc-only acceptance.
+- **Validated**: 0 (CANDIDATE — awaits one more generalizable instance before promotion)
+- **Last**: run-2026-05-13-w1a1
