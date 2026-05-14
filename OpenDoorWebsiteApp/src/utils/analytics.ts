@@ -8,11 +8,14 @@
 import { GA_MEASUREMENT_ID, GA_CONFIG, GA_EVENTS, getPageTitle } from '../config/analytics';
 
 // Declare gtag function for TypeScript
+type GtagCommand = 'config' | 'event' | 'set' | 'consent' | 'js' | 'get';
+type GtagFn = (command: GtagCommand, ...args: unknown[]) => void;
+
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: any[];
-    [key: string]: any; // Allow dynamic properties for GA disable flags
+    gtag: GtagFn;
+    dataLayer: unknown[];
+    [key: string]: unknown; // Allow dynamic properties for GA disable flags
   }
 }
 
@@ -62,7 +65,7 @@ export const trackPageView = (pathname: string, title?: string): void => {
  */
 export const trackEvent = (
   eventName: string,
-  parameters: Record<string, any> = {}
+  parameters: Record<string, unknown> = {}
 ): void => {
   if (!isGAInitialized()) return;
 
@@ -117,7 +120,7 @@ export const trackLocationView = (): void => {
  */
 export const trackClick = (
   eventName: string,
-  parameters: Record<string, any> = {}
+  parameters: Record<string, unknown> = {}
 ): void => {
   try {
     trackEvent(eventName, parameters);

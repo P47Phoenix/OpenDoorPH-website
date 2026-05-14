@@ -24,6 +24,24 @@ import * as path from 'path';
 // because jsdom's transitive deps include ESM modules that Jest's
 // default CRA transform does not unwrap (e.g. `@tootallnate/once`).
 
+interface ParsedJsonLdAddress {
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+    addressCountry: string;
+}
+
+interface ParsedJsonLd {
+    '@context': string;
+    '@type': string | string[];
+    url: string;
+    sameAs: string[];
+    name: string;
+    address: ParsedJsonLdAddress;
+    telephone?: string;
+}
+
 const INDEX_HTML_PATH = path.resolve(
     __dirname,
     '..',
@@ -72,9 +90,9 @@ describe('JSON-LD presence + shape (FR-01, FR-03, FR-04, FR-07, FR-08)', () => {
         ) as NodeListOf<HTMLScriptElement>;
     }
 
-    function parsedJsonLd(): any {
+    function parsedJsonLd(): ParsedJsonLd {
         const scripts = jsonLdScripts();
-        return JSON.parse(scripts[0].textContent ?? '');
+        return JSON.parse(scripts[0].textContent ?? '') as ParsedJsonLd;
     }
 
     test('exactly one <script type="application/ld+json"> block in <head> (FR-07)', () => {
