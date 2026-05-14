@@ -196,7 +196,7 @@ describe('NAP byte-equality (FR-05)', () => {
         }
     }
 
-    const surfaces: Array<[string, React.ComponentType<any>]> = [
+    const surfaces: Array<[string, React.ComponentType<Record<string, unknown>>]> = [
         ['Footer', Footer],
         ['LocationPage', Location],
         ['AboutPage', About],

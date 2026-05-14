@@ -175,7 +175,7 @@ environments.forEach(({ name, baseURL, basePath, expectedPrefix }) => {
       await expect(page.locator('text=Our History')).toBeVisible();
     });
 
-    test('Broken links should not exist in production build', async ({ page, context }) => {
+    test('Broken links should not exist in production build', async ({ page }) => {
       // Navigate to homepage
       await page.goto(`${baseURL}${basePath}`);
       

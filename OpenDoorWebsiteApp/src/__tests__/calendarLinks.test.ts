@@ -213,7 +213,7 @@ describe('E-4: ICS File Generation', () => {
 
   // E-4.16: downloadIcsFile triggers Blob download
   test('downloadIcsFile triggers blob download', () => {
-    const mockCreateObjectURL = jest.fn(() => 'blob:mock-url');
+    const mockCreateObjectURL = jest.fn((_blob: Blob) => 'blob:mock-url');
     const mockRevokeObjectURL = jest.fn();
     const mockClick = jest.fn();
     const mockAppendChild = jest.fn();
