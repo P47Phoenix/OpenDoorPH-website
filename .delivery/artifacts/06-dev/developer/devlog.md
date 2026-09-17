@@ -95,3 +95,52 @@ TCs: 15/15 pass. DoD sentinels: 12/12 (all listed under DoD 2 covered by rows ab
 **Deviations:** none in scope. Pre-flight P-1 commit count was 1 not 0 (pre-existing chore(delivery) commit); devlog first tracked in this story's commit rather than that chore commit.
 
 **Timing:** pre-flight ~12 min (battery + 3 Lighthouse runs dominate); LW-1 edits + battery + sentinels ~6 min.
+
+## LW-2 — Delete legacy assets and dead CSS
+
+Date: 2026-09-17 · Developer: Bezalel · Base: `lw-1-green` (030e558) · ACs: AC-34, AC-35, AC-36
+
+### Consumer check (before any deletion)
+- `git grep -nE 'churchImages|uiImages|assets/images/(church|ui)' -- src` — hits only inside `src/assets/images/{church,ui}/index.ts` and `src/assets/images/index.ts` (the re-exports). Zero consumers.
+- `git grep -nE '\.(gif|JPG|PNG)\b' -- src ':!src/assets'` — hits only inside `src/App.css.legacy` (itself deleted).
+- `git grep -nE 'App-logo|church-sidebar'` — `App.css`, `App.css.new` (deleted), and `SideBar.tsx:16` (LW-4 edit, untouched here).
+
+### Files touched
+- D (25, `git rm`): `src/{bg,clock,comment,headerbg,page,tableft,tabright}.gif`, `src/{BoardMembers,Deacons,Linda,Nursery,PastorAndWife,SundaySchoolTeachers,WendsdayNightTeachers,WorshipTeam}.{JPG,PNG|png}`, `src/App.css.legacy`, `src/App.css.new`
+- D (18, `git rm -r`): `src/assets/images/church/**` (index.ts, building/header-photo.jpg, 8 member JPGs), `src/assets/images/ui/**` (index.ts, 7 GIFs)
+- M: `src/assets/images/index.ts` — now `export * from './logos';` only
+- M: `src/App.css` — header comment "Open Door Full Gospel Church"; removed `.App-logo`, its `prefers-reduced-motion: no-preference` block, `@keyframes App-logo-spin`, `.church-sidebar` (both base and `max-width: 768px` rule). `.church-header`/`.church-main`/`.church-footer` untouched (token classes from LW-1).
+- `src/assets/index.ts` unchanged. No test file touched.
+
+### Sentinels (cwd `OpenDoorWebsiteApp/` unless noted; `bash --noprofile --norc`, `LC_ALL=C.UTF-8`)
+| TC | Command | Result | Exit |
+|---|---|---|---|
+| 2.1 | `ls src/*.gif src/*.JPG src/*.PNG src/*.png src/App.css.legacy src/App.css.new 2>/dev/null \| wc -l` | `0` | 0 |
+| 2.2 (repo root) | `git ls-files OpenDoorWebsiteApp/src \| grep -cE '\.(gif\|JPG\|PNG\|png)$\|App\.css\.(legacy\|new)$'` | `0` | 1 (grep -c zero-count; expected `0`) |
+| 2.3 | `test ! -d src/assets/images/church && test ! -d src/assets/images/ui` | — | 0 |
+| 2.4 | `grep -c "export \* from './logos';" src/assets/images/index.ts` · `grep -cE "from '\./(church\|ui)'" src/assets/images/index.ts` · (repo root) `git diff --quiet origin/master -- OpenDoorWebsiteApp/src/assets/index.ts` | `1` · `0` · — | 0 · 1 (zero-count) · 0 |
+| 2.5 | `find src -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' \) \| wc -l` · `grep -rnEi "\.(jpg\|jpeg\|png\|gif)['\"\`]" src --include=*.ts --include=*.tsx --exclude-dir=__tests__ \| wc -l` | `0` · `0` | 0 · 0 |
+| 2.6 | `! grep -nE 'App-logo\|church-sidebar\|Baptist' src/App.css` · `grep -c 'Open Door Full Gospel Church' src/App.css` | — · `1` | 0 · 0 |
+| 2.7 | `! grep -rnE '\b[0-9]+(\.[0-9]+)?s\b' src --include=*.css` · `! grep -rnE '@keyframes' src --include=*.css` | — · — | 0 · 0 |
+| 2.8 | `grep -rnE 'churchImages\|uiImages' src --include=*.ts --include=*.tsx \| wc -l` · `grep -rnE 'App-logo\|church-sidebar' src --include=*.tsx --include=*.ts \| grep -v 'SideBar.tsx' \| wc -l` | `0` · `0` | 0 · 0 |
+| 2.9 | `npx playwright test tests/external-links-assets.spec.ts` | 24 passed (40.3s) | 0 |
+| 2.11 (repo root) | `git diff --quiet origin/master -- OpenDoorWebsiteApp/src/__tests__/SideBar.test.tsx` · `git diff --name-only origin/master -- OpenDoorWebsiteApp/src/__tests__ OpenDoorWebsiteApp/src/App.test.tsx OpenDoorWebsiteApp/tests` | — · (empty) | 0 · 0 |
+| DoD guard | `grep -c 'HOME_AXE_VIOLATIONS_BASELINE = 2' tests/a11y.spec.ts` | `1` | 0 |
+
+Sentinels: 11/11 TCs pass (TC-LW-2.10 = battery below).
+
+### Battery (`export CI=true`, cwd `OpenDoorWebsiteApp/`)
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint -- --max-warnings=0` (pre-check) | 0 | clean |
+| `npm run lint` | 0 | clean |
+| `npm run type-check` | 0 | clean |
+| `npm run test:unit` | 0 | 9 suites, 114 tests passed |
+| `npm run build:prod` | 0 | build ok |
+| `npm run test:e2e:pr` | 0 | 22 passed (26.8s) |
+
+### Deviations
+None. No test file modified. `.church-sidebar` remains on `SideBar.tsx:16` by design (LW-4).
+
+### Timing
+~8 min including battery.
