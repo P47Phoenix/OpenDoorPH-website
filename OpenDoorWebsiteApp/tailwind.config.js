@@ -7,13 +7,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        church: {
-          stone: '#D4C4A0',
-          brick: '#C8B59B',
-          green: '#9EC630',
-          dark: '#2D3748',
-          light: '#F7FAFC',
-        },
         parchment: '#F5F0E6',
         ink: '#1C1917',
         sage: '#5F7A61',

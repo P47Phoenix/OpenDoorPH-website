@@ -114,7 +114,7 @@ export const Location = (): ReactElement => {
                             onClick={handleViewLargerMapClick}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 font-medium text-brick hover:text-brick-dark hover:underline active:text-brick-dark rounded underline-offset-4 transition-colors duration-150 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sage focus:ring-offset-2 min-h-[44px]"
+                            className="inline-flex items-center gap-2 font-semibold text-brick hover:text-brick-dark hover:underline active:text-brick-dark rounded underline-offset-4 transition-colors duration-150 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sage focus:ring-offset-2 min-h-[44px]"
                         >
                             <img src={DirectionsIcon} alt="" className="w-4 h-4 mr-2" />
                             View Larger Map

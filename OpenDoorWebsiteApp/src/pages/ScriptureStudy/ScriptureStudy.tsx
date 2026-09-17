@@ -108,7 +108,7 @@ export const ScriptureStudy = (): ReactElement => {
                         aria-label="Footnotes for this section"
                         className="mt-8 pt-4 border-t border-stone-200"
                     >
-                        <h3 className="sr-only">Footnotes</h3>
+                        <h3 className="sr-only font-serif">Footnotes</h3>
                         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
                             <li id="fn-hc-1" tabIndex={-1} className="scroll-mt-4">
                                 F.F. Bruce, <em>Paul: Apostle of the Heart Set Free</em> (Eerdmans);
@@ -448,7 +448,7 @@ export const ScriptureStudy = (): ReactElement => {
                         aria-label="Footnotes for this section"
                         className="mt-8 pt-4 border-t border-stone-200"
                     >
-                        <h3 className="sr-only">Footnotes</h3>
+                        <h3 className="sr-only font-serif">Footnotes</h3>
                         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
                             <li id="fn-da-1" tabIndex={-1} className="scroll-mt-4">
                                 J.B. Lightfoot, <em>The Epistle of St. Paul to the Galatians</em> (Zondervan), p. 215.
@@ -575,7 +575,7 @@ export const ScriptureStudy = (): ReactElement => {
                             <blockquote
                                 lang="he"
                                 dir="rtl"
-                                className="border-r-4 border-sage pr-6 text-right text-lg md:text-xl text-ink leading-relaxed"
+                                className="border-r-4 border-sage pr-6 text-right text-lg md:text-xl text-ink leading-relaxed font-serif"
                             >
                                 {HEBREW_LEV_19_17}
                             </blockquote>
@@ -662,7 +662,7 @@ export const ScriptureStudy = (): ReactElement => {
                             <blockquote
                                 lang="he"
                                 dir="rtl"
-                                className="border-r-4 border-sage pr-6 text-right text-lg md:text-xl text-ink leading-relaxed"
+                                className="border-r-4 border-sage pr-6 text-right text-lg md:text-xl text-ink leading-relaxed font-serif"
                             >
                                 {HEBREW_LEV_19_18}
                             </blockquote>
@@ -691,7 +691,7 @@ export const ScriptureStudy = (): ReactElement => {
                         aria-label="Footnotes for this section"
                         className="mt-8 pt-4 border-t border-stone-200"
                     >
-                        <h3 className="sr-only">Footnotes</h3>
+                        <h3 className="sr-only font-serif">Footnotes</h3>
                         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
                             <li id="fn-hf-1" tabIndex={-1} className="scroll-mt-4">
                                 Talmud Bavli, <em>Arachin</em> 16b.
@@ -855,7 +855,7 @@ export const ScriptureStudy = (): ReactElement => {
                         aria-label="Footnotes for this section"
                         className="mt-8 pt-4 border-t border-stone-200"
                     >
-                        <h3 className="sr-only">Footnotes</h3>
+                        <h3 className="sr-only font-serif">Footnotes</h3>
                         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
                             <li id="fn-rs-1" tabIndex={-1} className="scroll-mt-4">
                                 Nestle-Aland 28th Edition apparatus; Bruce Metzger,{' '}
@@ -997,7 +997,7 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
                     
                     <div>
-                        <h3 className="font-semibold text-stone-800 mb-3">Historical Commentaries</h3>
+                        <h3 className="font-serif font-semibold text-stone-800 mb-3">Historical Commentaries</h3>
                         {/* ELDER-AUDIT-2026-04-20 — dangling reference links REMOVED under
                             elder's verify-or-remove principle: Chrysostom, Calvin, Spurgeon,
                             and Lloyd-Jones quotations were all removed in Pass-1; their
@@ -1014,7 +1014,7 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
                     
                     <div>
-                        <h3 className="font-semibold text-stone-800 mb-3">Theological Resources</h3>
+                        <h3 className="font-serif font-semibold text-stone-800 mb-3">Theological Resources</h3>
                         <ul className="space-y-2 text-sm text-gray-700">
                             <li>• <a href="https://www.crossway.org/books/systematic-theology-tpb/" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Systematic Theology by Wayne Grudem', 'https://www.crossway.org/books/systematic-theology-tpb/')} className="text-blue-600 hover:text-blue-800 hover:underline">Systematic Theology by Wayne Grudem</a></li>
                             <li>• <a href="https://www.google.com/search?q=New+Bible+Dictionary+IVP" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('The New Bible Dictionary (IVP)', 'https://www.google.com/search?q=New+Bible+Dictionary+IVP')} className="text-blue-600 hover:text-blue-800 hover:underline">The New Bible Dictionary (IVP)</a></li>
