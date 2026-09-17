@@ -2,9 +2,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="400" height="100">
   <defs>
     <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#D4C4A0;stop-opacity:0.3" />
-      <stop offset="50%" style="stop-color:#C8B59B;stop-opacity:0.5" />
-      <stop offset="100%" style="stop-color:#9EC630;stop-opacity:0.3" />
+      <stop offset="0%" style="stop-color:#F5F0E6;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#E5DECF;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#5F7A61;stop-opacity:0.3" />
     </linearGradient>
   </defs>
   
@@ -12,20 +12,20 @@
   <rect x="0" y="0" width="400" height="100" fill="url(#timelineGradient)" rx="8"/>
   
   <!-- Timeline line -->
-  <line x1="20" y1="50" x2="380" y2="50" stroke="#C8B59B" stroke-width="3"/>
+  <line x1="20" y1="50" x2="380" y2="50" stroke="#E5DECF" stroke-width="3"/>
   
   <!-- Timeline points -->
-  <circle cx="50" cy="50" r="8" fill="#9EC630"/>
-  <circle cx="200" cy="50" r="8" fill="#C8B59B"/>
-  <circle cx="350" cy="50" r="8" fill="#9EC630"/>
+  <circle cx="50" cy="50" r="8" fill="#5F7A61"/>
+  <circle cx="200" cy="50" r="8" fill="#E5DECF"/>
+  <circle cx="350" cy="50" r="8" fill="#5F7A61"/>
   
   <!-- Timeline labels -->
-  <text x="50" y="30" fill="#2D3748" font-size="12" font-weight="bold" text-anchor="middle">1975</text>
-  <text x="200" y="30" fill="#2D3748" font-size="12" font-weight="bold" text-anchor="middle">Growth</text>
-  <text x="350" y="30" fill="#2D3748" font-size="12" font-weight="bold" text-anchor="middle">Today</text>
+  <text x="50" y="30" fill="#1C1917" font-size="12" font-weight="bold" text-anchor="middle">1975</text>
+  <text x="200" y="30" fill="#1C1917" font-size="12" font-weight="bold" text-anchor="middle">Growth</text>
+  <text x="350" y="30" fill="#1C1917" font-size="12" font-weight="bold" text-anchor="middle">Today</text>
   
   <!-- Timeline descriptions -->
-  <text x="50" y="75" fill="#4A5568" font-size="10" text-anchor="middle">Founded</text>
-  <text x="200" y="75" fill="#4A5568" font-size="10" text-anchor="middle">Pastors</text>
-  <text x="350" y="75" fill="#4A5568" font-size="10" text-anchor="middle">Continuing</text>
+  <text x="50" y="75" fill="#44403C" font-size="10" text-anchor="middle">Founded</text>
+  <text x="200" y="75" fill="#44403C" font-size="10" text-anchor="middle">Pastors</text>
+  <text x="350" y="75" fill="#44403C" font-size="10" text-anchor="middle">Continuing</text>
 </svg>

@@ -19,7 +19,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={`church-footer bg-stone-800 text-stone-100 border-t-4 border-stone-600 relative ${className}`}>
+    <footer className={`church-footer bg-stone-800 text-stone-300 border-t-4 border-stone-600 relative ${className}`}>
       {/* Decorative Border */}
       <div className="absolute top-0 left-0 right-0 h-2 overflow-hidden">
         <img src={FooterBorder} alt="" className="w-full h-full object-cover opacity-60" />
@@ -34,7 +34,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
             <div className="space-y-4">
               <div className="flex items-center mb-4">
                 <img src={WebsiteIcon} alt="" className="w-8 h-8 mr-3" />
-                <h3 className="text-xl font-bold text-green-400">
+                <h3 className="font-serif text-xl font-bold text-white">
                   Open Door Full Gospel Church
                 </h3>
               </div>
@@ -42,46 +42,46 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
                 Serving the Pleasant Hill, Missouri community with love, faith, and spiritual guidance. 
                 All are welcome to join us in worship and fellowship.
               </p>
-              <div className="text-stone-400 text-sm bg-stone-700/50 p-4 rounded-lg border-l-4 border-green-400">
+              <blockquote className="font-serif text-stone-300 text-sm bg-stone-700 p-4 rounded-lg border-l-4 border-stone-300">
                 <p className="italic">
                   "Brethren, if a man is overtaken in any trespass, you who are spiritual restore such
                   a one in a spirit of gentleness, considering yourself lest you also be tempted."
                 </p>
-                <p className="text-green-400 font-semibold mt-2">- Galatians 6:1</p>
-              </div>
+                <p className="text-white font-semibold mt-2">- Galatians 6:1</p>
+              </blockquote>
             </div>
 
             {/* Quick Links */}
             <div className="space-y-4">
               <div className="flex items-center mb-4">
                 <img src={QuickLinksIcon} alt="" className="w-8 h-8 mr-3" />
-                <h3 className="text-lg font-semibold text-green-400">
+                <h3 className="font-serif text-lg font-bold text-white">
                   Quick Links
                 </h3>
               </div>
-              <nav className="space-y-3">
+              <nav aria-label="Footer" className="space-y-3">
                 <Link
                   to="/opendoor"
                   onClick={() => trackNavClick('Home', '/opendoor', 'footer')}
-                  className="flex items-center text-stone-300 hover:text-green-400 transition-colors duration-200 group"
+                  className="flex items-center text-stone-300 rounded transition-colors duration-150 motion-reduce:transition-none group focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-stone-800 hover:text-white"
                 >
-                  <span className="w-2 h-2 bg-orange-300 rounded-full mr-3 group-hover:bg-green-400 transition-colors"></span>
+                  <span className="w-2 h-2 bg-stone-300 rounded-full mr-3 group-hover:bg-white transition-colors duration-150 motion-reduce:transition-none"></span>
                   Home
                 </Link>
                 <Link
                   to="/opendoor/Home/Location"
                   onClick={() => trackNavClick('Location & Directions', '/opendoor/Home/Location', 'footer')}
-                  className="flex items-center text-stone-300 hover:text-green-400 transition-colors duration-200 group"
+                  className="flex items-center text-stone-300 rounded transition-colors duration-150 motion-reduce:transition-none group focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-stone-800 hover:text-white"
                 >
-                  <span className="w-2 h-2 bg-orange-300 rounded-full mr-3 group-hover:bg-green-400 transition-colors"></span>
+                  <span className="w-2 h-2 bg-stone-300 rounded-full mr-3 group-hover:bg-white transition-colors duration-150 motion-reduce:transition-none"></span>
                   Location & Directions
                 </Link>
                 <Link
                   to="/opendoor/Home/About"
                   onClick={() => trackNavClick('About Us', '/opendoor/Home/About', 'footer')}
-                  className="flex items-center text-stone-300 hover:text-green-400 transition-colors duration-200 group"
+                  className="flex items-center text-stone-300 rounded transition-colors duration-150 motion-reduce:transition-none group focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-stone-800 hover:text-white"
                 >
-                  <span className="w-2 h-2 bg-orange-300 rounded-full mr-3 group-hover:bg-green-400 transition-colors"></span>
+                  <span className="w-2 h-2 bg-stone-300 rounded-full mr-3 group-hover:bg-white transition-colors duration-150 motion-reduce:transition-none"></span>
                   About Us
                 </Link>
               </nav>
@@ -91,7 +91,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
             <div className="space-y-4">
               <div className="flex items-center mb-4">
                 <img src={VisitIcon} alt="" className="w-8 h-8 mr-3" />
-                <h3 className="text-lg font-semibold text-green-400">
+                <h3 className="font-serif text-lg font-bold text-white">
                   Visit Us
                 </h3>
               </div>
@@ -100,14 +100,29 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
                   <img src={AddressIcon} alt="" className="w-5 h-5 mr-3 opacity-70" />
                   <div>
                     <p className="text-sm font-semibold">135 S 1st St</p>
-                    <p className="text-sm opacity-90">Pleasant Hill, MO 64080</p>
+                    <p className="text-sm">Pleasant Hill, MO 64080</p>
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <span className="w-5 h-5 mr-3 text-green-400 text-center">🕐</span>
+                  <svg
+                    className="w-5 h-5 mr-3 text-stone-300"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 2" />
+                  </svg>
+                  {/* Whitespace text node keeps "64080" and "Sunday" separate in textContent (napByteMatch ZIP boundary) */}
+                  {' '}
                   <div>
                     <p className="text-sm font-semibold">Sunday Service</p>
-                    <p className="text-sm opacity-90">10:30 AM</p>
+                    <p className="text-sm">10:30 AM</p>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -117,7 +132,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackSocialClick('facebook', 'footer')}
-                    className="text-sm hover:text-green-400 transition-colors"
+                    className="text-sm rounded transition-colors duration-150 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-stone-800 hover:text-white"
                   >
                     Follow us on Facebook
                   </a>
@@ -144,9 +159,8 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
               </div>
 
               {/* Technical Credits */}
-              <div className="text-stone-500 text-xs text-center md:text-right">
+              <div className="text-stone-400 text-xs text-center md:text-right">
                 <p className="flex items-center justify-center md:justify-end">
-                  <span className="mr-2">🚀</span>
                   Website redesigned with modern technology &amp; accessibility in mind.
                 </p>
               </div>

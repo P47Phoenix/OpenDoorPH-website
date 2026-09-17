@@ -83,11 +83,11 @@ const ConsentBanner: React.FC = () => {
       aria-live="polite"
       className="fixed bottom-0 inset-x-0 z-50"
     >
-      <div className="bg-white border-t border-stone-200 shadow-[0_-2px_10px_rgba(0,0,0,0.08)]">
+      <div className="bg-parchment border-t border-rule text-ink">
         <div className="max-w-5xl mx-auto px-4 py-4 md:px-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
           <p
             id="consent-message"
-            className="text-sm text-stone-600 leading-relaxed flex-1"
+            className="text-sm text-ink leading-relaxed flex-1"
           >
             We use simple analytics to understand how visitors use our website so
             we can make it better. No personal information is collected.
@@ -97,7 +97,7 @@ const ConsentBanner: React.FC = () => {
               type="button"
               aria-describedby="consent-message"
               onClick={handleDecline}
-              className="bg-stone-100 text-stone-600 px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-stone-200 transition-colors duration-200 touch-manipulation min-h-[44px] focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-offset-2"
+              className="bg-white text-ink border border-sage px-5 py-2.5 rounded-lg font-medium text-sm transition-colors duration-150 motion-reduce:transition-none touch-manipulation min-h-[44px] focus:outline-none focus:ring-2 focus:ring-sage focus:ring-offset-2 focus:ring-offset-parchment hover:bg-parchment hover:border-sage-dark active:bg-rule"
             >
               No Thanks
             </button>
@@ -105,7 +105,7 @@ const ConsentBanner: React.FC = () => {
               type="button"
               aria-describedby="consent-message"
               onClick={handleAccept}
-              className="bg-church-green text-church-dark px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-church-green/90 transition-colors duration-200 touch-manipulation min-h-[44px] focus:outline-none focus:ring-2 focus:ring-church-green focus:ring-offset-2"
+              className="bg-sage text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-colors duration-150 motion-reduce:transition-none touch-manipulation min-h-[44px] focus:outline-none focus:ring-2 focus:ring-sage focus:ring-offset-2 focus:ring-offset-parchment hover:bg-sage-dark active:bg-sage-dark"
             >
               That's Fine
             </button>

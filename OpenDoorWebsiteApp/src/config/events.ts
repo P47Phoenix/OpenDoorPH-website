@@ -67,7 +67,7 @@ export const EVENTS: ChurchEvent[] = [
     subtitle: 'Every Sunday',
     dayOfWeek: 0,
     time: '10:30 AM',
-    duration: 90,
+    duration: 120,
     recurrenceRule: 'FREQ=WEEKLY;BYDAY=SU',
     location: CHURCH_LOCATION,
     description: 'Sunday Service at Open Door Full Gospel Church. All are welcome.',

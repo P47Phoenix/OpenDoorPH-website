@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { trackLocationView, trackDirectionsClick, trackCtaClick } from "../../utils/analytics";
 import { MapMarkerIcon, DirectionsIcon, AddressIcon, CarIcon } from "../../assets";
 import { usePageMeta } from '../../hooks/usePageMeta';
+import { EVENTS } from '../../config/events';
 
 export const Location = (): ReactElement => {
     usePageMeta({
@@ -32,10 +33,10 @@ export const Location = (): ReactElement => {
                 <div className="flex justify-center mb-4">
                     <img src={MapMarkerIcon} alt="" className="h-16 w-auto" />
                 </div>
-                <h1 className="text-3xl md:text-4xl font-bold text-stone-800 mb-4">
+                <h1 className="font-serif text-3xl md:text-4xl font-bold text-ink mb-4">
                     Visit Our Church
                 </h1>
-                <p className="text-xl text-stone-600 max-w-2xl mx-auto">
+                <p className="text-lg md:text-xl text-stone-700 max-w-3xl mx-auto leading-relaxed">
                     We're located in the heart of Pleasant Hill, Missouri. Join us for worship and fellowship!
                 </p>
             </section>
@@ -44,10 +45,10 @@ export const Location = (): ReactElement => {
             <div className="grid lg:grid-cols-2 gap-8">
                 
                 {/* Church Information Card */}
-                <section className="bg-white rounded-xl shadow-lg border border-stone-200 p-8">
+                <section className="bg-white rounded-xl border border-rule p-5 md:p-8">
                     <div className="flex items-center mb-6">
                         <img src={AddressIcon} alt="" className="w-12 h-12 mr-4" />
-                        <h2 className="text-2xl font-bold text-stone-800">
+                        <h2 className="font-serif text-xl md:text-2xl font-bold text-ink">
                             Church Information
                         </h2>
                     </div>
@@ -57,12 +58,15 @@ export const Location = (): ReactElement => {
                         <div className="flex items-start space-x-4">
                             <img src={MapMarkerIcon} alt="" className="w-8 h-8 mt-1 flex-shrink-0" />
                             <div>
-                                <h3 className="font-semibold text-stone-800 mb-1">Address</h3>
-                                <address className="text-stone-600 not-italic leading-relaxed">
+                                <h3 className="font-serif text-lg font-bold text-ink mb-1">Address</h3>
+                                <address className="text-stone-700 not-italic leading-relaxed">
                                     <strong>Open Door Full Gospel Church Of Pleasant Hill</strong><br/>
                                     135 S 1st St<br/>
                                     Pleasant Hill, Missouri 64080
                                 </address>
+                                <p className="text-sm text-stone-600 mt-2">
+                                    Sundays {EVENTS[0].time}, about two hours
+                                </p>
                             </div>
                         </div>
 
@@ -73,7 +77,7 @@ export const Location = (): ReactElement => {
                                 onClick={handleGetDirectionsClick}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center bg-church-green text-white px-6 py-3 rounded-lg font-semibold hover:bg-church-green/90 transition-colors duration-200"
+                                className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold bg-sage text-white hover:bg-sage-dark active:bg-sage-dark transition-colors duration-150 motion-reduce:transition-none touch-manipulation min-h-[44px] focus:outline-none focus:ring-2 focus:ring-sage focus:ring-offset-2 focus:ring-offset-white"
                             >
                                 <img src={DirectionsIcon} alt="" className="w-5 h-5 mr-2 filter brightness-0 invert" />
                                 Get Directions
@@ -83,35 +87,34 @@ export const Location = (): ReactElement => {
                 </section>
 
                 {/* Interactive Map Card */}
-                <section className="bg-white rounded-xl shadow-lg border border-stone-200 overflow-hidden">
-                    <div className="p-6 border-b border-stone-200">
+                <section className="bg-white rounded-xl border border-rule overflow-hidden">
+                    <div className="p-6 border-b border-rule">
                         <div className="flex items-center">
                             <img src={CarIcon} alt="" className="w-8 h-8 mr-3" />
-                            <h2 className="text-xl font-bold text-stone-800">
+                            <h2 className="font-serif text-xl md:text-2xl font-bold text-ink">
                                 Interactive Map
                             </h2>
                         </div>
                     </div>
                     
-                    <div className="relative">
+                    <div>
                         <iframe
-                            className="w-full h-96 lg:h-80"
+                            className="w-full h-96 lg:h-80 block"
                             frameBorder="0"
                             scrolling="no"
                             title="Google Maps location for Open Door Full Gospel Church"
                             src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Open+Door+Full+Gospel+Church,+Pleasant+Hill,+MO+64080&amp;sll=38.784773,-94.274362&amp;sspn=0.001372,0.002411&amp;ie=UTF8&amp;hq=&amp;hnear=135+S+1st+St,+Pleasant+Hill,+Cass,+Missouri+64080&amp;ll=38.792159,-94.269133&amp;spn=0.023414,0.036478&amp;z=14&amp;iwloc=A&amp;output=embed"
                             allowFullScreen
                         />
-                        <div className="absolute inset-0 border-4 border-transparent hover:border-church-green/20 transition-colors duration-200 pointer-events-none rounded-lg"></div>
                     </div>
                     
-                    <div className="p-4 bg-stone-50 text-center">
+                    <div className="p-4 bg-parchment text-center">
                         <a
                             href={GOOGLE_MAPS_URL}
                             onClick={handleViewLargerMapClick}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center text-church-green hover:text-church-green/80 font-medium transition-colors duration-200"
+                            className="inline-flex items-center gap-2 font-semibold text-brick hover:text-brick-dark hover:underline active:text-brick-dark rounded underline-offset-4 transition-colors duration-150 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sage focus:ring-offset-2 min-h-[44px]"
                         >
                             <img src={DirectionsIcon} alt="" className="w-4 h-4 mr-2" />
                             View Larger Map
@@ -121,19 +124,19 @@ export const Location = (): ReactElement => {
             </div>
 
             {/* Service Times & Directions */}
-            <section className="bg-gradient-to-r from-church-green to-church-green/90 rounded-xl text-white p-8">
+            <section className="bg-white border border-rule rounded-xl text-ink p-5 md:p-8">
                 <div className="text-center">
-                    <h2 className="text-2xl font-bold mb-4">
+                    <h2 className="font-serif text-xl md:text-2xl font-bold text-ink mb-4">
                         Plan Your Visit
                     </h2>
-                    <p className="text-green-100 mb-6 max-w-2xl mx-auto">
+                    <p className="text-stone-700 leading-relaxed mb-6 max-w-2xl mx-auto">
                         We look forward to welcoming you to our church family. Come as you are and experience God's love.
                     </p>
                     <div className="flex justify-center">
                         <Link
                             to="/opendoor/Home/About"
                             onClick={() => trackCtaClick('About Our Church', 'location_page', '/opendoor/Home/About')}
-                            className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-church-green transition-colors duration-200"
+                            className="inline-flex items-center gap-2 font-semibold text-brick hover:text-brick-dark hover:underline active:text-brick-dark rounded underline-offset-4 transition-colors duration-150 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sage focus:ring-offset-2 min-h-[44px]"
                         >
                             About Our Church
                         </Link>

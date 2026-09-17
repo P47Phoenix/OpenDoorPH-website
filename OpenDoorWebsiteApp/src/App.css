@@ -1,4 +1,4 @@
-/* Open Door Baptist Church - Tailwind CSS Base */
+/* Open Door Full Gospel Church - Tailwind CSS Base */
 
 /* React-specific app wrapper */
 .App {
@@ -8,58 +8,29 @@
   flex-direction: column;
 }
 
-/* Logo animation */
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* Custom component styles that override Tailwind when needed */
 .church-container {
   @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
 
 .church-header {
-  @apply bg-stone-100 border-b border-stone-200;
+  @apply bg-parchment border-b border-rule;
 }
 
 .church-main {
-  @apply flex-1 bg-white;
+  @apply flex-1 bg-parchment;
   min-height: 0; /* Allow shrinking */
-}
-
-.church-sidebar {
-  @apply bg-stone-50 border-r border-stone-200;
 }
 
 /* Mobile-specific optimizations */
 @media (max-width: 768px) {
-  .church-sidebar {
-    @apply border-r-0 border-b border-stone-200;
-  }
-  
   .church-main {
     @apply min-h-0;
   }
 }
 
 .church-footer {
-  @apply bg-stone-800 text-stone-100;
+  @apply bg-stone-800 text-stone-300;
 }
 
 /* Legacy image positioning until full migration */

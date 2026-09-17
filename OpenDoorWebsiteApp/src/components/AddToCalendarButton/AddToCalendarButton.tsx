@@ -194,15 +194,15 @@ const AddToCalendarButton: React.FC<AddToCalendarButtonProps> = ({ event }) => {
         onClick={handleTriggerClick}
         onKeyDown={handleTriggerKeyDown}
         className={`inline-flex items-center justify-center gap-2 w-full px-4 py-2.5
-          ${isOpen ? 'bg-green-500/20' : 'bg-green-500/10'} text-green-700
-          text-sm font-medium rounded-lg border border-green-500/20
-          hover:bg-green-500/20 transition-colors duration-200
+          ${isOpen ? 'bg-parchment' : 'bg-white'} text-brick
+          text-sm font-medium rounded-lg border border-brick
+          hover:bg-parchment hover:text-brick-dark active:bg-rule transition-colors duration-150
           motion-reduce:transition-none touch-manipulation min-h-[44px]
-          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500`}
+          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sage focus:ring-offset-white`}
       >
         Add to Calendar
         <ChevronDown
-          className={`w-4 h-4 transition-transform duration-200 motion-reduce:transition-none ${
+          className={`w-4 h-4 transition-transform duration-150 motion-reduce:transition-none ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
@@ -215,7 +215,7 @@ const AddToCalendarButton: React.FC<AddToCalendarButtonProps> = ({ event }) => {
           role="menu"
           aria-label="Calendar options"
           onKeyDown={handleMenuKeyDown}
-          className="absolute left-0 right-0 mt-1 z-10 bg-white rounded-lg shadow-lg border border-stone-200 py-1 motion-reduce:transition-none"
+          className="absolute left-0 right-0 mt-1 z-40 bg-white rounded-lg border border-rule shadow-lg py-1 motion-reduce:transition-none"
         >
           {platforms.map((platform, index) => (
             <button
@@ -226,9 +226,9 @@ const AddToCalendarButton: React.FC<AddToCalendarButtonProps> = ({ event }) => {
               role="menuitem"
               tabIndex={-1}
               onClick={() => handlePlatformClick(platform.key)}
-              className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-stone-700
-                hover:bg-stone-50 transition-colors duration-150 motion-reduce:transition-none
-                touch-manipulation min-h-[44px] focus:outline-none focus:bg-stone-100"
+              className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-ink
+                hover:bg-parchment transition-colors duration-150 motion-reduce:transition-none
+                touch-manipulation min-h-[44px] focus:outline-none focus:bg-rule focus:ring-2 focus:ring-inset focus:ring-sage"
             >
               {platform.label}
             </button>

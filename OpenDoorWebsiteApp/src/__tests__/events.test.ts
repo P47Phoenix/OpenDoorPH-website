@@ -37,7 +37,7 @@ describe('E-1: Event Data Model', () => {
     });
 
     test('has correct duration', () => {
-      expect(sundayService!.duration).toBe(90);
+      expect(sundayService!.duration).toBe(120);
     });
 
     test('has correct recurrence rule', () => {
