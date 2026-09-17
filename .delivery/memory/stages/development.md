@@ -42,5 +42,16 @@
 
 ## Lesson 9
 - **Insight**: When the Plan stage names a runtime assumption that's unverified (Jest+`.mjs` discoverability, lhci+Fedora Chromium availability), that assumption MUST be cleared by a Plan-Dev handoff spike BEFORE first-story implementation begins — not validated as part of the first story. In run-2026-05-09-seo1, both spikes (S-09 AC-6 sentinel + S-04 AC-9 lhci) fell to PASS-B; running them first meant the contingency (test:seo script + CHROME_PATH env var) was already in the design when implementation started. Without the spike-first discipline, S-01 would have shipped with an undiscoverable test layer.
-- **Validated**: 1
-- **Last**: run-2026-05-09-seo1
+- **Validated**: 2
+- **Last**: run-2026-09-16-lw01
+- **lw01 note**: 10-step pre-flight (battery + 3x Lighthouse baseline on host, CHROME_PATH, port 3200) proved the environment before LW-1; no story lost time to runtime discovery.
+
+## Lesson 10 (CANDIDATE — NEW lw01)
+- **Insight**: Dev briefs must NOT restate acceptance criteria in their own words — point at the spec line (`stories.md:LINE` / `component-specs §N`). In run-2026-09-16-lw01 the LW-5 brief said "verse card = the single h1" while the spec kept "Welcome" as the page h1; the spec won, but Bezalel spent a round reconciling brief vs spec. A paraphrase is a second source of truth that can only drift. Orchestrator brief template: "AC text lives at <path:line>; do not paraphrase."
+- **Validated**: 0 (CANDIDATE — promote on 2nd instance)
+- **Last**: run-2026-09-16-lw01
+
+## Hot #5 sub-rule (adopted mid-run lw01)
+- **Insight**: The committed tree MUST be the tree the battery ran on; the devlog Battery table states the commit hash. LW-6 committed a class-order-only edit after the battery (QA M-1); rule added to the dev brief at LW-7 and held for LW-7..LW-9. Recorded as a sub-rule of Hot Lesson #5, not a new lesson.
+- **Validated**: 1 (lw01, LW-7..9)
+- **Last**: run-2026-09-16-lw01

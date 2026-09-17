@@ -12,8 +12,9 @@
 
 ## Lesson 3
 - **Insight**: Pre-pipeline brainstorms with domain experts compress Idea cycle time and produce higher-quality briefs. For FEATURE pipelines, gathering team input before the pipeline starts lets the Idea stage synthesize rather than discover.
-- **Validated**: 1
-- **Last**: run-2026-04-10-ga4x
+- **Validated**: 2
+- **Last**: run-2026-09-16-lw01
+- **lw01 note**: Elder's verbatim 9-item brief in 01-idea/inputs/elder-brief.md; Idea clean r1, PO+Architect DONE.
 
 ## Lesson 4
 - **Insight**: Front-loading edge case specificity at Idea (empty states, keyboard nav, timezone handling) compresses the Refine eval-opt cycle. When the Idea brief is vague on edge cases, the PRD inherits those gaps and QA catches them, costing a revision round.
@@ -27,5 +28,6 @@
 
 ## Lesson 6
 - **Insight**: For infra changes touching a build-artifact directory name (BUILD_PATH, dist/, out/, etc.), grep ALL of `package.json`, `playwright.config.ts`, `tsconfig*.json`, and `.github/workflows/*.yml` for the dir name BEFORE writing the §10 recommendation. Idea-stage architecture sweep must produce a complete consumer enumeration; downstream stages plan an atomic update. In run-2026-05-05-56bx Moses missed the `demo-deploy` job in node-build.yml:420; Solomon's Architect DoD caught it.
-- **Validated**: 1
-- **Last**: run-2026-05-05-56bx
+- **Validated**: 2
+- **Last**: run-2026-09-16-lw01
+- **lw01 note**: Solomon's consumer enumeration of DELETION targets caught the orphaned people-photo catalog (W-A) and ConsentBanner token consumers (W-B) — same sweep works for deletions as for renames.
