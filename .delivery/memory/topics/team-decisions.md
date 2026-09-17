@@ -63,3 +63,31 @@
 - **Made by**: Orchestrator decision D-6 at Plan self-correction round 1
 - **Reversibility**: Trivial (re-frame SM-7 to first cron tick if the elder prefers the calendar gate)
 - **Pipeline run**: run-2026-05-09-seo1
+
+## DEC-2026-09-16-001: Living Word palette + type = flat 7-token config, Lora/Inter
+- **Decision**: Tailwind colours are a flat 7-entry config (parchment/ink/sage/sage-dark/brick/brick-dark/rule, + stone); hover tokens sage-dark #4B6350 / brick-dark #7A3A24; alpha-opacity utilities banned; body `text-ink`; fonts Lora + Inter; `transitionDuration.DEFAULT` 150 ms. PRD Section 5.1 contrast table is the palette contract.
+- **Why**: Elder chose the scripture-forward direction 2026-09-16; flat tokens keep the restyle greppable (AC sentinels) and contrast provable per pair.
+- **Made by**: elder (direction) + PO ruling at Refine Rev 3 (token set)
+- **Reversibility**: Moderate (every className in ~60 files)
+- **Pipeline run**: run-2026-09-16-lw01
+
+## DEC-2026-09-17-001: Google Fonts stays via `<link>`, delivered non-blocking (ruling 10)
+- **Decision**: Keep Google Fonts (PRD 5.3 / Paul C-6); load as `preload as=style onload` + `<noscript>` fallback. Self-host per ADR-lw-001 only if CLS > 0.05.
+- **Why**: LCP 2258 > 2163 gate with render-blocking stylesheet; step (a) alone brought LCP to 2112 (prod 1911), CLS 0.005. Any future CSP must allow the inline `onload` (unsafe-hashes/sha256).
+- **Made by**: Orchestrator ruling 10 at LW-9
+- **Reversibility**: Trivial (revert `public/index.html` link form)
+- **Pipeline run**: run-2026-09-16-lw01
+
+## DEC-2026-09-17-002: One congregation photo; share card text-only; `-v2` rename for immutable assets
+- **Decision**: Exactly one elder-supplied congregation photo on the site (Home after Our Mission, About foot of Our History); no other people photos; share card is text-only. Replacing `congregation.jpg` or `share-card.png` requires a `-v2` filename + meta update (CloudFront `query_string=false`, immutable Cache-Control).
+- **Why**: Elder Amendment A1 supplied the photo; LCP kept the photo below the fold. `?v=` cache-bust impossible under current CloudFront config (ADR-lw-002/003, deploy-plan 4.3).
+- **Made by**: elder (A1) + Architect ADR-lw-002/003; elder placement confirmation pending (questions A/B)
+- **Reversibility**: Trivial (one-file revert per placement; `-v2` re-render for card)
+- **Pipeline run**: run-2026-09-16-lw01
+
+## DEC-2026-09-17-003: Bibliography fence read class-stripped; discourse-fidelity script is the guard (ruling 9)
+- **Decision**: The ScriptureStudy.tsx :992-1019 byte-identical fence protects the elder's discourse TEXT, not class attributes; it is read in class-stripped form. `scripts/discourse-fidelity-check.sh` (BASE_REF=origin/master) is the real fidelity gate and must PASS post-commit. Service duration = 120 min (`events.ts`), calendar 10:30–12:30.
+- **Why**: LW-9 needed `font-serif` on two bibliography h3s; fence-as-bytes blocked a class-only edit with zero text change.
+- **Made by**: Orchestrator ruling 9; QA codified in stories Rev 1.4 erratum
+- **Reversibility**: Trivial (restore byte-form reading in stories.md)
+- **Pipeline run**: run-2026-09-16-lw01

@@ -7,13 +7,15 @@
 
 ## Lesson 2
 - **Insight**: When user provides feedback that changes scope at Refine checkpoint (e.g., plan-only → plan+approve+apply), update the PRD immediately and re-validate before proceeding. Don't carry the change as informal context.
-- **Validated**: 1
-- **Last**: run-2026-04-04-tw3p
+- **Validated**: 2
+- **Last**: run-2026-09-16-lw01
+- **lw01 note**: Elder Amendment A1 (congregation photo) landed mid-Design; recorded in elder-brief §A1 + PRD Rev 5/5.1 (AC-42..45) immediately, not carried informally.
 
 ## Lesson 3
 - **Insight**: When authoring an "add X" or "ship X" PRD on an existing codebase, run a literal grep / file-read for X in the working tree BEFORE writing the problem statement. The adversarial reviewer will catch this in 60 seconds — better to catch it during PRD authoring than burn 2 PRD rounds reframing as "audit + reconcile". Run-2026-05-03-58aa adversarial round 1 caught this with confidence 1/5: the PRD declared "site lacks JSON-LD entirely" but `OpenDoorWebsiteApp/public/index.html` already shipped a Church/LocalBusiness block with a different canonical. Without the catch, the slice would have produced duplicate `<script type="application/ld+json">` blocks AND silently flipped canonical from .org to .info.
-- **Validated**: 1
-- **Last**: run-2026-05-03-58aa
+- **Validated**: 2
+- **Last**: run-2026-09-16-lw01
+- **lw01 note**: PRD Section 13 = sentinel run log against HEAD; adversarial (Paul 2/5→3/5) still found 3 blockers/round on analytics creep + alpha utilities + missing contrast table. Grep-first covers facts, not policy.
 
 ## Lesson 4
 - **Insight**: When the PRD claims to "close N overdue items", verify N against the SOURCE release notes by date arithmetic, not by assumption. In run-2026-05-09-seo1, the PRD round 1 declared "three overdue items" but slice-A release notes showed only TWO were overdue at 2026-05-09 (Demo URL 2026-05-06, Production curl 2026-05-05); Lighthouse baseline 2026-05-11 was upcoming-due. Adversarial r1 caught the +1 miscount. Correct framing: "two overdue + one upcoming-due."
