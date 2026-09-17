@@ -16,12 +16,19 @@ jest.mock('../assets', () => ({
   DirectionsIcon: 'test-directions-icon.png',
   AddressIcon: 'test-address-icon.png',
   CarIcon: 'test-car-icon.png',
+  ScheduleIcon: 'test-schedule-icon.png',
+  FacebookIcon: 'test-facebook-icon.png',
+  QuickMap: 'test-quick-map.png',
 }));
 
 // Mock analytics to avoid tracking in tests
 jest.mock('../utils/analytics', () => ({
   trackLocationView: jest.fn(),
   trackExternalLink: jest.fn(),
+  trackNavClick: jest.fn(),
+  trackCtaClick: jest.fn(),
+  trackSocialClick: jest.fn(),
+  trackCalendarClick: jest.fn(),
 }));
 
 describe('Link Navigation Tests', () => {
@@ -45,7 +52,7 @@ describe('Link Navigation Tests', () => {
     test('should render Learn More button with correct path', () => {
       renderWithRouter(<Main />);
       
-      const learnMoreLink = screen.getByRole('link', { name: /learn more/i });
+      const learnMoreLink = screen.getByRole('link', { name: /^learn more$/i });
       expect(learnMoreLink).toBeInTheDocument();
       expect(learnMoreLink).toHaveAttribute('href', '/opendoor/Home/About');
     });
@@ -55,7 +62,7 @@ describe('Link Navigation Tests', () => {
       
       // Verify these are React Router Links (they should not have target="_blank")
       const visitUsLink = screen.getByRole('link', { name: /visit us/i });
-      const learnMoreLink = screen.getByRole('link', { name: /learn more/i });
+      const learnMoreLink = screen.getByRole('link', { name: /^learn more$/i });
       
       expect(visitUsLink).not.toHaveAttribute('target');
       expect(learnMoreLink).not.toHaveAttribute('target');
@@ -84,7 +91,7 @@ describe('Link Navigation Tests', () => {
       renderWithRouter(<Main />);
       
       const visitUsLink = screen.getByRole('link', { name: /visit us/i });
-      const learnMoreLink = screen.getByRole('link', { name: /learn more/i });
+      const learnMoreLink = screen.getByRole('link', { name: /^learn more$/i });
       
       expect(visitUsLink).toBeVisible();
       expect(learnMoreLink).toBeVisible();
@@ -112,7 +119,7 @@ describe('Link Navigation Tests', () => {
     test('Homepage Learn More button should use relative path (not hardcoded href)', () => {
       renderWithRouter(<Main />);
       
-      const learnMoreLink = screen.getByRole('link', { name: /learn more/i });
+      const learnMoreLink = screen.getByRole('link', { name: /^learn more$/i });
       expect(learnMoreLink).toHaveAttribute('href', '/opendoor/Home/About');
       expect(learnMoreLink.getAttribute('href')).not.toMatch(/^https?:\/\//);
     });

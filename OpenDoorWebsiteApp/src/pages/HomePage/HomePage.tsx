@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CrossIcon, HeartIcon, BibleIcon, CommunityServiceIcon, WelcomeBanner } from "../../assets";
 import { usePageMeta } from '../../hooks/usePageMeta';
 import { trackCtaClick } from '../../utils/analytics';
+import SideBar from '../../components/layout/SideBar';
 
 export const Main = (): ReactElement => {
     usePageMeta({
@@ -135,6 +136,9 @@ export const Main = (): ReactElement => {
                     </Link>
                 </div>
             </section>
+
+            {/* Schedule / Welcome / Facebook blocks — mounted last (AC-12) */}
+            <SideBar />
         </div>
     );
 };

@@ -198,3 +198,67 @@ Sentinels: 24/24 TCs pass (3.23 = battery below; 3.5 manual as the story permits
 
 ### Timing
 ~40 min including three e2e runs (multi-environment x2 + stash attribution) and battery.
+
+## LW-4 — Layout: TimeStrip, single column, SideBar into Home
+
+Base: `lw-3-green` (e5f41d2). ACs AC-9, AC-10, AC-12, AC-12a, AC-13, AC-14, AC-17. Edits landed in sequencing 3.4 order 1-6 inside one commit.
+
+### Files touched
+- `OpenDoorWebsiteApp/src/components/layout/TimeStrip/TimeStrip.tsx` (new, component-specs 2.2 verbatim; `Sun {EVENTS[0].time}`, `Directions` Link, no `track*`)
+- `OpenDoorWebsiteApp/src/components/layout/TimeStrip/index.ts` (new re-export)
+- `OpenDoorWebsiteApp/src/pages/MasterLayout/MasterLayout.tsx` (SideBar import/element gone; `lg:flex-row`, `order-*`, `flex-1` on main gone; `<TimeStrip />` at :22 between `<Header />` :21 and content wrapper :23)
+- `OpenDoorWebsiteApp/src/pages/HomePage/HomePage.tsx` (`import SideBar`; `<SideBar />` as last child of the root div, after "Join Our Church Family")
+- `OpenDoorWebsiteApp/src/components/layout/SideBar/SideBar.tsx` (class values only per component-specs 2.6; `block md:hidden` kept on Quick Contact and Learn More About Us; arrows deleted; no attribute/track line changed)
+- `OpenDoorWebsiteApp/src/__tests__/LinkNavigation.test.tsx` (`/^learn more$/i` x4 at :48,58,87,115; asset mock + `ScheduleIcon`, `FacebookIcon`, `QuickMap`; analytics mock + `trackNavClick`, `trackCtaClick`, `trackSocialClick`, `trackCalendarClick`)
+- `OpenDoorWebsiteApp/tests/living-word-strip.spec.ts` (new, 17 cases: TC-LW-4.1 x5, 4.2, 4.3, 4.6, 4.7, 4.8, 4.9, 4.15, 4.23 x2, 4.25, 4.26; no skip/fixme)
+- `OpenDoorWebsiteApp/src/__tests__/SideBar.test.tsx` UNTOUCHED (diff --quiet exit 0)
+
+### Pre-checks (`export CI=true`, cwd `OpenDoorWebsiteApp/`)
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint -- --max-warnings=0` | 0 | clean |
+| `npm run type-check` | 0 | clean |
+| `npm run test:unit -- SideBar LinkNavigation AddToCalendarButton App.test` | 0 | 4 suites, 55 passed |
+
+### Sentinels (`bash --noprofile --norc`, `LC_ALL=C.UTF-8`; cwd `OpenDoorWebsiteApp/` unless repo root)
+| TC | Command | Result | Exit |
+|---|---|---|---|
+| 4.4 | `grep -c 'aria-label="Service time"'` · `role="region"` · `data-testid="time-strip"` · `grep -cE 'EVENTS\[0\]\.time'` · `! grep -n '10:30'` · `grep -cE 'fixed'` (TimeStrip) · `<Header`/`<TimeStrip`/wrapper lines in MasterLayout | `1` · `1` · `1` · `1` · — · `0` · `:21` < `:22` < `:23` | 0 (grep -c 0 = exit 1, expected) |
+| 4.5 | `min-h-\[44px\]` · `hover:bg-sage-dark` · `hover:underline` · `focus:ring-offset-sage` · `z-30` | `2` · `1` · `1` · `1` · `1` | 0 |
+| 4.12 | `grep -c '<SideBar' HomePage` · `! grep -n 'SideBar' MasterLayout` · `grep -c 'import SideBar' HomePage` | `1` · — · `1` | 0 |
+| 4.13 | `! LC_ALL=C.UTF-8 grep -nP "$R" SideBar.tsx MasterLayout.tsx` · fences [2][3][4][5] · [6] mockups (repo root) | — · `0`,`0`,`0`,`1` · `0` | 0 |
+| 4.14 | `grep -n '<aside'` | `16:    <aside className={\`w-full ${className}\`}>` | 0 |
+| 4.16 | `grep -c "/^learn more\$/i"` · `grep -c "/learn more/i"` | `4` · `0` | 0 / 1 (expected) |
+| 4.17 (repo root) | `git diff --numstat origin/master -- …LinkNavigation.test.tsx` · fences [1][2][3] · removed-line list | `11 4` · `4`,`3`,`4` · exactly the four `/learn more/i` lines | 0 |
+| 4.18 | `grep -c 'md:hidden' SideBar.tsx` | `2` | 0 |
+| 4.19 (repo root) | fence [1] · fence [2] (`-w` attr/track diff) · call-set unchanged by inspection of [2] | — · `0` lines | 0 |
+| 4.21 | non-ASCII (SideBar) · fence [1] src-wide alpha · `! grep backdrop-blur` · `! grep bg-gradient` | all clean | 0 |
+| 4.22 | `bg-sage rounded-lg p-4` · `bg-white text-sage` · `hover:bg-parchment hover:text-sage-dark` · `focus:ring-offset-sage` · `font-serif` | `1` · `2` · `2` · `2` · `5` | 0 |
+| 4.28 | `grep -c 'HOME_AXE_VIOLATIONS_BASELINE = 2' tests/a11y.spec.ts` · `npx playwright test tests/a11y.spec.ts` | `1` · `[a11y smoke] Home has 1 axe violations (baseline 2): color-contrast (4 nodes)` | 0 |
+| entry | `grep -c 'z-40' AddToCalendarButton.tsx` | `1` | 0 |
+| 4.11 (repo root) | fence [1] `git ls-files … SideBar.test.tsx \| grep -q . && git diff --quiet origin/master -- …SideBar.test.tsx` | — | 0 |
+| 4.30 (repo root) | `git diff --name-only origin/master -- src/__tests__ src/App.test.tsx tests` · fence [1] untracked | `ConsentBanner.test.tsx` (LW-3, now tracked) + `LinkNavigation.test.tsx` · `?? OpenDoorWebsiteApp/tests/living-word-strip.spec.ts`; `SideBar.test.tsx` in neither | 0 |
+| 4.1-4.3, 4.6-4.9, 4.15, 4.23, 4.25, 4.26 | `npx playwright test tests/living-word-strip.spec.ts` | 17 passed (19.2s) | 0 |
+| 4.10 | `npm run test:e2e:full -- multi-environment` | 20 passed, 4 failed — identical set to LW-3: `should handle direct URL access` x3 (pre-existing `:128` strict-mode collision, sequencing 5.4) + `Root Domain › should have no broken internal links` (`nth(14)` timeout, followups.md). No new red. | 1 (expected) |
+| 4.20 | `npx playwright test tests/external-links-assets.spec.ts tests/a11y.spec.ts` | 25 passed (40.9s) | 0 |
+| 4.24 / 4.27 | covered by `npm run test:unit` below (AddToCalendarButton, SideBar, App.test green) | — | 0 |
+
+Sentinels: 30/30 TCs pass (4.29 = battery below).
+
+### Battery (`export CI=true`, cwd `OpenDoorWebsiteApp/`, finished tree)
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint` | 0 | clean |
+| `npm run type-check` | 0 | clean |
+| `npm run test:unit` | 0 | 10 suites, 120 tests passed |
+| `npm run build:prod` | 0 | build ok |
+| `npm run test:e2e:pr` | 0 | 22 passed (27.2s); `[a11y smoke] Home has 1 axe violations (baseline 2)` |
+
+### Deviations
+- First strip-spec run: TC-LW-4.9 red x3 and TC-LW-4.8 flaky. Cause: `#mobile-menu` `transition-all duration-150` — `visibility` flips at transition end, and the spec sampled `getComputedStyle` synchronously after the click. Component matches spec; the test now awaits `toBeVisible()` on the first menu link before sampling / tabbing (retrying assertion, no timeout literal). 17/17 on rerun.
+- TC-LW-4.30 expects `ConsentBanner.test.tsx` untracked; it was committed in LW-3, so it appears in the modified list instead. Not touched by this story.
+- Hint honoured: no `h1` locator in this spec; TC-LW-3.2's visibility case waits for LW-5/LW-9.
+- Home axe count recorded: 1 (color-contrast, 4 nodes) — `<aside>` inside `<main>` did not trip `landmark-complementary-is-top-level`, as sequencing 5.1 probed.
+
+### Timing
+~35 min including three e2e runs (strip x2, multi-environment, ext+a11y) and battery.
