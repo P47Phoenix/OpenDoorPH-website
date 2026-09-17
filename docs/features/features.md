@@ -38,7 +38,7 @@ The OpenDoorPH website provides essential church information and community conne
 #### Content Features
 - Church address and contact information
 - Directions and accessibility information
-- Service times and scheduling details
+- Service times and scheduling details, including "Sundays 10:30 AM, about two hours" under the address
 
 ### ℹ️ About Page (`/opendoor/Home/About`)
 **Church Information Hub** - Detailed church information
@@ -48,6 +48,8 @@ The OpenDoorPH website provides essential church information and community conne
 - Leadership information
 - Programs and ministry details
 - Church philosophy and beliefs
+- Core values shown with SVG icons (no emoji)
+- Congregation photo closes the "Our History" section
 
 ## 🧭 Navigation Features
 
@@ -89,11 +91,10 @@ The OpenDoorPH website provides essential church information and community conne
 - **Color Scheme**: Green and gray accent colors
 - **Typography**: Clear, readable fonts for accessibility
 
-#### Header Photo
-- Prominent header image (`headerphoto.jpg`)
-- Dimensions: 820x120 pixels
-- Professional church photography
-- Consistent branding across pages
+#### Verse card and congregation photo
+- Home opens with the church verse, Galatians 6:1 (NKJV), and one link to the Scripture Study
+- One congregation photo (1424x640) after "Our Mission" on Home and at the foot of "Our History" on About
+- Mobile time strip under the header shows the Sunday service time
 
 ### 🎨 Styling Features
 - **Responsive Design**: Mobile-first approach
