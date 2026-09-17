@@ -383,3 +383,64 @@ Sentinels: 17/17 automated TCs pass (6.18 is UAT-manual). TC-6.7 fence [1] is an
 
 ### Timing
 ~20 min including the battery and the two DoD e2e runs (~4 min of Playwright).
+
+## LW-7 — Scripture Study: className-only, fidelity gate green
+Base: `lw-6-green` (d7dc3e1). ACs AC-21, AC-26. One commit; sequencing 3.7 (commit -> fidelity gate -> tag). Prose-fidelity memory rule observed: not one text node, footnote, `id=`, `href`, `track*` call or `usePageMeta` touched.
+
+### Files touched
+- `OpenDoorWebsiteApp/src/pages/ScriptureStudy/ScriptureStudy.tsx` — `className` VALUES only, 81 lines, `--numstat` `81 81`, applied by a line/pattern-scoped `sed -f` script (`/tmp/lw7/restyle.sed`): hero `:38` `bg-gradient-to-r from-stone-50 to-white rounded-lg shadow-md` -> `bg-white border border-rule rounded-xl` (spec 2.8 value); `h1 :43` `font-serif … text-ink`; verse blockquote `:46` `font-serif italic … text-ink … border-sage`; cites `:49,:652` `text-brick`; all 20 footnote refs/back-links `text-green-600 hover:text-green-800 … focus-visible:outline-green-600` -> `text-brick hover:text-brick-dark underline … focus-visible:outline-sage` (spec `scripture footnote link`; `focus-visible:` kept per spec 2.6 note); bullets `:197,203,207,211` `text-brick`; term blocks `:230,237,268,275,400,419` `border-sage`; blockquotes `:345,:649` `font-serif italic text-ink … border-sage`; RTL Hebrew blockquotes `:578,:665` `border-r-4 border-sage … text-ink`; tiles `:369,375,381,895,930` `bg-parchment`, their `h4` `font-serif font-semibold text-ink`; `:921` `What NOT to Do:` `+ font-serif`, `text-red-700` stays; Sources section `:985` `bg-stone-50` -> `bg-parchment` (wireframe G10); every other `h2`/`h3`/`h4` `+ font-serif`, `text-stone-800` -> `text-ink`, including the standalone className lines `:306,:396,:539,:562,:639` under the multi-line headings whose `id=` lines (`:305,:395,:538,:561,:638`) are untouched. JSX comment `:301-302` and bibliography `:992-1019` byte-identical.
+- `OpenDoorWebsiteApp/tests/multi-environment-navigation.spec.ts:128` — the one PRD Section 6 permitted edit: `getByRole('heading', { name: /galatians 6:1/i })` -> `getByRole('heading', { name: 'Galatians 6:1', exact: true, level: 1 })`; `--numstat` `1 1`.
+- `SideBar.test.tsx` untouched (DoD 3 `git diff --quiet` exit 0).
+
+### TC-LW-7.10 step 1 — reproduce-first on the untouched tree (`export CI=true`, cwd `OpenDoorWebsiteApp/`; log `/tmp/lw7/repro-master.log`)
+`npx playwright test tests/multi-environment-navigation.spec.ts -g "direct URL"` exit 1 before any edit (file and test byte-equal to `origin/master` at that point): x3 environments, each `strict mode violation: getByRole('heading', { name: /galatians 6:1/i }) resolved to 2 elements: 1) <h1 …>Galatians 6:1</h1> … 2) <h2 …>Detailed Analysis of Galatians 6:1</h2>`. Attribution confirmed (sequencing 3.3).
+
+### Pre-checks (`export CI=true`, cwd `OpenDoorWebsiteApp/`)
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint -- --max-warnings=0` | 0 | clean |
+| AC-2 `! grep -rnE 'green-[0-9]{2,3}|orange-[0-9]{2,3}' src --include=*.tsx --include=*.css --exclude-dir=__tests__` | 0 | clean src-wide |
+
+### Sentinels (`bash --noprofile --norc /tmp/lw7/sentinels-lw-7.sh`, `LC_ALL=C.UTF-8`, GNU grep; fence lines extracted verbatim from stories.md Rev 1.3 with awk, never retyped; log `/tmp/lw7/sentinels.log`)
+| TC | cwd | Command | Result | Exit |
+|---|---|---|---|---|
+| 7.1 | root | fence [1] · [2] `-w` line filter `grep -v className` · [3] class-stripped whole-file diff | tracked · 0 lines · empty | 0 · 1 (no match = expected) · 0 |
+| 7.2 | root | `git diff --numstat origin/master -- $S` | exactly `81\t81\t…ScriptureStudy.tsx` | 0 |
+| 7.3 | root | fence [1] `:301-302` · [2] `:992-1019` · [3] `:43-51` class-stripped | all empty | 0 · 0 · 0 |
+| 7.4 | root | fence [1] `href`/`id` set diff · `trackReferenceClick(...)` call-set diff | both empty | 0 · 0 |
+| 7.5 | root | `BASE_REF=origin/master sh scripts/discourse-fidelity-check.sh` AFTER commit | see "Fidelity gate" below | — |
+| 7.6 | root | fence [1] AC-20 filter (`track|aria-label|href=|rel=|target=|usePageMeta`) | 0 lines | 1 (expected) |
+| 7.7 | root/app | fence [1] `<nav` on master = `0`; `<nav` now = `0` (equal) · `! grep 'In this study'` | no TOC built | 0 |
+| 7.8 | app | fence [1] `! border-green-500|green-300|bg-gradient` · `border-sage` count · `font-serif italic` count | clean · `11` (>= 4) · `3` (>= 1) | 0 |
+| 7.9 | app | fence [1] src-wide gradient grep | clean — passes src-wide for the first time | 0 |
+| 7.10 | app | step 1 above (red on untouched tree); step 2 `test:e2e:full -- multi-environment` | `direct URL` green x3 envs on chromium under `CI=true` | 1 -> green |
+| 7.11 | root | fence [1] · numstat · fence [2] · fence [3] | tracked · `1\t1\tOpenDoorWebsiteApp/tests/multi-environment-navigation.spec.ts` · `1` · `1` | 0 |
+| 7.12 | app | `npm run test:e2e:full -- multi-environment` (log `/tmp/lw7/multienv.log`) | 23 passed, 1 failed; the level-1 `Galatians 6:1` visible on all three environments; the single red is the pre-existing Root Domain `should have no broken internal links` 30s timeout at `nth(13)` (followups.md, LW-9 triage) | 1 (pre-existing only) |
+| 7.13 | app | canonical battery | below | 0 |
+| 7.14 | root | modified / untracked test files | modified: `tests/multi-environment-navigation.spec.ts` added to the LW-6 list (`AboutPage.test.tsx`, `ConsentBanner.test.tsx`, `HomePage.test.tsx`, `LinkNavigation.test.tsx`, `tests/external-links-assets.spec.ts`; `living-word-strip.spec.ts` tracked since LW-4); untracked none; `SideBar.test.tsx` absent | 0 |
+
+Sentinels: 13/14 automated TCs pass pre-commit; 7.5 runs post-commit (below).
+
+### Battery (`export CI=true`, cwd `OpenDoorWebsiteApp/`, finished tree, byte-exact string; log `/tmp/lw7/battery-exact.log`)
+`npm run lint && npm run type-check && npm run test:unit && npm run build:prod && npm run test:e2e:pr` -> exit 0.
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint` | 0 | clean |
+| `npm run type-check` | 0 | clean |
+| `npm run test:unit` | 0 | 11 suites, 132 tests passed |
+| `npm run build:prod` | 0 | ok |
+| `npm run test:e2e:pr` | 0 | 22 passed (27.0s) |
+(An earlier per-script loop with the same five scripts also printed exit 0 for each — `/tmp/lw7/battery.log`; the byte-exact chain was then run last, on the same tree, and is the run of record. No edit after it.)
+
+### Fidelity gate (TC-LW-7.5; repo root, AFTER the story commit 38ed8b1; log `/tmp/lw7/fidelity.log`)
+`BASE_REF=origin/master sh scripts/discourse-fidelity-check.sh` -> exit 0: `discourse-fidelity-check: PASS — source-PRD fidelity enforced on OpenDoorWebsiteApp/src/pages/ScriptureStudy/ScriptureStudy.tsx.` Devlog then updated with this line and the commit amended (`git commit --amend --no-edit`; branch unpushed; no file under `OpenDoorWebsiteApp/` changed after the battery), gate re-run on the amended HEAD -> exit 0.
+
+### Deviations
+- **`h3` at `:1000` and `:1017` left as-is** (`font-semibold text-stone-800 mb-3`, no `font-serif`): they sit inside the bibliography range `:992-1019` that the story, the wireframe (Gbib) and sentinel TC-LW-7.3 [2] require byte-identical. Spec 2.8 "every h1-h4 + font-serif" conflicts with that fence for these two lines; the fence wins. `:986`, `:990`, `:1027` (outside the range) are restyled. LW-9 may revisit if QA amends the fence.
+- **RTL Hebrew blockquotes `:578,:665`** get `passage rule rtl` + `text-ink` but NOT `font-serif italic` (wireframe G7a-q lists only `border-r-4 border-sage text-right`; italic on Hebrew script is typographically wrong and Lora carries no Hebrew glyphs).
+- Hero `:38` drops `shadow-md` (spec 2.8 value string has no shadow; `rounded-lg` -> `rounded-xl` per spec).
+- `<p>` term labels (`font-semibold text-stone-800`, e.g. `:231,:732`) untouched: not headings, not banned by AC-2; spec lists no change.
+- Footnote refs/back-links gain `underline` per the spec `scripture footnote link` string.
+
+### Timing
+~25 min including the reproduce-first run, two full Playwright multi-environment runs and two batteries (~8 min Playwright).

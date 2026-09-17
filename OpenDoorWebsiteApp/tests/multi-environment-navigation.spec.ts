@@ -125,7 +125,7 @@ environments.forEach(({ name, baseURL, basePath, expectedPrefix }) => {
       
       // Test direct access to Scripture page
       await page.goto(`${baseURL}${basePath}/opendoor/Home/Scripture`);
-      await expect(page.getByRole('heading', { name: /galatians 6:1/i })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Galatians 6:1', exact: true, level: 1 })).toBeVisible();
     });
 
     test('should have no broken internal links', async ({ page }) => {

@@ -35,18 +35,18 @@ export const ScriptureStudy = (): ReactElement => {
     return (
         <div className="w-full p-4 md:p-6 space-y-6 md:space-y-8">
             {/* Hero Section */}
-            <section className="bg-gradient-to-r from-stone-50 to-white rounded-lg shadow-md p-4 md:p-8">
+            <section className="bg-white border border-rule rounded-xl p-4 md:p-8">
                 <div className="text-center">
                     <div className="flex justify-center mb-4">
                         <img src={BibleIcon} alt="" className="w-12 h-12" />
                     </div>
-                    <h1 className="text-2xl md:text-3xl font-bold text-stone-800 mb-4">
+                    <h1 className="font-serif text-2xl md:text-3xl font-bold text-ink mb-4">
                         Galatians 6:1
                     </h1>
-                    <blockquote className="text-lg md:text-xl text-stone-700 italic leading-relaxed max-w-4xl mx-auto border-l-4 border-green-500 pl-6">
+                    <blockquote className="font-serif italic text-lg md:text-xl text-ink leading-relaxed max-w-4xl mx-auto border-l-4 border-sage pl-6">
                         "Brethren, if a man is overtaken in any trespass, you who are spiritual restore such 
                         a one in a spirit of gentleness, considering yourself lest you also be tempted."
-                        <cite className="block text-green-600 font-semibold mt-3 not-italic text-base">
+                        <cite className="block text-brick font-semibold mt-3 not-italic text-base">
                             — Galatians 6:1 (NKJV)
                         </cite>
                     </blockquote>
@@ -57,12 +57,12 @@ export const ScriptureStudy = (): ReactElement => {
             <section className="bg-white rounded-lg shadow-md p-4 md:p-8">
                 <div className="flex items-center mb-6">
                     <img src={CrossIcon} alt="" className="w-8 h-8 mr-3" />
-                    <h2 className="text-2xl md:text-3xl font-bold text-stone-800">Historical Context</h2>
+                    <h2 className="font-serif text-2xl md:text-3xl font-bold text-ink">Historical Context</h2>
                 </div>
                 
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">The Galatian Churches</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">The Galatian Churches</h3>
                         <p className="text-gray-700 leading-relaxed mb-4">
                             The letter to the Galatians was written by the Apostle Paul around AD 48-50 to the churches
                             in the region of Galatia (modern-day Turkey). These churches were established during Paul's
@@ -78,7 +78,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     href="#fn-hc-1"
                                     id="fnref-hc-1"
                                     aria-label="Footnote 1"
-                                    className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded not-italic"
+                                    className="inline-block min-w-[1.5rem] text-center text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded not-italic"
                                 >
                                     1
                                 </a>
@@ -93,7 +93,7 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">Paul's Pastoral Concern</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">Paul's Pastoral Concern</h3>
                         <p className="text-gray-700 leading-relaxed">
                             Galatians 6:1 comes at the conclusion of Paul's letter, after he has vigorously defended
                             the doctrine of justification by faith alone. Having established the theological foundation,
@@ -117,7 +117,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-hc-1"
                                     aria-label="Return to reference 1"
-                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     ↩
                                 </a>
@@ -131,12 +131,12 @@ export const ScriptureStudy = (): ReactElement => {
             <section className="bg-white rounded-lg shadow-md p-4 md:p-8">
                 <div className="flex items-center mb-6">
                     <img src={BibleIcon} alt="" className="w-8 h-8 mr-3" />
-                    <h2 className="text-2xl md:text-3xl font-bold text-stone-800">The Letter to the Galatians</h2>
+                    <h2 className="font-serif text-2xl md:text-3xl font-bold text-ink">The Letter to the Galatians</h2>
                 </div>
                 
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">Central Theme: Freedom in Christ</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">Central Theme: Freedom in Christ</h3>
                         {/* UAT-PERSONA-FEEDBACK-2026-04-20 — "my Katie von Bora" clause
                             softened per Whitfield finding #9, Harrow FACTUAL-01, and
                             Callister S-1. The Tischreden attribution is a popular
@@ -154,31 +154,31 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">Structure and Key Passages</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">Structure and Key Passages</h3>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="bg-stone-50 p-4 rounded-lg">
-                                <h4 className="font-semibold text-stone-800 mb-2">Chapters 1-2: Paul's Authority</h4>
+                                <h4 className="font-serif font-semibold text-ink mb-2">Chapters 1-2: Paul's Authority</h4>
                                 <p className="text-gray-700 text-sm">
                                     Paul defends his apostolic calling and recounts his confrontation with Peter 
                                     over the Gospel's universality.
                                 </p>
                             </div>
                             <div className="bg-stone-50 p-4 rounded-lg">
-                                <h4 className="font-semibold text-stone-800 mb-2">Chapters 3-4: Justification by Faith</h4>
+                                <h4 className="font-serif font-semibold text-ink mb-2">Chapters 3-4: Justification by Faith</h4>
                                 <p className="text-gray-700 text-sm">
                                     The theological heart of the letter, explaining that righteousness comes 
                                     through faith, not law-keeping.
                                 </p>
                             </div>
                             <div className="bg-stone-50 p-4 rounded-lg">
-                                <h4 className="font-semibold text-stone-800 mb-2">Chapter 5: Christian Liberty</h4>
+                                <h4 className="font-serif font-semibold text-ink mb-2">Chapter 5: Christian Liberty</h4>
                                 <p className="text-gray-700 text-sm">
                                     "Stand fast therefore in the liberty by which Christ has made us free" (5:1). 
                                     Freedom from law, but not license to sin.
                                 </p>
                             </div>
                             <div className="bg-stone-50 p-4 rounded-lg">
-                                <h4 className="font-semibold text-stone-800 mb-2">Chapter 6: Practical Christian Living</h4>
+                                <h4 className="font-serif font-semibold text-ink mb-2">Chapter 6: Practical Christian Living</h4>
                                 <p className="text-gray-700 text-sm">
                                     Including our key verse (6:1), Paul provides practical guidance for 
                                     Christian community and mutual restoration.
@@ -188,27 +188,27 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">Key Doctrinal Contributions</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">Key Doctrinal Contributions</h3>
                         <ul className="space-y-2 text-gray-700">
                             {/* STORY-ISSUE-010 — Sola Fide reframed per source PRD ISSUE-010
                                 Required Action. Replacement text is verbatim from the PRD.
                                 Galatians 2:16 retained as the supporting citation (AC-2). */}
                             <li className="flex items-start">
-                                <span className="text-green-600 mr-2">•</span>
+                                <span className="text-brick mr-2">•</span>
                                 <span>
                                     <strong>Sola Fide:</strong> The doctrine later articulated by the Reformers as Sola Fide finds its foundational Pauline expression here. Paul's immediate concern, however, was the Judaizer insistence on Torah observance and circumcision as conditions of salvation for Gentile believers. (Galatians 2:16)
                                 </span>
                             </li>
                             <li className="flex items-start">
-                                <span className="text-green-600 mr-2">•</span>
+                                <span className="text-brick mr-2">•</span>
                                 <span><strong>Union with Christ:</strong> "I have been crucified with Christ; it is no longer I who live, but Christ lives in me" (2:20)</span>
                             </li>
                             <li className="flex items-start">
-                                <span className="text-green-600 mr-2">•</span>
+                                <span className="text-brick mr-2">•</span>
                                 <span><strong>Fruit of the Spirit:</strong> "Love, joy, peace, longsuffering, kindness, goodness, faithfulness, gentleness, self-control" (5:22-23)</span>
                             </li>
                             <li className="flex items-start">
-                                <span className="text-green-600 mr-2">•</span>
+                                <span className="text-brick mr-2">•</span>
                                 <span><strong>Law of Christ:</strong> "Bear one another's burdens, and so fulfill the law of Christ" (6:2)</span>
                             </li>
                         </ul>
@@ -220,21 +220,21 @@ export const ScriptureStudy = (): ReactElement => {
             <section className="bg-white rounded-lg shadow-md p-4 md:p-8">
                 <div className="flex items-center mb-6">
                     <img src={HeartIcon} alt="" className="w-8 h-8 mr-3" />
-                    <h2 className="text-2xl md:text-3xl font-bold text-stone-800">Detailed Analysis of Galatians 6:1</h2>
+                    <h2 className="font-serif text-2xl md:text-3xl font-bold text-ink">Detailed Analysis of Galatians 6:1</h2>
                 </div>
                 
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">Key Greek Terms</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">Key Greek Terms</h3>
                         <div className="space-y-4">
-                            <div className="border-l-4 border-green-300 pl-4">
+                            <div className="border-l-4 border-sage pl-4">
                                 <p className="font-semibold text-stone-800">"Brethren" (adelphoi)</p>
                                 <p className="text-gray-700 text-sm">
                                     Emphasizes the family relationship among believers—we are brothers and sisters in Christ, 
                                     sharing the same spiritual Father.
                                 </p>
                             </div>
-                            <div className="border-l-4 border-green-300 pl-4">
+                            <div className="border-l-4 border-sage pl-4">
                                 <p className="font-semibold text-stone-800">
                                     "Overtaken" (<span lang="grc" className="font-serif">{GREEK_PROLEMPHTHE}</span>
                                     <span className="italic ml-1">(<em>{TRANSLIT_PROLEMPHTHE}</em>)</span>)
@@ -248,7 +248,7 @@ export const ScriptureStudy = (): ReactElement => {
                                             href="#fn-da-1"
                                             id="fnref-da-1"
                                             aria-label="Footnote 1"
-                                            className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                            className="inline-block min-w-[1.5rem] text-center text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                         >
                                             1
                                         </a>
@@ -258,21 +258,21 @@ export const ScriptureStudy = (): ReactElement => {
                                             href="#fn-da-2"
                                             id="fnref-da-2"
                                             aria-label="Footnote 2"
-                                            className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                            className="inline-block min-w-[1.5rem] text-center text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                         >
                                             2
                                         </a>
                                     </sup>
                                 </p>
                             </div>
-                            <div className="border-l-4 border-green-300 pl-4">
+                            <div className="border-l-4 border-sage pl-4">
                                 <p className="font-semibold text-stone-800">"Restore" (katartizo)</p>
                                 <p className="text-gray-700 text-sm">
                                     A medical term meaning "to set a broken bone" or "to mend fishing nets." It implies 
                                     careful, skillful restoration to proper function, not harsh condemnation.
                                 </p>
                             </div>
-                            <div className="border-l-4 border-green-300 pl-4">
+                            <div className="border-l-4 border-sage pl-4">
                                 <p className="font-semibold text-stone-800">
                                     "Gentleness" (<span lang="grc" className="font-serif">{GREEK_PRAUTES}</span>
                                     <span className="italic ml-1">(<em>{TRANSLIT_PRAUTES}</em>)</span>)
@@ -287,7 +287,7 @@ export const ScriptureStudy = (): ReactElement => {
                                             href="#fn-da-3"
                                             id="fnref-da-3"
                                             aria-label="Footnote 3"
-                                            className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                            className="inline-block min-w-[1.5rem] text-center text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                         >
                                             3
                                         </a>
@@ -303,7 +303,7 @@ export const ScriptureStudy = (): ReactElement => {
                             <div className="mt-4 pl-4 border-l-2 border-stone-300">
                                 <h4
                                     id="teshuvah"
-                                    className="font-semibold text-stone-800 mb-2 scroll-mt-4"
+                                    className="font-serif font-semibold text-ink mb-2 scroll-mt-4"
                                 >
                                     Teshuvah (
                                     <span lang="he" dir="rtl">{HEBREW_TESHUVAH}</span>
@@ -342,7 +342,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     reduces restoration to a social or relational exercise, stripping
                                     it of its covenantal and theological weight.
                                 </p>
-                                <blockquote className="text-gray-700 text-sm italic border-l-4 border-green-300 pl-4 my-2">
+                                <blockquote className="font-serif italic text-ink text-sm border-l-4 border-sage pl-4 my-2">
                                     <em>{TRANSLIT_TESHUVAH}</em> means to turn, to return. Sin is a
                                     departure; repentance is a return.
                                     <sup className="ml-0.5">
@@ -350,7 +350,7 @@ export const ScriptureStudy = (): ReactElement => {
                                             href="#fn-da-6"
                                             id="fnref-da-6"
                                             aria-label="Footnote 6"
-                                            className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                            className="inline-block min-w-[1.5rem] text-center text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                         >
                                             6
                                         </a>
@@ -364,22 +364,22 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">The Process of Restoration</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">The Process of Restoration</h3>
                         <div className="grid md:grid-cols-3 gap-4">
-                            <div className="bg-green-50 p-4 rounded-lg text-center">
-                                <h4 className="font-semibold text-green-700 mb-2">1. Recognition</h4>
+                            <div className="bg-parchment p-4 rounded-lg text-center">
+                                <h4 className="font-serif font-semibold text-ink mb-2">1. Recognition</h4>
                                 <p className="text-sm text-gray-700">
                                     Acknowledging when a brother or sister has fallen into sin
                                 </p>
                             </div>
-                            <div className="bg-green-50 p-4 rounded-lg text-center">
-                                <h4 className="font-semibold text-green-700 mb-2">2. Restoration</h4>
+                            <div className="bg-parchment p-4 rounded-lg text-center">
+                                <h4 className="font-serif font-semibold text-ink mb-2">2. Restoration</h4>
                                 <p className="text-sm text-gray-700">
                                     Gentle, skillful work to bring them back to spiritual health
                                 </p>
                             </div>
-                            <div className="bg-green-50 p-4 rounded-lg text-center">
-                                <h4 className="font-semibold text-green-700 mb-2">3. Self-Reflection</h4>
+                            <div className="bg-parchment p-4 rounded-lg text-center">
+                                <h4 className="font-serif font-semibold text-ink mb-2">3. Self-Reflection</h4>
                                 <p className="text-sm text-gray-700">
                                     Remembering our own vulnerability to temptation
                                 </p>
@@ -393,11 +393,11 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3
                             id="baros-phortion"
-                            className="text-xl font-semibold text-stone-800 mb-3 scroll-mt-4"
+                            className="font-serif text-xl font-semibold text-ink mb-3 scroll-mt-4"
                         >
                             The Tension with Galatians 6:5
                         </h3>
-                        <div className="border-l-4 border-green-300 pl-4 mb-4">
+                        <div className="border-l-4 border-sage pl-4 mb-4">
                             <p className="mb-1">
                                 <span lang="grc" className="font-serif text-lg">{GREEK_BAROS}</span>
                                 <span className="italic ml-2 text-base" lang="en"> (<em>{TRANSLIT_BAROS}</em>)</span>
@@ -409,14 +409,14 @@ export const ScriptureStudy = (): ReactElement => {
                                         href="#fn-da-4"
                                         id="fnref-da-4"
                                         aria-label="Footnote 4"
-                                        className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                        className="inline-block min-w-[1.5rem] text-center text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                     >
                                         4
                                     </a>
                                 </sup>
                             </p>
                         </div>
-                        <div className="border-l-4 border-green-300 pl-4 mb-4">
+                        <div className="border-l-4 border-sage pl-4 mb-4">
                             <p className="mb-1">
                                 <span lang="grc" className="font-serif text-lg">{GREEK_PHORTION}</span>
                                 <span className="italic ml-2 text-base" lang="en"> (<em>{TRANSLIT_PHORTION}</em>)</span>
@@ -428,7 +428,7 @@ export const ScriptureStudy = (): ReactElement => {
                                         href="#fn-da-5"
                                         id="fnref-da-5"
                                         aria-label="Footnote 5"
-                                        className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                        className="inline-block min-w-[1.5rem] text-center text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                     >
                                         5
                                     </a>
@@ -456,7 +456,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-da-1"
                                     aria-label="Return to reference 1"
-                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     ↩
                                 </a>
@@ -467,7 +467,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-da-2"
                                     aria-label="Return to reference 2"
-                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     ↩
                                 </a>
@@ -479,7 +479,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-da-3"
                                     aria-label="Return to reference 3"
-                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     ↩
                                 </a>
@@ -490,7 +490,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-da-4"
                                     aria-label="Return to reference 4"
-                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     ↩
                                 </a>
@@ -501,7 +501,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-da-5"
                                     aria-label="Return to reference 5"
-                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     ↩
                                 </a>
@@ -513,7 +513,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-da-6"
                                     aria-label="Return to reference 6"
-                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     ↩
                                 </a>
@@ -536,7 +536,7 @@ export const ScriptureStudy = (): ReactElement => {
                     <img src={BibleIcon} alt="" className="w-8 h-8 mr-3" />
                     <h2
                         id="hebrew-foundations"
-                        className="text-2xl md:text-3xl font-bold text-stone-800"
+                        className="font-serif text-2xl md:text-3xl font-bold text-ink"
                     >
                         Hebrew Foundations
                     </h2>
@@ -559,7 +559,7 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3
                             id="tochacha"
-                            className="text-xl font-semibold text-stone-800 mb-3 scroll-mt-4"
+                            className="font-serif text-xl font-semibold text-ink mb-3 scroll-mt-4"
                         >
                             The Hebrew Foundation: Tochacha (
                             <span lang="he" dir="rtl">{HEBREW_HOCHEACH_TOCHIACH}</span>
@@ -575,7 +575,7 @@ export const ScriptureStudy = (): ReactElement => {
                             <blockquote
                                 lang="he"
                                 dir="rtl"
-                                className="border-r-4 border-green-500 pr-6 text-right text-lg md:text-xl text-stone-800 leading-relaxed"
+                                className="border-r-4 border-sage pr-6 text-right text-lg md:text-xl text-ink leading-relaxed"
                             >
                                 {HEBREW_LEV_19_17}
                             </blockquote>
@@ -603,7 +603,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     href="#fn-hf-1"
                                     id="fnref-hf-1"
                                     aria-label="Footnote 1"
-                                    className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     1
                                 </a>
@@ -616,7 +616,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     href="#fn-hf-2"
                                     id="fnref-hf-2"
                                     aria-label="Footnote 2"
-                                    className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     2
                                 </a>
@@ -636,7 +636,7 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3
                             id="law-of-christ"
-                            className="text-xl font-semibold text-stone-800 mb-3 scroll-mt-4"
+                            className="font-serif text-xl font-semibold text-ink mb-3 scroll-mt-4"
                         >
                             Law of Christ and Leviticus 19:18
                         </h3>
@@ -646,10 +646,10 @@ export const ScriptureStudy = (): ReactElement => {
                             the answer in Galatians 5:14, where he explicitly quotes Leviticus 19:18:
                         </p>
 
-                        <blockquote className="text-gray-700 italic leading-relaxed border-l-4 border-green-500 pl-6 mb-4">
+                        <blockquote className="font-serif italic text-ink leading-relaxed border-l-4 border-sage pl-6 mb-4">
                             "For all the law is fulfilled in one word, even in this: 'You shall
                             love your neighbor as yourself.'"
-                            <cite className="block text-green-600 font-semibold mt-2 not-italic text-sm">
+                            <cite className="block text-brick font-semibold mt-2 not-italic text-sm">
                                 — Galatians 5:14
                             </cite>
                         </blockquote>
@@ -662,7 +662,7 @@ export const ScriptureStudy = (): ReactElement => {
                             <blockquote
                                 lang="he"
                                 dir="rtl"
-                                className="border-r-4 border-green-500 pr-6 text-right text-lg md:text-xl text-stone-800 leading-relaxed"
+                                className="border-r-4 border-sage pr-6 text-right text-lg md:text-xl text-ink leading-relaxed"
                             >
                                 {HEBREW_LEV_19_18}
                             </blockquote>
@@ -699,7 +699,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-hf-1"
                                     aria-label="Return to reference 1"
-                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     ↩
                                 </a>
@@ -710,7 +710,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-hf-2"
                                     aria-label="Return to reference 2"
-                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     ↩
                                 </a>
@@ -722,11 +722,11 @@ export const ScriptureStudy = (): ReactElement => {
 
             {/* Related Scriptures */}
             <section className="bg-white rounded-lg shadow-md p-4 md:p-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-stone-800 mb-6">Related Scripture Passages</h2>
+                <h2 className="font-serif text-2xl md:text-3xl font-bold text-ink mb-6">Related Scripture Passages</h2>
                 
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">On Restoration and Forgiveness</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">On Restoration and Forgiveness</h3>
                         <div className="space-y-4">
                             <div className="bg-stone-50 p-4 rounded-lg">
                                 <p className="font-semibold text-stone-800 mb-2">Matthew 18:15-17</p>
@@ -754,7 +754,7 @@ export const ScriptureStudy = (): ReactElement => {
                                             href="#fn-rs-1"
                                             id="fnref-rs-1"
                                             aria-label="Footnote 1"
-                                            className="inline-block min-w-[1.5rem] text-center text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded not-italic"
+                                            className="inline-block min-w-[1.5rem] text-center text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded not-italic"
                                         >
                                             1
                                         </a>
@@ -789,7 +789,7 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">On Gentleness and Humility</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">On Gentleness and Humility</h3>
                         <div className="space-y-4">
                             <div className="bg-stone-50 p-4 rounded-lg">
                                 <p className="font-semibold text-stone-800 mb-2">1 Corinthians 4:21</p>
@@ -825,7 +825,7 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">On Bearing One Another's Burdens</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">On Bearing One Another's Burdens</h3>
                         <div className="space-y-4">
                             <div className="bg-stone-50 p-4 rounded-lg">
                                 <p className="font-semibold text-stone-800 mb-2">Galatians 6:2</p>
@@ -864,7 +864,7 @@ export const ScriptureStudy = (): ReactElement => {
                                 <a
                                     href="#fnref-rs-1"
                                     aria-label="Return to reference 1"
-                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-green-600 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 rounded"
+                                    className="inline-block min-w-[1.5rem] text-center ml-1 text-brick hover:text-brick-dark underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage rounded"
                                 >
                                     ↩
                                 </a>
@@ -876,11 +876,11 @@ export const ScriptureStudy = (): ReactElement => {
 
             {/* Practical Application */}
             <section className="bg-white rounded-lg shadow-md p-4 md:p-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-stone-800 mb-6">Practical Application for Today</h2>
+                <h2 className="font-serif text-2xl md:text-3xl font-bold text-ink mb-6">Practical Application for Today</h2>
                 
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">Who Should Restore?</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">Who Should Restore?</h3>
                         {/* STORY-ISSUE-001 — trailing "John Chrysostom … gentle, meek, and
                             considerate" direct-quote sentence REMOVED per ISSUE-001 AC-3
                             ("No direct-quote marks surround Chrysostom text on the rendered
@@ -892,8 +892,8 @@ export const ScriptureStudy = (): ReactElement => {
                             but rather those who are walking in the Spirit, demonstrating the fruit of the Spirit,
                             and have spiritual maturity and wisdom.
                         </p>
-                        <div className="bg-green-50 p-4 rounded-lg">
-                            <h4 className="font-semibold text-green-700 mb-2">Qualifications for Restoration Ministry:</h4>
+                        <div className="bg-parchment p-4 rounded-lg">
+                            <h4 className="font-serif font-semibold text-ink mb-2">Qualifications for Restoration Ministry:</h4>
                             <ul className="space-y-1 text-sm text-gray-700">
                                 <li>• Walking in the Spirit consistently</li>
                                 <li>• Demonstrating the fruit of the Spirit, especially gentleness</li>
@@ -905,7 +905,7 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">The Manner of Restoration</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">The Manner of Restoration</h3>
                         <p className="text-gray-700 leading-relaxed mb-4">
                             Paul specifies that restoration is to be done "in the spirit of meekness" (Galatians 6:1, KJV) —
                             with genuine humility and love. The goal is not to punish but to heal and restore. Matthew Henry,
@@ -918,7 +918,7 @@ export const ScriptureStudy = (): ReactElement => {
                         </p>
                         <div className="grid md:grid-cols-2 gap-4">
                             <div className="bg-red-50 p-4 rounded-lg">
-                                <h4 className="font-semibold text-red-700 mb-2">What NOT to Do:</h4>
+                                <h4 className="font-serif font-semibold text-red-700 mb-2">What NOT to Do:</h4>
                                 <ul className="space-y-1 text-sm text-gray-700">
                                     <li>• Approach with a judgmental attitude</li>
                                     <li>• Gossip about the person's failure</li>
@@ -927,8 +927,8 @@ export const ScriptureStudy = (): ReactElement => {
                                     <li>• Rush the process of restoration</li>
                                 </ul>
                             </div>
-                            <div className="bg-green-50 p-4 rounded-lg">
-                                <h4 className="font-semibold text-green-700 mb-2">What TO Do:</h4>
+                            <div className="bg-parchment p-4 rounded-lg">
+                                <h4 className="font-serif font-semibold text-ink mb-2">What TO Do:</h4>
                                 <ul className="space-y-1 text-sm text-gray-700">
                                     <li>• Approach with love and gentleness</li>
                                     <li>• Maintain confidentiality</li>
@@ -941,7 +941,7 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
 
                     <div>
-                        <h3 className="text-xl font-semibold text-stone-800 mb-3">Guarding Against Temptation</h3>
+                        <h3 className="font-serif text-xl font-semibold text-ink mb-3">Guarding Against Temptation</h3>
                         {/* STORY-ISSUE-003 — trailing "As Charles Spurgeon … lift up the
                             fallen" direct-quote sentence REMOVED per ISSUE-003 AC-3
                             (page-wide: "No direct-quote marks surround any Spurgeon-
@@ -982,12 +982,12 @@ export const ScriptureStudy = (): ReactElement => {
             */}
 
             {/* References */}
-            <section className="bg-stone-50 rounded-lg p-4 md:p-6">
-                <h2 className="text-xl font-bold text-stone-800 mb-4">Sources and References</h2>
+            <section className="bg-parchment rounded-lg p-4 md:p-6">
+                <h2 className="font-serif text-xl font-bold text-ink mb-4">Sources and References</h2>
                 
                 <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                        <h3 className="font-semibold text-stone-800 mb-3">Primary Sources</h3>
+                        <h3 className="font-serif font-semibold text-ink mb-3">Primary Sources</h3>
                         <ul className="space-y-2 text-sm text-gray-700">
                             <li>• <a href="https://www.biblegateway.com/passage/?search=Galatians+6%3A1&version=NKJV" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('The Holy Bible, New King James Version', 'https://www.biblegateway.com/passage/?search=Galatians+6%3A1&version=NKJV')} className="text-blue-600 hover:text-blue-800 hover:underline">The Holy Bible, New King James Version</a></li>
                             <li>• <a href="https://www.google.com/search?q=Nestle-Aland+28th+Edition+Greek+New+Testament" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Greek New Testament (Nestle-Aland 28th Edition)', 'https://www.google.com/search?q=Nestle-Aland+28th+Edition+Greek+New+Testament')} className="text-blue-600 hover:text-blue-800 hover:underline">Greek New Testament (Nestle-Aland 28th Edition)</a></li>
@@ -1024,7 +1024,7 @@ export const ScriptureStudy = (): ReactElement => {
                     </div>
                     
                     <div>
-                        <h3 className="font-semibold text-stone-800 mb-3">Historical Context</h3>
+                        <h3 className="font-serif font-semibold text-ink mb-3">Historical Context</h3>
                         <ul className="space-y-2 text-sm text-gray-700">
                             <li>• <a href="https://www.zondervan.com/9780310279518/an-introduction-to-the-new-testament/" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('New Testament Introduction by D.A. Carson & Douglas Moo', 'https://www.zondervan.com/9780310279518/an-introduction-to-the-new-testament/')} className="text-blue-600 hover:text-blue-800 hover:underline">New Testament Introduction by D.A. Carson & Douglas Moo</a></li>
                             <li>• <a href="https://www.google.com/search?q=Paul+Apostle+of+the+Heart+Set+Free+F.F.+Bruce" target="_blank" rel="noopener noreferrer" onClick={() => trackReferenceClick('Paul: Apostle of the Heart Set Free by F.F. Bruce', 'https://www.google.com/search?q=Paul+Apostle+of+the+Heart+Set+Free+F.F.+Bruce')} className="text-blue-600 hover:text-blue-800 hover:underline">Paul: Apostle of the Heart Set Free by F.F. Bruce</a></li>
