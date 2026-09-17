@@ -35,11 +35,11 @@
 }
 
 .church-header {
-  @apply bg-stone-100 border-b border-stone-200;
+  @apply bg-parchment border-b border-rule;
 }
 
 .church-main {
-  @apply flex-1 bg-white;
+  @apply flex-1 bg-parchment;
   min-height: 0; /* Allow shrinking */
 }
 
@@ -59,7 +59,7 @@
 }
 
 .church-footer {
-  @apply bg-stone-800 text-stone-100;
+  @apply bg-stone-800 text-stone-300;
 }
 
 /* Legacy image positioning until full migration */
