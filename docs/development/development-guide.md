@@ -85,7 +85,8 @@ OpenDoorWebsiteApp/
 ├── public/                 # Static public assets
 │   ├── index.html         # HTML template
 │   ├── manifest.json      # Web app manifest
-│   └── headerphoto.jpg    # Header image
+│   ├── share-card.png     # Social share image (text-only)
+│   └── images/congregation.jpg  # Congregation photo (Home + About)
 ├── src/                   # Source code
 │   ├── App.js            # Root component
 │   ├── App.css           # Global styles

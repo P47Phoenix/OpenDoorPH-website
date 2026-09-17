@@ -1,3 +1,5 @@
+> **Superseded (2026-09).** This plan was executed and then replaced by the Living Word restyle. Colour tokens, fonts, header photo, portrait JPGs and GIF assets named below no longer exist. Kept for history; see `docs/development/components.md` for the current layout.
+
 # OpenDoorPH Website Restyling Project - Detailed Task List
 
 ## 📋 **Project Overview**
