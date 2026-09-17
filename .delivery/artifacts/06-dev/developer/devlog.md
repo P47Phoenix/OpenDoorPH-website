@@ -320,3 +320,66 @@ Sentinels: 22/22 TCs pass.
 
 ### Timing
 ~25 min including the ext-links e2e run, the battery, and the two extra builds.
+
+## LW-6 — Location and About restyle, emoji retired
+
+Base: `lw-5-green` (2b48321). ACs AC-20, AC-22, AC-23, AC-24, AC-25, AC-44. One commit; sequencing 3.6 (icon swap + `AboutPage.test.tsx` mock keys in the same commit).
+
+### Files touched
+- `OpenDoorWebsiteApp/src/pages/LocationPage/LocationPage.tsx` — class values per component-specs 2.8/2.9/2.10 (`page h1`, `page intro`, `section card`, `section h2/h3`, `btn primary` on Get Directions, `link` on View Larger Map and About Our Church, `map footer strip` `bg-parchment`, Plan Your Visit `bg-white border border-rule … text-ink`); `import { EVENTS } from '../../config/events'`; new `<p className="text-sm text-stone-600 mt-2">Sundays {EVENTS[0].time}, about two hours</p>` after `</address>`, before the Get Directions div; map hover overlay `div` deleted and its `relative` wrapper dropped, `iframe` gains `block` (2.10). `usePageMeta`, all three `track*` calls, hrefs, `target`/`rel`, iframe `title` and `src`, all heading and link text byte-identical to `origin/master`.
+- `OpenDoorWebsiteApp/src/pages/AboutPage/AboutPage.tsx` — `hero parchment` (`bg-parchment text-ink border border-rule rounded-xl p-5 md:p-8`), `page h1`, `section card` x4, `section h2/h3/h4` (`font-serif … text-ink`), `history icon` `text-sage`, `timeline sage` / `timeline brick`, `external link` string on both external anchors, `tile parchment` past-leader rows, Current Leadership `bg-white border border-rule text-ink p-6 rounded-lg`, `value card` + `value disc` (`bg-sage`) + `<img src={CrossIcon|BibleIcon|CommunityServiceIcon|LeadershipIcon} alt="" className="w-8 h-8 filter brightness-0 invert" />` replacing the four emoji spans, `cta band` + `cta band h2/p/p small`; `<figure className="mt-4 md:mt-6 max-w-3xl mx-auto">` + the 2.12 `<img>` (same `src` template literal, A1 alt, `width={1424} height={640} loading="lazy" decoding="async"`, `w-full h-auto rounded-lg border border-rule`) inserted after the timeline entries `</div>`, before the History `</section>`. Imports `CrossIcon`, `BibleIcon`, `CommunityServiceIcon` added. `TimelineIcon` line, `:120` JSX comment, both external links (href/target/rel/aria-label), `usePageMeta`, `trackAboutView()` untouched.
+- `OpenDoorWebsiteApp/src/__tests__/AboutPage.test.tsx` — additive only (numstat `54 0`): mock gains `CrossIcon`, `BibleIcon`, `CommunityServiceIcon`; new `describe('AboutPage — congregation photo (AC-44)')` with the eight AC-43-form assertions + figure class/child checks (TC-LW-6.11) and the three `compareDocumentPosition` checks (TC-LW-6.12). Three `eslint-disable-next-line testing-library/no-node-access` for the PRD-mandated `closest('a')`, `closest('figure')`, `children.length` (LW-5 precedent).
+- `OpenDoorWebsiteApp/src/__tests__/LinkNavigation.test.tsx` — one added test in the LocationPage block with exactly `getByText('Sundays 10:30 AM, about two hours')`; no removals beyond the four LW-4 lines (`grep -c '^-[^-]'` = 4).
+- `SideBar.test.tsx`, `tailwind.config.js`, `src/assets/svg/index.ts` untouched.
+
+### Pre-checks (`export CI=true`, cwd `OpenDoorWebsiteApp/`)
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint -- --max-warnings=0` | 0 | clean |
+| `npm run type-check` | 0 | clean |
+| `npm run test:unit -- AboutPage LinkNavigation` | 0 | 2 suites, 16 passed (only the pre-existing React Router v7 future-flag warnings) |
+
+### Sentinels (`bash --noprofile --norc /tmp/lw6/sentinels-lw-6.sh`, `LC_ALL=C.UTF-8`; fence lines extracted verbatim from stories.md Rev 1.3 with awk, never retyped; log `/tmp/lw6/sentinels.log`; non-fenced row commands run directly)
+| TC | cwd | Command | Result | Exit |
+|---|---|---|---|---|
+| 6.1 | root | fence [1] · [2] Location diff filter · [3] About diff filter (+ `grep -v 'images/congregation.jpg'`) | `2` · 0 lines · 0 lines | 0 · 1 (no match = expected) · 1 (expected) |
+| 6.2 | root | fence [1] heading-text parity Location · same for About · [2] `P` attr-set Location · [3] `P` attr-set About · call-set diff (`usePageMeta|track[A-Za-z]+\(`) both files | all empty; About added attributes are exactly `alt=""` x4 (spec icons), the A1 `alt`, `loading="lazy"`, `decoding="async"`; no href/to/target/rel/aria-label/title delta | 0 |
+| 6.3 | app | `test:unit -- AboutPage LinkNavigation` · `test:e2e:full -- multi-environment` · `test:e2e:pr` | 16 passed · :120/:124 Location+About green in all 3 envs (see Battery for the 4 pre-existing reds) · 22 passed | 0 · 1 (pre-existing) · 0 |
+| 6.4 | app | two-part emoji grep · fence [1] `:301-302` diff | both clean (first part passes for the first time) · empty | 0 |
+| 6.5 | app | fence [1] icon names · `alt=""` · fence [2] mock keys · `brightness-0 invert` | `9` · `12` · `3` · `4` (advisory met) | 0 |
+| 6.6 | app | `grep -c "getByText('Sundays 10:30 AM, about two hours')"` | `1`; test green | 0 |
+| 6.7 | app | `about two hours` · `! 'Sundays 10:30 AM, about two hours'` literal · `EVENTS\[0\]\.time` · fence [1] | `1` · absent · `1` · **fence [1] exit 1 — erratum, see Deviations** | 0/0/0/1 |
+| 6.8 | app/root | fence [1] · `bg-sage text-white hover:bg-sage-dark` · `text-brick hover:text-brick-dark` · `P … 'title="[^"]*"'` · `! group-hover` | clean · `1` · `2` · empty · clean | 0 |
+| 6.9 | app | `npx playwright test tests/external-links-assets.spec.ts` | 24 passed (43.3s), incl. lazy About photo `naturalWidth` | 0 |
+| 6.10 | app | fence [1] · fence [2] · `bg-white border border-rule` · `bg-parchment text-ink` | clean · `2` · `5` (Current Leadership card + four value cards) · `1` | 0 |
+| 6.11 / 6.12 | app | `npm run test:unit -- AboutPage` | 5 passed | 0 |
+| 6.13 | app | `images/congregation.jpg` in About · fence [1] · A1 alt · `! <figcaption` · `<figure` · fence [2] | `1` · `2` · `1` · clean · `1` · exit 0 | 0 |
+| 6.14 | app | `test:e2e:pr` (`regression-broken-links.spec.ts:175`) | green | 0 |
+| 6.15 | root | fence [1] · fence [2] | `0` · `4` | 1 (grep -c 0 = expected) · 0 |
+| 6.17 | root | modified / untracked test files | modified: `AboutPage.test.tsx`, `LinkNavigation.test.tsx` (+ `ConsentBanner.test.tsx`, `HomePage.test.tsx`, `tests/external-links-assets.spec.ts`, `tests/living-word-strip.spec.ts` tracked since LW-3..LW-5); `SideBar.test.tsx` absent; DoD 3 `git diff --quiet` exit 0 | 0 |
+| AC-40 | app | alpha-variant grep | clean | 0 |
+| 6.18 | UAT | manual — elder review of both placements at 375/1280 | pending UAT | — |
+
+Sentinels: 17/17 automated TCs pass (6.18 is UAT-manual). TC-6.7 fence [1] is an erratum (below); its intent is proven.
+
+### Battery (`export CI=true`, cwd `OpenDoorWebsiteApp/`, finished tree; log `/tmp/lw6/battery.log`)
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint` | 0 | clean |
+| `npm run type-check` | 0 | clean |
+| `npm run test:unit` | 0 | 11 suites, 132 tests passed |
+| `npm run build:prod` | 0 | ok |
+| `npm run test:e2e:pr` | 0 | 22 passed (27.0s) |
+| DoD 2: `npm run test:e2e:full -- multi-environment` | 1 | 20 passed, 4 failed — all pre-existing and documented: `should handle direct URL access` x3 envs (`:128` Galatians strict-mode, sequencing 3.3/3.7, green in LW-7; `:120` Location and `:124` About assertions pass first) and Root Domain `should have no broken internal links` 30s timeout at `nth(13)` (followups.md, LW-9 triage). No LW-6 row red. |
+| DoD 2: `npx playwright test tests/external-links-assets.spec.ts` | 0 | 24 passed (43.3s) |
+
+### Deviations
+- **TC-LW-6.7 fence [1] erratum**: `grep -n 'Get Directions' … | head -1` resolves to the `trackDirectionsClick("Get Directions", GOOGLE_MAPS_URL)` handler (`:22`; `:21` on origin/master), which precedes the address block on every tree, so `A < B` can never hold. Not fixable without moving an analytics line (forbidden by AC-20). Intent verified with the second occurrence (the link text): `<p>` at `:68` < `Get Directions` text at `:83`. QA to amend the fence (`sed -n 2p` or `tail -1`) — same class of issue as LW-4 D-2.
+- **Value-card class order**: spec 2.8 `value card` is `text-center p-6 bg-white rounded-lg border border-rule`; TC-LW-6.10 greps the contiguous `bg-white border border-rule` (AC-25 wording) and expects >= 2. Same class set, emitted as `text-center p-6 bg-white border border-rule rounded-lg`. Applied after the battery run; class-order-only, re-verified with `lint --max-warnings=0` (0), `type-check` (0), `test:unit -- AboutPage` (5 passed) and the AC-2 grep.
+- **Hero class order**: spec 2.8 `hero parchment` is `bg-parchment border border-rule rounded-xl p-5 md:p-8 text-ink`; TC-LW-6.10 greps the contiguous `bg-parchment text-ink` (AC-25 wording). Same class set, emitted as `bg-parchment text-ink border border-rule rounded-xl p-5 md:p-8`.
+- Wireframe B11/B12 give the external links `text-brick hover:text-brick-dark underline`; spec 2.8 `external link` vocabulary used (superset, includes both). Location `About Our Church` uses the 2.9 `link` variant (AC-24 wording), not the large-text outline option.
+- `TimelineIcon` keeps its pre-existing `opacity-60` (AC-44: the TimelineIcon wrapper is unchanged; AC-40 bans `/NN` alpha variants, not `opacity-*`).
+- Three `eslint-disable-next-line testing-library/no-node-access` comments in the new About test block (PRD-mandated `closest`/`children` forms, LW-5 precedent).
+
+### Timing
+~20 min including the battery and the two DoD e2e runs (~4 min of Playwright).

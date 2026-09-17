@@ -78,6 +78,12 @@ describe('Link Navigation Tests', () => {
       expect(aboutLink).toHaveAttribute('href', '/opendoor/Home/About');
     });
 
+    test('should render the service duration line (AC-23)', () => {
+      renderWithRouter(<Location />);
+
+      expect(screen.getByText('Sundays 10:30 AM, about two hours')).toBeInTheDocument();
+    });
+
     test('should use Link component instead of anchor tag', () => {
       renderWithRouter(<Location />);
       
