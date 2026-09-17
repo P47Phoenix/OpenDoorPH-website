@@ -6,6 +6,7 @@
 
 import { generateGoogleCalendarUrl, generateIcsContent, downloadIcsFile } from '../utils/calendarLinks';
 import { ChurchEvent } from '../config/events';
+import { EVENTS } from '../config/events';
 
 /**
  * Unfold an ICS string per RFC 5545 §3.1: long content lines are split into
@@ -275,5 +276,23 @@ describe('E-4: ICS File Generation', () => {
     expect(capturedLink!.download).toBe('woman-of-the-well.ics');
 
     jest.restoreAllMocks();
+  });
+});
+
+describe('120-minute Sunday Service', () => {
+  // AC-28/AC-29: events.ts duration 90 -> 120; end time 10:30 + 120 min = 12:30 America/Chicago
+  const svc120: ChurchEvent = { ...sundayService, duration: 120 };
+
+  test('Google Calendar URL ends at 12:30 for a 120-minute service', () => {
+    expect(generateGoogleCalendarUrl(svc120)).toMatch(/dates=\d{8}T103000(%2F|\/)\d{8}T123000/);
+  });
+
+  test('ICS DTEND is 12:30 America/Chicago for a 120-minute service', () => {
+    expect(unfoldIcs(generateIcsContent(svc120))).toMatch(/DTEND;TZID=America\/Chicago:\d{8}T123000/);
+  });
+
+  test('real EVENTS[0] (sunday-service) produces a 12:30 DTEND', () => {
+    expect(EVENTS[0].id).toBe('sunday-service');
+    expect(unfoldIcs(generateIcsContent(EVENTS[0]))).toMatch(/DTEND;TZID=America\/Chicago:\d{8}T123000/);
   });
 });

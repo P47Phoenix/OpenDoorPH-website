@@ -444,3 +444,78 @@ Sentinels: 13/14 automated TCs pass pre-commit; 7.5 runs post-commit (below).
 
 ### Timing
 ~25 min including the reproduce-first run, two full Playwright multi-environment runs and two batteries (~8 min Playwright).
+
+## LW-8 — Assets and data: SVG recolour, share card, meta, 120-minute service
+
+Parent `d45cfe7` (lw-7-green). Committed app tree object `0b3ab156b988e30958650f05e7a4d79699b18f91` (= `git rev-parse lw-8-green:OpenDoorWebsiteApp`); the battery below ran on exactly this tree, no edit after it. Commit SHA is in the final report and the `lw-8-green` tag.
+
+### Files touched
+- `src/assets/svg/` — the 25 Appendix B files, spec Section 5 sed map verbatim (`#9EC630->#5F7A61`, `#C8B59B->#E5DECF`, `#D4C4A0->#F5F0E6`, `#2D3748->#1C1917`, `#4A5568->#44403C`); `quick-map.svg` `<animate attributeName="opacity" …/>` line deleted. Other 18 SVGs untouched.
+- `src/config/events.ts:70` `duration: 90` -> `120` (numstat 1/1).
+- `src/__tests__/events.test.ts:40` `toBe(90)` -> `toBe(120)` (numstat 1/1; `:77` WotW stays 90).
+- `src/__tests__/calendarLinks.test.ts` — additions only: `import { EVENTS } from '../config/events';` (new line) + `describe('120-minute Sunday Service')` block (svc120 Google URL, svc120 ICS DTEND, `EVENTS[0]` real-data DTEND).
+- `public/index.html` — `og:image`/`twitter:image` -> `https://opendoorph.org/share-card.png`; `og:image:width` 1200 / `og:image:height` 630 / `og:image:type` image/png added adjacent; nothing else changed (TC-LW-8.17 = 0 lines); JSON-LD untouched; `public/headerphoto.jpg` kept.
+- `public/share-card.png` (new) — 1200x630 PNG-24, 48,856 bytes, rendered by the generator (Google Fonts fetched at render time). Copy attached: `.delivery/artifacts/06-dev/developer/lw-8-share-card.png`.
+- `scripts/share-card/template.html`, `scripts/share-card/render.mjs` (new) — spec Section 4; not wired into CI or npm scripts.
+
+### Pre-checks (`export CI=true`, cwd `OpenDoorWebsiteApp/`)
+| Command | Exit | Output |
+|---|---|---|
+| `node scripts/share-card/render.mjs` | 0 | `wrote …/public/share-card.png (48856 bytes)` (fonts gate + text gate passed) |
+| `bash scripts/check-forbidden-strings.sh` | 0 | `OK: no forbidden strings found in source.`; `grep -ciE philippines scripts/share-card/template.html` = 0 |
+| `npm run lint -- --max-warnings=0` | 0 | clean |
+| `npm run test:unit -- events calendarLinks jsonLd` | 0 | 3 suites, 56 tests passed |
+
+### Sentinels (`bash --noprofile --norc`, `LC_ALL=C.UTF-8`, fence text copied verbatim from stories.md Rev 1.3)
+cwd `OpenDoorWebsiteApp/`:
+| TC | Command | Exit | Result |
+|---|---|---|---|
+| 8.1 neg | `for f in $F25; do grep -liE '9ec630' "$f"; done` | — | prints nothing |
+| 8.1 pos | fence [1] | 0 | address 4, bible 6, car 1, church 1, close 1, community-service 5, copyright 4, cross 2, directions 2, external-link 2, facebook 0, footer-border 2, hamburger 1, heart 1, history 3, leadership 5, map-marker 1, pastor 3, quick-links 1, quick-map 2, schedule 7, timeline 3, values 1, visit 5, website 1 — all equal Appendix B |
+| 8.2 | `grep -liE '5f7a61' $F25 \| wc -l`; `grep -LiE '5f7a61' $F25` | 0 | `24`; `src/assets/svg/facebook-icon.svg` only |
+| 8.3 | fence [1]; `grep -c '#1877F2' facebook-icon.svg` | 0 | `0`; `1` |
+| 8.5 | `! grep -l '<animate' $F25`; `grep -c '<circle cx="34" cy="14" r="3"' quick-map.svg` | 0 | exit 0; `1` |
+| 8.7 | `grep -c 'toBe(120)'` / `'toBe(90)'` events.test.ts | 0 | `1` / `1` |
+| 8.12 | `grep -c 'T120000' calendarLinks.test.ts` | 0 | `2` |
+| 8.13 | fence [1]; size test; fence [2] | 0 | `1200 x 630`; 48856 <= 307200; `1` |
+| 8.14 | fonts.check / exit(1) / '700 72px Lora' counts; five text lines | 0 | `1`; `3`; `1`; each text `1` |
+| 8.16 | seven greps/tests | 0 | `2`; `3`; `1`; `1`; `1`; raw.githubusercontent absent (exit 0); headerphoto.jpg present |
+| 8.18 | `test -f build-prod/share-card.png && file … \| grep '1200 x 630'`; `cmp public/share-card.png build-prod/share-card.png` | 0 | match; identical |
+| 8.6 | `npx playwright test tests/external-links-assets.spec.ts` (CI=true) | 0 | 24 passed (42.7s) |
+| LinkNavigation literal | `grep 'about two hours' src/__tests__/LinkNavigation.test.tsx` | 0 | `:84` literal intact; `time` field untouched; passes in battery |
+
+cwd repo root:
+| TC | Command | Exit | Result |
+|---|---|---|---|
+| 8.4 [1] | diff filter `grep -vE 'fill\|stroke\|stop-color\|<animate'` | 1 (no lines) | 0 lines |
+| 8.4 [2]/[3] | `grep -c '^-.*<animate'` / `'^+.*<animate'` | 0 | `1` / `0` |
+| 8.4 [4]/[5]/[6] | changed SVG count / welcome-banner / history-(scroll\|calendar) | 0 | `25` / `0` / `0` |
+| 8.5 numstat | `git diff --numstat origin/master -- …/quick-map.svg` | 0 | `4\t5` (deletions = additions + 1) |
+| 8.7 numstat | events.test.ts | 0 | `1\t1\tOpenDoorWebsiteApp/src/__tests__/events.test.ts` |
+| 8.8 [1]-[5] + numstat | events.ts | 0 | tracked; `2`; `1`; `1`; `1\t1\tOpenDoorWebsiteApp/src/config/events.ts`; self-test `2` |
+| 8.12 [1] | `grep -c '^-[^-]'` calendarLinks.test.ts diff | 0 | `0` (additions only) |
+| 8.14 CI | `grep -rn 'share-card' .github/workflows/node-build.yml OpenDoorWebsiteApp/package.json` | 1 | no match lines, `exit=1` |
+| 8.17 [1] | non-og/twitter `<meta` diff lines in index.html | 1 (no lines) | 0 lines |
+| DoD 3 | `git diff --quiet origin/master -- …/SideBar.test.tsx` | 0 | unmodified |
+| 8.22 | test-file diff list | 0 | LW-7 list + `calendarLinks.test.ts`, `events.test.ts`; `SideBar.test.tsx` absent |
+| 8.20 | `git log --format=%h origin/master.. -- …/share-card.png \| wc -l` (after commit) | 0 | see final report line (expected `1`; congregation.jpg `1`) |
+
+Sentinels: 22/22 exit as expected. TCs: 8.1-8.14, 8.16-8.18, 8.20-8.22 pass; 8.15 manual visual — checked at 100%: parchment field, 12px brick bottom rule, Lora bold / Inter uppercase sage / Lora italic / Inter, no photo, no people (copy attached above). 8.19 is post-deploy (release plan), not run here.
+
+### Battery (`export CI=true`, cwd `OpenDoorWebsiteApp/`, byte-exact chain on tree `0b3ab156b988e30958650f05e7a4d79699b18f91`; log `/tmp/lw8-battery.log` for e2e, tool output for the rest)
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint` | 0 | clean |
+| `npm run type-check` | 0 | clean |
+| `npm run test:unit` | 0 | 11 suites, 135 tests passed |
+| `npm run build:prod` | 0 | build-prod/share-card.png present |
+| `npm run test:e2e:pr` | 0 | 22 passed (27.4s) |
+Chain exit: `battery=0`. No edits after the run; the committed tree is the tree the battery ran on.
+
+### Deviations
+- `render.mjs`: spec Section 4 lists `'700 72px Lora'` twice (a `fonts.load` call and the `FACES` array); TC-LW-8.14 expects the literal exactly once. The four `fonts.load` calls now iterate `FACES` (`faces.map((f) => document.fonts.load(f))`) — same four faces loaded, same gates, literal appears once. Behaviour identical; verified by a clean render.
+- `calendarLinks.test.ts` `EVENTS` import added as a separate line rather than widening the existing import, so TC-LW-8.12 (0 removed lines) holds; `import/no-duplicates` is not enabled in this ESLint config (lint 0).
+- Battery first ran as four separate commands (all 0) while confirming the tree, then the byte-exact chain once more on the identical tree; the chain run is the one recorded.
+
+### Timing
+~20 min including two renders, sentinel pass, targeted units, one byte-exact battery (~3 min) and the assets spec.

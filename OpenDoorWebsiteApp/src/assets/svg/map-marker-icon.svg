@@ -4,7 +4,7 @@
   
   <!-- Map marker base -->
   <path d="M50 15 C35 15, 25 25, 25 40 C25 55, 50 85, 50 85 C50 85, 75 55, 75 40 C75 25, 65 15, 50 15 Z" 
-        fill="#9EC630" stroke="#C8B59B" stroke-width="2"/>
+        fill="#5F7A61" stroke="#E5DECF" stroke-width="2"/>
   
   <!-- Map marker highlight -->
   <path d="M50 15 C35 15, 25 25, 25 40 C25 55, 50 85, 50 85 C50 85, 75 55, 75 40 C75 25, 65 15, 50 15 Z" 
