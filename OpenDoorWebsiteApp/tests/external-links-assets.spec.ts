@@ -71,6 +71,8 @@ environments.forEach(({ name, baseURL, basePath }) => {
         const src = await img.getAttribute('src');
         
         if (src && !src.startsWith('data:')) {
+          if (await img.isVisible()) await img.scrollIntoViewIfNeeded();
+          await img.evaluate((el: HTMLImageElement) => new Promise<void>(r => { if (el.complete) return r(); el.addEventListener('load', () => r(), { once: true }); el.addEventListener('error', () => r(), { once: true }); }));
           // Check if image is loaded
           const naturalWidth = await img.evaluate((el: HTMLImageElement) => el.naturalWidth);
           expect(naturalWidth).toBeGreaterThan(0);

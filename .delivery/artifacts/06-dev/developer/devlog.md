@@ -262,3 +262,61 @@ Sentinels: 30/30 TCs pass (4.29 = battery below).
 
 ### Timing
 ~35 min including three e2e runs (strip x2, multi-environment, ext+a11y) and battery.
+
+## LW-5 — Home page: verse card, CTA band, congregation photo
+
+Base: `lw-4-green` (5545fa8). ACs AC-15, AC-18, AC-19, AC-42, AC-43. One commit; sequencing 3.5 order (asset -> HomePage -> test -> spec edit -> ext-links run before commit).
+
+### Files touched
+- `OpenDoorWebsiteApp/public/images/congregation.jpg` (new; `magick .delivery/artifacts/01-idea/inputs/congregation.png -resize 1424x -strip -interlace JPEG -sampling-factor 4:2:0 -quality 82 …` from repo root; 132,288 B, progressive, sRGB 1424x640, no exif/xmp/icc). PNG original stays outside `OpenDoorWebsiteApp/`.
+- `OpenDoorWebsiteApp/src/pages/HomePage/HomePage.tsx` — `WelcomeBanner` import + `<img>` removed (the one permitted removal); verse card per component-specs 2.7 as the first `<section>` (`aria-labelledby="verse-label"` on the section, `id="verse-label"` on the label `<p>`, TC-LW-5.10 form; `first-letter:` drop cap, blockquote one text node; single `Read the study` Link, `aria-label="Read the study of Galatians 6:1"`, no `onClick`/`track*`); `page h1`/`page intro`/`section card`/`section h2`/`section h3` class values per 2.8; `<figure className="max-w-3xl mx-auto">` + `<img … loading="lazy" decoding="async" width={1424} height={640} className="w-full h-auto rounded-lg border border-rule">` inserted after the Mission `</section>` per 2.12; CTA band `cta band` + `cta band h2` + `cta band p`, buttons `btn on-sage` / `btn outline-on-sage` per 2.9; `usePageMeta` and both `trackCtaClick` lines byte-identical; `<SideBar />` last.
+- `OpenDoorWebsiteApp/src/__tests__/HomePage.test.tsx` (new; 9 tests: TC-LW-5.1–5.5, 5.9, AC-18 CTA parity, 5.15, 5.16; asset/analytics mocks identical to `LinkNavigation.test.tsx`, `jest.mock('../hooks/usePageMeta')`; master text literals copied from `git show origin/master:…HomePage.tsx`).
+- `OpenDoorWebsiteApp/tests/external-links-assets.spec.ts` — exactly the two PRD Rev 5.2 Section 17 lines inserted after `:73`, byte-exact (diffed against the fence); numstat `2\t0`.
+- `OpenDoorWebsiteApp/src/__tests__/SideBar.test.tsx` UNTOUCHED (`git diff --quiet` exit 0). `tailwind.config.js` and `src/assets/svg/index.ts` untouched (not in the story Files list; `WelcomeBanner` export stays, unrendered).
+
+### Pre-checks (`export CI=true`, cwd `OpenDoorWebsiteApp/`)
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint -- --max-warnings=0` | 0 | clean (after two `eslint-disable-next-line testing-library/no-node-access` lines in the new test for the PRD-mandated `img.closest('a')` and `childElementCount` — precedent `AddToCalendarButton.test.tsx:247`) |
+| `npm run type-check` | 0 | clean |
+| `npm run test:unit -- HomePage LinkNavigation App.test` | 0 | 3 suites, 24 passed |
+| `npx playwright test tests/external-links-assets.spec.ts` (BEFORE commit, sequencing 3.5 / P-B1) | 0 | 24 passed (42.9s) — lazy photo scrolled + awaited, `naturalWidth > 0` |
+
+### Sentinels (`bash --noprofile --norc /tmp/lw5/sentinels-lw-5.sh`, `LC_ALL=C.UTF-8`; cwd `OpenDoorWebsiteApp/` unless repo root; patterns copied from the stories.md Rev 1.3 fence)
+| TC | Command | Result | Exit |
+|---|---|---|---|
+| 5.6 (repo root) | `grep -c "Read the study"` · fence [1] · fence [2] `-w` diff `usePageMeta`/`track[A-Z]…\(` · `! grep homepage_verse` | `2` (aria-label + text) · — · `0` lines · — | 0 |
+| 5.8 | `grep -c 'Join Our Church Family'` · fence [1] · `! text-green-100` · `! bg-church-green` · `! bg-gradient` | `1` · `1` · clean x3 | 0 |
+| 5.10 | `! WelcomeBanner` · `grep -c 'Scripture Study'` · `grep -c aria-labelledby` · `<section` count vs master fence [1] | clean · `0` · `1` · `5` = master `4` + 1 | 0 (grep -c 0 = exit 1, expected) |
+| 5.11 | `! <span…>B</span>` · `grep -c 'first-letter:'` | clean · `1` | 0 |
+| 5.12 | `test -f` · fence [1] `file` · `stat -le 204800` · `magick identify` · fence [2] metadata | ok · `JPEG image data … progressive … 1424x640` · 132288 · `sRGB 1424 640` · stripped | 0 |
+| 5.13 (repo root) | fence [1] `congregation.png` in index · fence [2] raster list | `0` · `OpenDoorWebsiteApp/public/headerphoto.jpg` (+ `public/images/` untracked pre-commit; becomes exactly the two listed files at commit) | 0 |
+| 5.14 | `build:prod` + `cmp` · `build:gh-pages` · `build:custom` | all three `images/congregation.jpg` present, prod `cmp` identical | 0 |
+| 5.16 | `grep -c 'Our Mission'` · `grep -c 'Community Outreach'` | `1` · `1` | 0 |
+| 5.17 | `images/congregation.jpg` · `loading="lazy"` · `decoding="async"` · alt string · `! <figcaption` · fence [1] picture/srcset/webp · `process.env.PUBLIC_URL` · fence [2] figure-scoped shadow/alpha | `1` · `1` · `1` · `1` · clean · clean · `1` · prints nothing | 0 |
+| 5.18 (repo root) | fence [1] · `--numstat` · `grep -c '^+.*scrollIntoViewIfNeeded'` · guarded form · `el.complete` · byte-diff vs PRD s17 fence | — · `2	0	OpenDoorWebsiteApp/tests/external-links-assets.spec.ts` · `1` · `1` · `1` · `BYTE-EXACT` | 0 |
+| DoD 3 (repo root) | `git diff --quiet origin/master -- …SideBar.test.tsx` | — | 0 |
+| 5.22 (repo root) | modified test files · untracked | `ConsentBanner.test.tsx`, `LinkNavigation.test.tsx`, `tests/external-links-assets.spec.ts` (+ `living-word-strip.spec.ts` tracked since LW-4) · `?? HomePage.test.tsx`; `SideBar.test.tsx` in neither | 0 |
+| AC-2 (Home part) | `grep -nE 'church-green|green-NNN|orange-NNN|stone-800|stone-200' HomePage.tsx` | no hits | 1 (expected) |
+| 5.1–5.5, 5.9, 5.15, 5.16 | `npm run test:unit -- HomePage` | 9 passed | 0 |
+| 5.7, 5.20, 5.21 | `npm run test:unit -- LinkNavigation App.test` · battery below | green | 0 |
+
+Sentinels: 22/22 TCs pass.
+
+### Battery (`export CI=true`, cwd `OpenDoorWebsiteApp/`, finished tree; log `/tmp/lw5/battery.log`)
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint` | 0 | clean, 0 warnings |
+| `npm run type-check` | 0 | clean |
+| `npm run test:unit` | 0 | 11 suites, 129 tests passed |
+| `npm run build:prod` | 0 | build ok; `build-prod/images/congregation.jpg` byte-identical to `public/` |
+| `npm run test:e2e:pr` | 0 | 22 passed (27.1s); no `[a11y smoke]` line — Home axe violations now **0** (logger fires only when > 0; sequencing 3.5 expected 0 here). `HOME_AXE_VIOLATIONS_BASELINE` stays 2 until LW-9. |
+
+### Deviations
+- Task brief said "Galatians 6:1 as the single h1 on the page"; PRD AC-15/AC-19, wireframes A5, spec 2.7/2.8 and Q4 all keep `h1` "Welcome to Open Door Full Gospel Church" with the verse in a `<section>` card (label is a `<p>`, not a heading). Built per the spec; Home keeps the masthead `h1` + page `h1` exactly as on master (TC-LW-5.5 asserts the page `h1`; `App.test.tsx:9` the masthead one).
+- `aria-labelledby` (TC-LW-5.10 expects >= 1) is not in the 2.7 markup; added as attribute-only `aria-labelledby="verse-label"` / `id="verse-label"` — no text, class, or heading change.
+- Two `eslint-disable-next-line testing-library/no-node-access` comments in the new test (PRD-mandated `img.closest('a')`, TC-LW-5.15 child count); all other figure checks use `getByRole('figure')` / `within`.
+- `WelcomeBanner` key in the `LinkNavigation.test.tsx` mock left in place (sequencing 3.5: harmless, leave it).
+
+### Timing
+~25 min including the ext-links e2e run, the battery, and the two extra builds.
