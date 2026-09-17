@@ -144,3 +144,57 @@ None. No test file modified. `.church-sidebar` remains on `SideBar.tsx:16` by de
 
 ### Timing
 ~8 min including battery.
+
+## LW-3 — Global chrome (Header, Footer, ConsentBanner, calendar trigger)
+
+Run 2026-09-17, base `lw-2-green` (a64b50f). `export CI=true`; cwd `OpenDoorWebsiteApp/` unless noted; sentinels under `bash --noprofile --norc`, `LC_ALL=C.UTF-8`.
+
+### Files touched
+- M `src/components/layout/Header/Header.tsx` — one-row masthead per component-specs 2.1: `header relative`, `church-container flex ... min-h-16 md:min-h-[72px]`; `h1` Option A wordmark (short `Open Door` single text node `md:hidden aria-hidden`, full wordmark `sr-only md:not-sr-only` with one `>Door<` (`text-brick`) and one `>Gospel<` (`text-sage`)); `<nav aria-label="Primary">`; hamburger `aria-controls="mobile-menu"`, `Menu` span removed; `#mobile-menu absolute inset-x-0 top-full z-40 bg-parchment border-b border-rule ... duration-150 motion-reduce:transition-none` toggling `'visible'`/`'invisible'`; ASCII labels; gradient, `shadow-lg`, verse block removed. Link class strings hoisted to `DESKTOP_LINK`/`MOBILE_LINK` constants (identical per link). `trackNavClick` call-set byte-identical.
+- M `src/components/layout/Footer/Footer.tsx` — `text-stone-300`; `h3`s `font-serif ... text-white`; verse block `<blockquote className="font-serif text-stone-300 text-sm bg-stone-700 ... border-l-4 border-stone-300">` with `text-white` cite; `<nav aria-label="Footer">`; links `duration-150 motion-reduce:transition-none focus:ring-white focus:ring-offset-stone-800 hover:text-white`; bullets `bg-stone-300 group-hover:bg-white`; `opacity-90` dropped on two `p`s; `🕐` -> inline clock SVG `aria-hidden="true"` + `{' '}` text node; `🚀` span deleted; credits `text-stone-400`.
+- M `src/components/ConsentBanner/ConsentBanner.tsx` — class values only (container `bg-parchment border-t border-rule text-ink`; decline `bg-white text-ink border border-sage ... hover:bg-parchment hover:border-sage-dark active:bg-rule`; accept `bg-sage text-white ... hover:bg-sage-dark active:bg-sage-dark`; `duration-150 motion-reduce:transition-none`).
+- M `src/components/AddToCalendarButton/AddToCalendarButton.tsx` — trigger `bg-white/bg-parchment text-brick border border-brick duration-150 ... focus:ring-sage focus:ring-offset-white`; chevron `duration-150`; menu `z-10` -> `z-40`, `border-rule`; menuitem `text-ink hover:bg-parchment focus:bg-rule focus:ring-2 focus:ring-inset focus:ring-sage` (spec 2.11).
+- C `src/__tests__/ConsentBanner.test.tsx` — 6 tests (TC-LW-3.15..3.19; 3.19 as `test.each(['granted','denied'])` with `waitFor`). Mock: `jest.requireActual('../utils/analytics')` + `jest.fn()` for `updateConsent`/`track*` — CRA `resetMocks: true` wipes factory implementations per test, so a mocked `getStoredConsent` returned `undefined` and the banner hid; the real reader is kept.
+- No existing test file modified.
+
+### Story sentinels (all as fenced in stories.md Rev 1.3)
+| TC | Command | Result | Exit |
+|---|---|---|---|
+| 3.2 | `grep -oE '>Door<' …Header.tsx \| wc -l` · `>Gospel<` · `grep -c 'sr-only'` | `1` · `1` · `2` | 0 |
+| 3.3 | `! grep -n 'bg-gradient'` · `grep -c 'aria-controls="mobile-menu"'` · `grep -c 'id="mobile-menu"'` · `! grep -nE '>\s*Menu\s*<'` · `grep -c 'aria-label="Primary"'` · `grep -c 'aria-label="Toggle mobile menu"'` · `! grep -n 'sticky'` · `grep -c 'font-serif'` | — · `1` · `1` · — · `1` · `1` · — · `1` | all 0 |
+| 3.4 | `! grep -n 'Brethren'` · `! grep -n 'blockquote'` (Header) | — | 0 · 0 |
+| 3.7 | `! LC_ALL=C.UTF-8 grep -nP '[^\x00-\x7F]' …Header.tsx` · `grep -c 'title="Scripture study - Galatians 6:1"'` · fence [1] labels | — · `2` · `2 >About<` `2 >Galatians6:1<` `2 >Home<` `2 >Location<` | 0 |
+| 3.8 | fence [1] Header `track*` call-set diff vs origin/master (repo root) | empty | 0 |
+| 3.9 | fence [1] duration scan (4 files) · `grep -c 'motion-reduce:transition-none'` · `grep -c 'invisible'` · fence [2] `'visible'` | — · `4` · `1` · `1` | 0 |
+| 3.10 | `grep -c 'z-40'` · `! grep -n 'z-10'` · `grep -c 'border-brick'` · `! grep -n 'border-brick/'` (ATC) | `1` · — · `1` · — | 0 |
+| 3.12 | fence [1] footer forbidden classes · `grep -c 'aria-label="Footer"'` · `grep -c 'bg-stone-700'` · `grep -c 'ring-offset-stone-800'` · non-ASCII · fence [2] h3 serif · fence [3] blockquote serif | — · `1` · `1` · `4` · — · `3` · `1` | 0 |
+| 3.13 | Footer `track*` call-set diff · fence [1] attr diff | empty · `0a1 > aria-label="Footer"` (sole delta) | 0 · 1 (diff, expected) |
+| 3.20 | `aria-describedby="consent-message"` · `id="consent-message"` · `'analytics-consent'` · call-set diff · fence [1] non-className line count | `2` · `1` · `1` · empty · `0` | 0 |
+| 3.21 | fence [1] alpha scan (ConsentBanner/Header/Footer dirs) | — (src-wide form still fires on `SideBar.tsx:28,37`, LW-4) | 0 |
+| 3.1/3.11/3.24 (repo root) | `git diff --quiet origin/master -- …App.test.tsx …AddToCalendarButton.test.tsx …SideBar.test.tsx` · `git diff --name-only origin/master -- src/__tests__ src/App.test.tsx tests` · fence [1] untracked | — · empty · `?? OpenDoorWebsiteApp/src/__tests__/ConsentBanner.test.tsx` | 0 |
+| 3.1/3.6/3.11/3.15-19 | `npm run test:unit -- App.test ConsentBanner AddToCalendarButton` | 3 suites, 41 passed | 0 |
+| 3.6/3.14 | `npm run test:e2e:full -- multi-environment` | 20 passed, 4 failed: `should handle direct URL access` x3 (pre-existing `:128` strict-mode collision, sequencing 5.4) + `Root Domain › should have no broken internal links` (timeout at `nth(14)`). Both reproduced identically on the pre-story tree via `git stash push -u -- OpenDoorWebsiteApp/src` -> same 1 failed / 2 passed for the internal-links test -> `git stash pop`. Pre-existing; file untouched. | 1 (expected) |
+| 3.22 | `npm run test:e2e:pr` console block | `[a11y smoke] Home has 1 axe violations (baseline 2): color-contrast (5 nodes)` — `landmark-unique` gone; `HOME_AXE_VIOLATIONS_BASELINE = 2` unchanged | 0 |
+| 3.5 (manual) | `npx serve -s build-prod -p 3100` + Playwright script, 375x667 `/opendoor`, click `/menu/i`, `#mobile-menu` boundingBox | `x=0, y=64, width=375, height=253`; header `position: relative`; menu `z-index: 40`; short wordmark visible | 0 |
+| 3.2 visibility (manual) | 1280x720 `header h1` `getByText('Gospel', { exact: true })` | visible, width `70.69`; h1 font `Lora, Georgia, "Times New Roman", serif`; header height 73 | 0 |
+| AC-11 runtime (manual) | `transitionDuration` hamburger / mobile link / `That's Fine` | `0.15s` x3; under `reducedMotion: 'reduce'` `1e-05s` x3 (Chromium serialises 0.01ms as `1e-05s` — note for the LW-4 spec author) | 0 |
+
+Sentinels: 24/24 TCs pass (3.23 = battery below; 3.5 manual as the story permits).
+
+### Battery (`export CI=true`, cwd `OpenDoorWebsiteApp/`, run on the finished tree)
+| Command | Exit | Key output |
+|---|---|---|
+| `npm run lint -- --max-warnings=0` (pre-check) | 0 | clean |
+| `npm run lint` | 0 | clean |
+| `npm run type-check` | 0 | clean |
+| `npm run test:unit` | 0 | 10 suites, 120 tests passed |
+| `npm run build:prod` | 0 | build ok |
+| `npm run test:e2e:pr` | 0 | 22 passed (27.6s) |
+
+### Deviations
+- `napByteMatch.test.ts` "Footer renders street + postalCode" went red on the first full unit run: the deleted `🕐` span was the text node separating `64080` and `Sunday` in `textContent`; the SVG has none, so `\b\d{5}\b` found no boundary. Fixed in Footer with a `{' '}` text node after the SVG (component only; test untouched).
+- Two `h1`s on Home today (masthead + welcome), so `page.locator('h1')` in the planned `living-word-strip.spec.ts` TC-LW-3.2 assertion is strict-mode ambiguous until LW-5; the probe used `header h1`. Flagged for LW-4.
+- ATC menuitem classes applied per component-specs 2.11 (same file, class values only; `AddToCalendarButton.test.tsx` unmodified and green).
+
+### Timing
+~40 min including three e2e runs (multi-environment x2 + stash attribution) and battery.
