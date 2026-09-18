@@ -82,7 +82,7 @@ git:
   commit_convention: conventional
   clean_tree_check: true
 github:
-  create_issues: false
+  create_issues: true   # FI-1..FI-15 filed 2026-09-18, issues #121-#135
   create_pr: false
   link_commits: true
 presentation:
