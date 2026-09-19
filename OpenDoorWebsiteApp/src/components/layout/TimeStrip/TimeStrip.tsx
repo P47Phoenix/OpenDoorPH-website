@@ -4,16 +4,18 @@ import { EVENTS } from '../../../config/events';
 
 /**
  * Mobile-only sticky strip under the masthead: Sunday service time plus a
- * Directions link. Mounted as a sibling of <Header /> in MasterLayout so its
- * containing block is the page and `sticky top-0` survives the header
- * scrolling away. Hidden at the `md` breakpoint (AC-9).
+ * Directions link. Mounted as a sibling of <Header /> in MasterLayout. Since
+ * the header itself became sticky (elder ruling 2026-09-18, floating nav),
+ * this strip sticks at `top-[65px]` — the header's mobile min-height (4rem) plus its 1px border — so
+ * it stacks directly under the header instead of overlapping it. Hidden at
+ * the `md` breakpoint (AC-9).
  */
 const TimeStrip: React.FC = () => (
   <div
     data-testid="time-strip"
     role="region"
     aria-label="Service time"
-    className="md:hidden sticky top-0 z-30 bg-sage text-white flex font-sans text-sm font-semibold"
+    className="md:hidden sticky top-[65px] z-30 bg-sage text-white flex font-sans text-sm font-semibold"
   >
     <span className="flex-1 min-h-[44px] flex items-center justify-center">Sun {EVENTS[0].time}</span>
     <Link

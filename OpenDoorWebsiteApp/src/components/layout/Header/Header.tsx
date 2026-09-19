@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   };
 
   return (
-    <header className={`church-header relative ${className}`}>
+    <header className={`church-header sticky top-0 z-40 ${className}`}>
       <div className="church-container flex items-center justify-between min-h-16 md:min-h-[72px]">
         {/* Wordmark: short single text node at <md, full spans (sr-only at <md) for the heading contract */}
         <h1 className="font-serif font-bold text-ink leading-tight text-lg md:text-2xl">
