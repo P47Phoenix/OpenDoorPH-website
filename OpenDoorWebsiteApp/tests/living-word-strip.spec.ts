@@ -431,16 +431,20 @@ for (const [label, viewport] of [
     test.use({ viewport });
 
     for (const route of ['/opendoor', '/opendoor/Home/About']) {
-      // TC-LW-9.15 / TC-LW-9.16
-      test(`is below the fold before scroll and loads at 1424px on ${route}`, async ({ page }) => {
+      // TC-LW-9.15 / TC-LW-9.16. Home moved above the fold 2026-09-18 (elder
+      // ruling: photo sits right after the welcome heading, eager-loaded,
+      // fetchpriority high) so it is annotated-only there; About is unchanged
+      // and stays below the fold as the last item in "Our History".
+      test(`loads at 1424px on ${route}${route === '/opendoor/Home/About' ? ' (below the fold)' : ''}`, async ({ page }) => {
         await page.goto(`${BASE}${route}`);
         await page.evaluate(() => document.fonts.ready);
         const img = page.getByRole('img', { name: CONGREGATION_ALT, exact: true });
         const box = await img.boundingBox();
         expect(box).not.toBeNull();
         test.info().annotations.push({ type: 'congregation-y', description: `${route}@${label}: ${box!.y}` });
-        // Home at 1280x720 is annotated only (floor 0); the Lighthouse LCP-element check is its gate.
-        const floor = route === '/opendoor' && viewport === DESKTOP ? 0 : viewport.height;
+        // Home is annotated only (floor 0) at every viewport since the elder ruling; the
+        // Lighthouse LCP-element check is its gate. About keeps the below-the-fold floor.
+        const floor = route === '/opendoor' ? 0 : viewport.height;
         expect(box!.y).toBeGreaterThanOrEqual(floor);
         await img.scrollIntoViewIfNeeded();
         await expect.poll(() => img.evaluate((el) => (el as HTMLImageElement).naturalWidth)).toBe(1424);

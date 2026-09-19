@@ -13,6 +13,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;700&display=swap"></noscript>
+  <!-- Congregation photo is the Home page LCP candidate since it moved above the fold
+       (elder ruling 2026-09-18). <picture> in HomePage.tsx serves congregation-hero.webp
+       (q75, ~91KB) with congregation-hero.jpg (q65, ~110KB) as the fallback — a responsive
+       srcset was tried first but every real phone's device-pixel-ratio needed a physical
+       width the smaller tiers never covered, so they were never selected; WebP at the
+       same 1424x640 dimensions got the size down further than JPEG requantization alone.
+       This is a client-rendered app, so the <img> tag doesn't exist until the JS bundle
+       runs; these two preload hints (type-gated, so only the supported format fetches)
+       let the browser start the image fetch in parallel with the bundle instead of
+       waiting for hydration. Only the WebP is preloaded — a same-origin JPEG preload
+       fires unconditionally regardless of which <picture> source the browser picks,
+       so preloading both doubled the bytes in flight and made LCP worse (measured:
+       2855ms with both preloaded vs 2408ms with just the JPEG, single-file, no
+       preload). -->
+  <link rel="preload" as="image" href="%PUBLIC_URL%/images/congregation-hero.webp" type="image/webp" fetchpriority="high">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Open Door Full Gospel Church">

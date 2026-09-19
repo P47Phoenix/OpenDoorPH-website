@@ -125,8 +125,19 @@ describe('HomePage', () => {
     test('renders the photo once with the required attributes and no link', () => {
       renderHome();
       const img = screen.getByRole('img', { name: PHOTO_ALT });
-      expect(img).toHaveAttribute('src', expect.stringMatching(/\/images\/congregation\.jpg$/));
-      expect(img).toHaveAttribute('loading', 'lazy');
+      // Home uses a <picture> with a WebP source (congregation-hero.webp) and a
+      // recompressed JPEG fallback (congregation-hero.jpg) since this is the LCP
+      // candidate now that it's above the fold. About keeps the original
+      // full-quality congregation.jpg with no <picture> wrapper.
+      expect(img).toHaveAttribute('src', expect.stringMatching(/\/images\/congregation-hero\.jpg$/));
+      // eslint-disable-next-line testing-library/no-node-access
+      const source = img.closest('picture')?.querySelector('source');
+      expect(source).toHaveAttribute('srcset', expect.stringMatching(/\/images\/congregation-hero\.webp$/));
+      expect(source).toHaveAttribute('type', 'image/webp');
+      // Eager + high priority since the photo now sits near the top of the
+      // page (elder ruling 2026-09-18, moved above "Our Mission").
+      expect(img).toHaveAttribute('loading', 'eager');
+      expect(img).toHaveAttribute('fetchPriority', 'high');
       expect(img).toHaveAttribute('decoding', 'async');
       expect(img).toHaveAttribute('width', '1424');
       expect(img).toHaveAttribute('height', '640');
@@ -149,15 +160,18 @@ describe('HomePage', () => {
       expect(figure.textContent).toBe('');
     });
 
-    test('sits after "Our Mission" and before "Community Outreach"', () => {
+    // Moved 2026-09-18 (elder ruling): now sits after the welcome heading,
+    // before "Our Mission" — a visitor sees the congregation right after
+    // the greeting, ahead of the mission text.
+    test('sits after the welcome heading and before "Our Mission"', () => {
       renderHome();
       const img = screen.getByRole('img', { name: PHOTO_ALT });
+      const h1 = screen.getByRole('heading', { level: 1, name: /Welcome to Open Door Full Gospel Church/ });
       expect(
-        screen.getByRole('heading', { level: 2, name: 'Our Mission' }).compareDocumentPosition(img) &
-          Node.DOCUMENT_POSITION_FOLLOWING
+        h1.compareDocumentPosition(img) & Node.DOCUMENT_POSITION_FOLLOWING
       ).toBeTruthy();
       expect(
-        img.compareDocumentPosition(screen.getByRole('heading', { level: 3, name: 'Community Outreach' })) &
+        img.compareDocumentPosition(screen.getByRole('heading', { level: 2, name: 'Our Mission' })) &
           Node.DOCUMENT_POSITION_FOLLOWING
       ).toBeTruthy();
       expect(

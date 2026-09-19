@@ -42,6 +42,26 @@ export const Main = (): ReactElement => {
                 </p>
             </section>
 
+            {/* Congregation photo (AC-43): moved here per elder ruling 2026-09-18 —
+                right after the welcome heading, so a visitor sees the church before
+                reading the mission. Loaded eager/high-priority since it now sits at or
+                near the top of the viewport on most screens. */}
+            <figure className="max-w-3xl mx-auto">
+                <picture>
+                    <source srcSet={`${process.env.PUBLIC_URL}/images/congregation-hero.webp`} type="image/webp" />
+                    <img
+                        src={`${process.env.PUBLIC_URL}/images/congregation-hero.jpg`}
+                        alt="The Open Door Full Gospel Church congregation gathered in the sanctuary"
+                        width={1424}
+                        height={640}
+                        loading="eager"
+                        fetchPriority="high"
+                        decoding="async"
+                        className="w-full h-auto rounded-lg border border-rule"
+                    />
+                </picture>
+            </figure>
+
             {/* Mission Card */}
             <section className="bg-white rounded-xl border border-rule p-5 md:p-8">
                 <div className="flex flex-col md:flex-row md:items-start space-y-4 md:space-y-0 md:space-x-4 mb-4 md:mb-6">
@@ -60,18 +80,6 @@ export const Main = (): ReactElement => {
                     </div>
                 </div>
             </section>
-
-            <figure className="max-w-3xl mx-auto">
-                <img
-                    src={`${process.env.PUBLIC_URL}/images/congregation.jpg`}
-                    alt="The Open Door Full Gospel Church congregation gathered in the sanctuary"
-                    width={1424}
-                    height={640}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-auto rounded-lg border border-rule"
-                />
-            </figure>
 
             {/* Community Service Section */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
