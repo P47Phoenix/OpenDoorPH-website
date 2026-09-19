@@ -20,7 +20,7 @@
        width the smaller tiers never covered, so they were never selected; WebP at the
        same 1424x640 dimensions got the size down further than JPEG requantization alone.
        This is a client-rendered app, so the <img> tag doesn't exist until the JS bundle
-       runs; these two preload hints (type-gated, so only the supported format fetches)
+       runs; this preload hint (type-gated to WebP)
        let the browser start the image fetch in parallel with the bundle instead of
        waiting for hydration. Only the WebP is preloaded — a same-origin JPEG preload
        fires unconditionally regardless of which <picture> source the browser picks,

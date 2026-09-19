@@ -110,7 +110,7 @@ export const ScriptureStudy = (): ReactElement => {
                     >
                         <h3 className="sr-only font-serif">Footnotes</h3>
                         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
-                            <li id="fn-hc-1" tabIndex={-1} className="scroll-mt-4">
+                            <li id="fn-hc-1" tabIndex={-1} className="scroll-mt-28 md:scroll-mt-20">
                                 F.F. Bruce, <em>Paul: Apostle of the Heart Set Free</em> (Eerdmans);
                                 {' '}D.A. Carson &amp; Douglas Moo, <em>An Introduction to the New Testament</em> (Zondervan), pp. 458-461.
                                 {' '}
@@ -303,7 +303,7 @@ export const ScriptureStudy = (): ReactElement => {
                             <div className="mt-4 pl-4 border-l-2 border-stone-300">
                                 <h4
                                     id="teshuvah"
-                                    className="font-serif font-semibold text-ink mb-2 scroll-mt-4"
+                                    className="font-serif font-semibold text-ink mb-2 scroll-mt-28 md:scroll-mt-20"
                                 >
                                     Teshuvah (
                                     <span lang="he" dir="rtl">{HEBREW_TESHUVAH}</span>
@@ -393,7 +393,7 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3
                             id="baros-phortion"
-                            className="font-serif text-xl font-semibold text-ink mb-3 scroll-mt-4"
+                            className="font-serif text-xl font-semibold text-ink mb-3 scroll-mt-28 md:scroll-mt-20"
                         >
                             The Tension with Galatians 6:5
                         </h3>
@@ -450,7 +450,7 @@ export const ScriptureStudy = (): ReactElement => {
                     >
                         <h3 className="sr-only font-serif">Footnotes</h3>
                         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
-                            <li id="fn-da-1" tabIndex={-1} className="scroll-mt-4">
+                            <li id="fn-da-1" tabIndex={-1} className="scroll-mt-28 md:scroll-mt-20">
                                 J.B. Lightfoot, <em>The Epistle of St. Paul to the Galatians</em> (Zondervan), p. 215.
                                 {' '}
                                 <a
@@ -461,7 +461,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     ↩
                                 </a>
                             </li>
-                            <li id="fn-da-2" tabIndex={-1} className="scroll-mt-4">
+                            <li id="fn-da-2" tabIndex={-1} className="scroll-mt-28 md:scroll-mt-20">
                                 F.F. Bruce, <em>Commentary on Galatians</em>, NIGTC (Eerdmans), p. 260.
                                 {' '}
                                 <a
@@ -472,7 +472,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     ↩
                                 </a>
                             </li>
-                            <li id="fn-da-3" tabIndex={-1} className="scroll-mt-4">
+                            <li id="fn-da-3" tabIndex={-1} className="scroll-mt-28 md:scroll-mt-20">
                                 G. Kittel (ed.), <em>Theological Dictionary of the New Testament</em>, Vol. VI
                                 (Eerdmans), p. 645.
                                 {' '}
@@ -484,7 +484,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     ↩
                                 </a>
                             </li>
-                            <li id="fn-da-4" tabIndex={-1} className="scroll-mt-4">
+                            <li id="fn-da-4" tabIndex={-1} className="scroll-mt-28 md:scroll-mt-20">
                                 F.F. Bruce, <em>Commentary on Galatians</em>, NIGTC (Eerdmans), p. 263.
                                 {' '}
                                 <a
@@ -495,7 +495,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     ↩
                                 </a>
                             </li>
-                            <li id="fn-da-5" tabIndex={-1} className="scroll-mt-4">
+                            <li id="fn-da-5" tabIndex={-1} className="scroll-mt-28 md:scroll-mt-20">
                                 John Stott, <em>The Message of Galatians</em> (IVP), p. 159.
                                 {' '}
                                 <a
@@ -506,7 +506,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     ↩
                                 </a>
                             </li>
-                            <li id="fn-da-6" tabIndex={-1} className="scroll-mt-4">
+                            <li id="fn-da-6" tabIndex={-1} className="scroll-mt-28 md:scroll-mt-20">
                                 Abraham Joshua Heschel, <em>God in Search of Man</em>
                                 {' '}(Farrar, Straus and Giroux), p. 375.
                                 {' '}
@@ -529,7 +529,7 @@ export const ScriptureStudy = (): ReactElement => {
                 Required Action / Problem fields. Footnote numbering is per-section
                 with the `hf-` prefix (hebrew-foundations counter). */}
             <section
-                className="bg-white rounded-lg shadow-md p-4 md:p-8 scroll-mt-4"
+                className="bg-white rounded-lg shadow-md p-4 md:p-8 scroll-mt-28 md:scroll-mt-20"
                 aria-labelledby="hebrew-foundations"
             >
                 <div className="flex items-center mb-6">
@@ -559,7 +559,7 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3
                             id="tochacha"
-                            className="font-serif text-xl font-semibold text-ink mb-3 scroll-mt-4"
+                            className="font-serif text-xl font-semibold text-ink mb-3 scroll-mt-28 md:scroll-mt-20"
                         >
                             The Hebrew Foundation: Tochacha (
                             <span lang="he" dir="rtl">{HEBREW_HOCHEACH_TOCHIACH}</span>
@@ -636,7 +636,7 @@ export const ScriptureStudy = (): ReactElement => {
                     <div>
                         <h3
                             id="law-of-christ"
-                            className="font-serif text-xl font-semibold text-ink mb-3 scroll-mt-4"
+                            className="font-serif text-xl font-semibold text-ink mb-3 scroll-mt-28 md:scroll-mt-20"
                         >
                             Law of Christ and Leviticus 19:18
                         </h3>
@@ -693,7 +693,7 @@ export const ScriptureStudy = (): ReactElement => {
                     >
                         <h3 className="sr-only font-serif">Footnotes</h3>
                         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
-                            <li id="fn-hf-1" tabIndex={-1} className="scroll-mt-4">
+                            <li id="fn-hf-1" tabIndex={-1} className="scroll-mt-28 md:scroll-mt-20">
                                 Talmud Bavli, <em>Arachin</em> 16b.
                                 {' '}
                                 <a
@@ -704,7 +704,7 @@ export const ScriptureStudy = (): ReactElement => {
                                     ↩
                                 </a>
                             </li>
-                            <li id="fn-hf-2" tabIndex={-1} className="scroll-mt-4">
+                            <li id="fn-hf-2" tabIndex={-1} className="scroll-mt-28 md:scroll-mt-20">
                                 Maimonides, <em>Mishneh Torah</em>, <em>Hilchot De'ot</em> 6:7.
                                 {' '}
                                 <a
@@ -857,7 +857,7 @@ export const ScriptureStudy = (): ReactElement => {
                     >
                         <h3 className="sr-only font-serif">Footnotes</h3>
                         <ol className="space-y-2 text-sm text-stone-600 list-decimal list-inside">
-                            <li id="fn-rs-1" tabIndex={-1} className="scroll-mt-4">
+                            <li id="fn-rs-1" tabIndex={-1} className="scroll-mt-28 md:scroll-mt-20">
                                 Nestle-Aland 28th Edition apparatus; Bruce Metzger,{' '}
                                 <em>A Textual Commentary on the Greek New Testament</em> (UBS), p. 36.
                                 {' '}
